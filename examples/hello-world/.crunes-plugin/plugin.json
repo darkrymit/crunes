@@ -9,16 +9,20 @@
       "name": "Greeting",
       "description": "Customisable hello rune — edit who and content after copying",
       "permissions": {
-        "allow": [],
-        "deny": []
+        "use": {
+          "allow": [],
+          "deny": []
+        }
       }
     },
     "compose": {
       "name": "Compose",
       "description": "Example of rune composition — combines hello and greeting into one rune",
       "permissions": {
-        "allow": [],
-        "deny": []
+        "use": {
+          "allow": [],
+          "deny": []
+        }
       }
     }
   },
@@ -27,8 +31,10 @@
       "name": "Hello World",
       "description": "Says hello",
       "permissions": {
-        "allow": [],
-        "deny": []
+        "use": {
+          "allow": [],
+          "deny": []
+        }
       }
     }
   }

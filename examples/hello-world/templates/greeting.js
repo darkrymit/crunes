@@ -2,10 +2,11 @@
 // Customise this rune — it lives in your project and you own it.
 //
 // permissions:
-//   allow: []   — add patterns here if you use utils.shell or utils.fs
-//   deny:  []
+//   use:
+//     allow: []   — add patterns here if you use utils.shell or utils.fs
+//     deny:  []
 
-export async function generate(dir, args, utils) {
+export async function use(dir, args, utils) {
   const who = args[0] ?? 'World'
 
   const content = [

@@ -2,10 +2,11 @@
 // Demonstrates rune composition — calls other runes and merges their output.
 //
 // permissions:
-//   allow: []   — add patterns here if you use utils.shell or utils.fs
-//   deny:  []
+//   use:
+//     allow: []   — add patterns here if you use utils.shell or utils.fs
+//     deny:  []
 
-export async function generate(dir, args, utils) {
+export async function use(dir, args, utils) {
   // Call other runes by key. Circular calls throw a CircularRuneError automatically.
   const helloSections    = await utils.rune('hello-world:hello')
   const greetingSections = await utils.rune('greeting')
