@@ -1,6 +1,6 @@
 ---
 tags:
-  - proposed
+  - completed
 ---
 
 # Proposal: Section Pattern Matching

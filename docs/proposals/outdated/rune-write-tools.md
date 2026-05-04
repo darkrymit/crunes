@@ -1,7 +1,9 @@
 ---
 tags:
-  - proposed
+  - completed
 ---
+
+> **Note:** The `utils.json.update` functionality was deferred from this proposal. See the new `json-write-tools.md` proposal for details on the JSON tools.
 
 # Proposal: File Write Tools
 

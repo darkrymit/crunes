@@ -1,6 +1,6 @@
 ---
 tags:
-  - proposed
+  - completed
 ---
 
 # Proposal: The `use` Lifecycle & Namespaced Permissions
