@@ -9,6 +9,9 @@
 crunes-cli/
 crunes-aci/
 
+# Local smoke / scratch testing directories
+smoke/
+
 # Obsidian local state (workspace layout and appearance are per-user)
 docs/proposals/.obsidian/workspace.json
 docs/proposals/.obsidian/workspace-mobile.json
