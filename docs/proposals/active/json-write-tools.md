@@ -1,6 +1,6 @@
 ---
 tags:
-  - proposed
+  - implemented
 ---
 
 # Proposal: JSON Write Tools
