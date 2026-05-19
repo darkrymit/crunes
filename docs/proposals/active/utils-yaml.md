@@ -1,6 +1,6 @@
 ---
 tags:
-  - proposed
+  - implemented
 ---
 
 # Proposal: YAML Utilities (`utils.yaml`)
