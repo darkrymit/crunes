@@ -1,6 +1,6 @@
 ---
 tags:
-  - proposed
+  - implemented
 ---
 
 # Proposal: XML Utilities (`utils.xml`)
