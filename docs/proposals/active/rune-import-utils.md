@@ -59,10 +59,6 @@ import { fs, json, yaml, xml, shell, fetch, env, vars, section, md, tree, dir } 
 
 `dir` is a plain string export (absolute project root). All other exports are the same objects currently assembled on `globalThis.utils`.
 
-## Backward Compatibility
-
-The runner detects the old three-argument signature by `function.length === 3` and calls it as today: `use(dir, args, utils)`. No migration required. Both styles can coexist in the same plugin. There is no deprecation timeline for v1.
-
 ## Relationship to Other Proposals
 
 - **`declarative-rune-arguments`** — defines how `args` becomes a parsed object instead of a raw array. Compatible: `args` in `use(args)` will be a parsed object once that proposal lands.
@@ -74,7 +70,6 @@ The runner detects the old three-argument signature by `function.length === 3` a
 
 **`resolver.js`** — accept an optional `virtualModules` map as a new parameter. Add a step 0 before all existing resolution steps that returns from that map if the specifier matches.
 
-**`runner.js`** — three changes:
+**`runner.js`** — two changes:
 1. Inject `$__projectDir` global in `injectUtils()` alongside the existing `$__utils_*` calls
-2. Pass `new Map([['@utils', utilsMod]])` to `createModuleResolver` so runes can import it
-3. In the `context.eval` call site, detect v1 vs v2 by `__crunes_target.length === 3` and branch between the old `(projectDir, args, utils)` call and the new `(args, { dir, selected, vars })` call
+2. Pass `new Map([['@utils', utilsMod]])` to `createModuleResolver` so runes can import it; update the `context.eval` call site to the new `(args, { dir, selected, vars })` form
