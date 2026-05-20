@@ -27,7 +27,7 @@
     },
     "js-add-script": {
       "name": "JS Add Script",
-      "description": "Adds or updates a script entry in package.json. Args: name=<key> cmd=<command>",
+      "description": "Adds or updates a script entry in package.json. Args: <name> <command>",
       "permissions": { "use": { "allow": ["fs.read:package.json", "fs.write:package.json"], "deny": [] } }
     },
     "js-bump-version": {
@@ -37,12 +37,12 @@
     },
     "java-set-version": {
       "name": "Java Set Version",
-      "description": "Sets project.version in pom.xml. Args: version=<value>",
+      "description": "Sets project.version in pom.xml. Args: <version>",
       "permissions": { "use": { "allow": ["fs.read:pom.xml", "fs.write:pom.xml"], "deny": [] } }
     },
     "ci-add-job": {
       "name": "CI Add Job",
-      "description": "Adds a bare job to an existing GitHub Actions workflow. Args: file=<workflow.yml> job=<job-name>",
+      "description": "Adds a bare job to an existing GitHub Actions workflow. Args: <workflow.yml> <job-name>",
       "permissions": { "use": { "allow": ["fs.read:.github/workflows/*.yml", "fs.write:.github/workflows/*.yml"], "deny": [] } }
     }
   }
