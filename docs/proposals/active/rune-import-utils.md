@@ -70,8 +70,11 @@ The runner detects the old three-argument signature by `function.length === 3` a
 
 ## Implementation Notes
 
-Full implementation details are in `docs/superpowers/specs/2026-05-20-rune-import-utils-design.md`. High-level touch points:
+**`utils-bootstrap.js`** — add named exports for each sub-util and `export const dir = $__projectDir` alongside the existing `globalThis.utils` assignment. No new file; the module serves both roles.
 
-- **`utils-bootstrap.js`** — add named exports for each sub-util and `export const dir = $__projectDir` alongside the existing `globalThis.utils` assignment
-- **`resolver.js`** — accept a `virtualModules` map; intercept `@utils` at step 0 before all other resolution logic
-- **`runner.js`** — inject `$__projectDir` global; pass the compiled utils module as a virtual module to the resolver; detect v1/v2 by arity in the `context.eval` call site
+**`resolver.js`** — accept an optional `virtualModules` map as a new parameter. Add a step 0 before all existing resolution steps that returns from that map if the specifier matches.
+
+**`runner.js`** — three changes:
+1. Inject `$__projectDir` global in `injectUtils()` alongside the existing `$__utils_*` calls
+2. Pass `new Map([['@utils', utilsMod]])` to `createModuleResolver` so runes can import it
+3. In the `context.eval` call site, detect v1 vs v2 by `__crunes_target.length === 3` and branch between the old `(projectDir, args, utils)` call and the new `(args, { dir, selected, vars })` call
