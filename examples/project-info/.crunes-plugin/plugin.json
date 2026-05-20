@@ -1,0 +1,29 @@
+{
+  "format": "1",
+  "name": "project-info",
+  "version": "1.0.0",
+  "description": "Project Info — read-only context runes for JS, Java, and CI projects",
+  "author": { "name": "you" },
+  "runes": {
+    "js": {
+      "name": "JS Project Info",
+      "description": "Reads package.json — name, version, description, scripts, dependency counts",
+      "permissions": { "use": { "allow": [], "deny": [] } }
+    },
+    "java": {
+      "name": "Java/Maven Project Info",
+      "description": "Reads pom.xml — groupId, artifactId, version, description, dependency count",
+      "permissions": { "use": { "allow": [], "deny": [] } }
+    },
+    "ci": {
+      "name": "CI Workflow Info",
+      "description": "Reads .github/workflows/*.yml — workflow names, triggers, and job names",
+      "permissions": { "use": { "allow": [], "deny": [] } }
+    },
+    "info": {
+      "name": "Project Info Sheet",
+      "description": "Combines JS, Java, and CI info into a single project sheet via rune composition",
+      "permissions": { "use": { "allow": [], "deny": [] } }
+    }
+  }
+}
