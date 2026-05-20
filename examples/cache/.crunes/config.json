@@ -2,9 +2,17 @@
   "name": "cache-example",
   "runes": {
     "timestamp": {
-      "path": ".crunes/runes/timestamp.js",
       "name": "Timestamp Cache Demo",
       "description": "Caches first-run timestamp for 60s via @project-cache; reports age on subsequent runs"
+    },
+    "project-info": {
+      "name": "Project Info",
+      "description": "Reads project metadata from @project/ import",
+      "permissions": {
+        "use": {
+          "allow": ["fs.read:./project-meta.js"]
+        }
+      }
     }
   }
 }
