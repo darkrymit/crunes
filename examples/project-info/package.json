@@ -1,0 +1,18 @@
+{
+  "name": "my-app",
+  "version": "2.1.0",
+  "description": "A sample Node.js application",
+  "scripts": {
+    "start": "node index.js",
+    "test": "vitest",
+    "build": "esbuild src/index.js --bundle --outfile=dist/app.js"
+  },
+  "dependencies": {
+    "express": "^4.18.0",
+    "lodash": "^4.17.21"
+  },
+  "devDependencies": {
+    "vitest": "^1.0.0",
+    "esbuild": "^0.20.0"
+  }
+}
