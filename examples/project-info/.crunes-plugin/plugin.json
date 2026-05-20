@@ -24,6 +24,26 @@
       "name": "Project Info Sheet",
       "description": "Combines JS, Java, and CI info into a single project sheet via rune composition",
       "permissions": { "use": { "allow": [], "deny": [] } }
+    },
+    "js-add-script": {
+      "name": "JS Add Script",
+      "description": "Adds or updates a script entry in package.json. Args: name=<key> cmd=<command>",
+      "permissions": { "use": { "allow": ["fs.read:package.json", "fs.write:package.json"], "deny": [] } }
+    },
+    "js-bump-version": {
+      "name": "JS Bump Version",
+      "description": "Increments the patch segment of the version field in package.json",
+      "permissions": { "use": { "allow": ["fs.read:package.json", "fs.write:package.json"], "deny": [] } }
+    },
+    "java-set-version": {
+      "name": "Java Set Version",
+      "description": "Sets project.version in pom.xml. Args: version=<value>",
+      "permissions": { "use": { "allow": ["fs.read:pom.xml", "fs.write:pom.xml"], "deny": [] } }
+    },
+    "ci-add-job": {
+      "name": "CI Add Job",
+      "description": "Adds a bare job to an existing GitHub Actions workflow. Args: file=<workflow.yml> job=<job-name>",
+      "permissions": { "use": { "allow": ["fs.read:.github/workflows/*.yml", "fs.write:.github/workflows/*.yml"], "deny": [] } }
     }
   }
 }
