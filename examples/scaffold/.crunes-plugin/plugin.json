@@ -1,0 +1,24 @@
+{
+  "format": "1",
+  "name": "scaffold",
+  "version": "1.0.0",
+  "description": "Scaffold — creates starter files for common project needs",
+  "author": { "name": "you" },
+  "runes": {
+    "workflow": {
+      "name": "Create GitHub Actions Workflow",
+      "description": "Creates .github/workflows/<name>.yml with a starter CI job. Args: <name> [<trigger>]",
+      "permissions": { "use": { "allow": ["fs.read:.github/workflows/*.yml", "fs.write:.github/workflows/*.yml"], "deny": [] } }
+    },
+    "i18n": {
+      "name": "Create i18n Locale File",
+      "description": "Creates locales/<locale>.json with a starter translation structure. Args: [<locale>]",
+      "permissions": { "use": { "allow": ["fs.read:locales/*.json", "fs.write:locales/*.json"], "deny": [] } }
+    },
+    "logback": {
+      "name": "Create Logback Config",
+      "description": "Creates src/main/resources/logback.xml with a starter console appender config",
+      "permissions": { "use": { "allow": ["fs.read:src/main/resources/logback.xml", "fs.write:src/main/resources/logback.xml"], "deny": [] } }
+    }
+  }
+}

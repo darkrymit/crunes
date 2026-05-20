@@ -1,0 +1,15 @@
+{
+  "format": "1",
+  "name": "scaffold",
+  "description": "Scaffold — creates starter files for common project needs",
+  "owner": { "name": "you" },
+  "plugins": [
+    {
+      "name": "scaffold",
+      "description": "Scaffold — creates starter files for common project needs",
+      "version": "1.0.0",
+      "author": { "name": "you" },
+      "source": "./"
+    }
+  ]
+}
