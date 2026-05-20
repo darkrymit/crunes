@@ -1,0 +1,9 @@
+{
+  "name": "sqlite-example",
+  "runes": {
+    "notes": {
+      "name": "Notes Demo",
+      "description": "Persists notes in @project-sqlite on each run; shows last 5 and total count"
+    }
+  }
+}
