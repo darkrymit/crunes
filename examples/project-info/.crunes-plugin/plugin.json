@@ -8,17 +8,17 @@
     "js": {
       "name": "JS Project Info",
       "description": "Reads package.json — name, version, description, scripts, dependency counts",
-      "permissions": { "use": { "allow": [], "deny": [] } }
+      "permissions": { "use": { "allow": ["fs.read:package.json"], "deny": [] } }
     },
     "java": {
       "name": "Java/Maven Project Info",
       "description": "Reads pom.xml — groupId, artifactId, version, description, dependency count",
-      "permissions": { "use": { "allow": [], "deny": [] } }
+      "permissions": { "use": { "allow": ["fs.read:pom.xml"], "deny": [] } }
     },
     "ci": {
       "name": "CI Workflow Info",
       "description": "Reads .github/workflows/*.yml — workflow names, triggers, and job names",
-      "permissions": { "use": { "allow": [], "deny": [] } }
+      "permissions": { "use": { "allow": ["fs.glob:.github/workflows/*.yml", "fs.read:.github/workflows/*.yml"], "deny": [] } }
     },
     "info": {
       "name": "Project Info Sheet",
