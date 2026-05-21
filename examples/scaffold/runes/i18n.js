@@ -1,15 +1,17 @@
-export async function use(_dir, args, utils) {
+import { fs, json, md, section } from '@utils'
+
+export async function use(args) {
   const [locale = 'en'] = args
   const filePath = `locales/${locale}.json`
 
-  if (await utils.fs.exists(filePath)) {
-    return [utils.section.create('i18n', {
+  if (await fs.exists(filePath)) {
+    return [section.create('i18n', {
       type: 'markdown',
-      content: utils.md.p(`${utils.md.bold('Skipped:')} ${utils.md.code(filePath)} already exists.`),
+      content: md.p(`${md.bold('Skipped:')} ${md.code(filePath)} already exists.`),
     })]
   }
 
-  await utils.json.write(filePath, {
+  await json.write(filePath, {
     common: {
       ok: 'OK',
       cancel: 'Cancel',
@@ -17,8 +19,8 @@ export async function use(_dir, args, utils) {
     },
   })
 
-  return [utils.section.create('i18n', {
+  return [section.create('i18n', {
     type: 'markdown',
-    content: utils.md.p(`Created ${utils.md.code(filePath)}.`),
+    content: md.p(`Created ${md.code(filePath)}.`),
   })]
 }

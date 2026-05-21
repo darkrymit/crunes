@@ -1,5 +1,7 @@
-export async function use(_dir, _args, utils) {
-  const db = await utils.sqlite.open('@project-sqlite', 'notes')
+import { sqlite, md, section } from '@utils'
+
+export async function use(args) {
+  const db = await sqlite.open('@project-sqlite', 'notes')
 
   await db.exec('CREATE TABLE IF NOT EXISTS notes (id INTEGER PRIMARY KEY, text TEXT, created_at INTEGER)')
   const text = `Note at ${new Date().toISOString()}`
@@ -11,12 +13,12 @@ export async function use(_dir, _args, utils) {
   await db.close()
 
   return [
-    utils.section.create('notes', {
+    section.create('notes', {
       type: 'markdown',
       content: [
-        utils.md.p(`Total notes: ${utils.md.bold(String(total.count))}`),
-        utils.md.p('Last 5:'),
-        ...rows.map(r => utils.md.p(`- ${utils.md.code(r.text)}`)),
+        md.p(`Total notes: ${md.bold(String(total.count))}`),
+        md.p('Last 5:'),
+        ...rows.map(r => md.p(`- ${md.code(r.text)}`)),
       ].join('\n'),
     }),
   ]

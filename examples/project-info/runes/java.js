@@ -1,7 +1,9 @@
-export async function use(dir, args, utils) {
-  if (!(await utils.fs.exists('pom.xml'))) return []
+import { fs, xml, md, section } from '@utils'
 
-  const doc        = await utils.xml.read('pom.xml')
+export async function use(args) {
+  if (!(await fs.exists('pom.xml'))) return []
+
+  const doc        = await xml.read('pom.xml')
   const p          = doc.project ?? {}
   const groupId    = p.groupId    ?? '(unknown)'
   const artifactId = p.artifactId ?? '(unknown)'
@@ -14,10 +16,10 @@ export async function use(dir, args, utils) {
     : Array.isArray(rawDeps) ? rawDeps.length : 1
 
   const lines = [
-    utils.md.h3(`${groupId}:${artifactId}  v${version}`),
-    description && utils.md.p(description),
-    utils.md.p(`${utils.md.bold('Dependencies:')} ${depCount}`),
+    md.h3(`${groupId}:${artifactId}  v${version}`),
+    description && md.p(description),
+    md.p(`${md.bold('Dependencies:')} ${depCount}`),
   ].filter(Boolean)
 
-  return [utils.section.create('java', { type: 'markdown', content: lines.join('\n') })]
+  return [section.create('java', { type: 'markdown', content: lines.join('\n') })]
 }

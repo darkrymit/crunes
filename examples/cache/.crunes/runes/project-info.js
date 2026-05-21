@@ -1,11 +1,12 @@
 import { projectName, projectVersion } from '@project/project-meta.js'
+import { md, section } from '@utils'
 
-export async function use(_dir, _args, utils) {
+export async function use(args) {
   return [
-    utils.section.create('project-info', {
+    section.create('project-info', {
       type: 'markdown',
-      content: utils.md.p(
-        `Project: ${utils.md.bold(projectName)} v${utils.md.code(projectVersion)}`
+      content: md.p(
+        `Project: ${md.bold(projectName)} v${md.code(projectVersion)}`
       ),
     }),
   ]

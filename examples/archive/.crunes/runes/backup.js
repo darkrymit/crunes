@@ -1,18 +1,20 @@
-export async function use(_dir, _args, utils) {
+import { archive, fs, md, section } from '@utils'
+
+export async function use(args) {
   const timestamp = new Date().toISOString().replace(/[:.]/g, '-').slice(0, 19)
   const dest = `backups/${timestamp}.zip`
 
-  await utils.archive.zip('src', dest)
+  await archive.zip('src', dest)
 
-  const files = await utils.fs.glob('src/**')
+  const files = await fs.glob('src/**')
 
   return [
-    utils.section.create('backup', {
+    section.create('backup', {
       type: 'markdown',
       content: [
-        utils.md.p(`Packed ${utils.md.code('src/')} → ${utils.md.code(dest)}`),
-        utils.md.p('Files archived:'),
-        utils.md.ul(files.map(f => utils.md.code(f))),
+        md.p(`Packed ${md.code('src/')} → ${md.code(dest)}`),
+        md.p('Files archived:'),
+        md.ul(files.map(f => md.code(f))),
       ].join('\n'),
     }),
   ]

@@ -1,13 +1,15 @@
-export async function use(_dir, _args, utils) {
-  if (!(await utils.fs.exists('package.json'))) {
-    return [utils.section.create('js-bump-version', {
+import { fs, json, md, section } from '@utils'
+
+export async function use(args) {
+  if (!(await fs.exists('package.json'))) {
+    return [section.create('js-bump-version', {
       type: 'markdown',
-      content: utils.md.p(`${utils.md.bold('Error:')} package.json not found.`),
+      content: md.p(`${md.bold('Error:')} package.json not found.`),
     })]
   }
 
   let oldVersion, newVersion
-  await utils.json.modify('package.json', (pkg) => {
+  await json.modify('package.json', (pkg) => {
     oldVersion = pkg.version ?? '(none)'
     const parts = (pkg.version ?? '').split('.')
     if (parts.length === 3 && parts.every(p => !isNaN(p) && p !== '')) {
@@ -20,8 +22,8 @@ export async function use(_dir, _args, utils) {
   })
 
   const content = newVersion
-    ? utils.md.p(`Bumped version: ${utils.md.code(oldVersion)} → ${utils.md.code(newVersion)}`)
-    : utils.md.p(`${utils.md.bold('Skipped:')} version ${utils.md.code(oldVersion)} is not a standard semver string.`)
+    ? md.p(`Bumped version: ${md.code(oldVersion)} → ${md.code(newVersion)}`)
+    : md.p(`${md.bold('Skipped:')} version ${md.code(oldVersion)} is not a standard semver string.`)
 
-  return [utils.section.create('js-bump-version', { type: 'markdown', content })]
+  return [section.create('js-bump-version', { type: 'markdown', content })]
 }

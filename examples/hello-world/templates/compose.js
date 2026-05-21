@@ -6,15 +6,17 @@
 //     allow: []   — add patterns here if you use utils.shell or utils.fs
 //     deny:  []
 
-export async function use(dir, args, utils) {
+import { rune, section, md } from '@utils'
+
+export async function use(args) {
   // Call other runes by key. Circular calls throw a CircularRuneError automatically.
-  const helloSections    = await utils.rune('hello-world:hello')
-  const greetingSections = await utils.rune('greeting')
+  const helloSections    = await rune('hello-world:hello')
+  const greetingSections = await rune('greeting')
 
   const summarySections = [
-    utils.section.create('compose-summary', {
+    section.create('compose-summary', {
       type: 'markdown',
-      content: utils.md.p('Add your own summary or additional context here.'),
+      content: md.p('Add your own summary or additional context here.'),
     }),
   ]
 

@@ -1,14 +1,16 @@
-export async function use(_dir, _args, utils) {
+import { fs, xml, md, section } from '@utils'
+
+export async function use(args) {
   const filePath = 'src/main/resources/logback.xml'
 
-  if (await utils.fs.exists(filePath)) {
-    return [utils.section.create('logback', {
+  if (await fs.exists(filePath)) {
+    return [section.create('logback', {
       type: 'markdown',
-      content: utils.md.p(`${utils.md.bold('Skipped:')} ${utils.md.code(filePath)} already exists.`),
+      content: md.p(`${md.bold('Skipped:')} ${md.code(filePath)} already exists.`),
     })]
   }
 
-  await utils.xml.write(filePath, {
+  await xml.write(filePath, {
     configuration: {
       appender: {
         '@_name': 'STDOUT',
@@ -26,8 +28,8 @@ export async function use(_dir, _args, utils) {
     },
   })
 
-  return [utils.section.create('logback', {
+  return [section.create('logback', {
     type: 'markdown',
-    content: utils.md.p(`Created ${utils.md.code(filePath)}.`),
+    content: md.p(`Created ${md.code(filePath)}.`),
   })]
 }

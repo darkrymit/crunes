@@ -1,22 +1,24 @@
-export async function use(_dir, args, utils) {
+import { fs, yaml, md, section } from '@utils'
+
+export async function use(args) {
   const [name, trigger = 'push'] = args
   if (!name) {
-    return [utils.section.create('workflow', {
+    return [section.create('workflow', {
       type: 'markdown',
-      content: utils.md.p(`${utils.md.bold('Error:')} required arg: ${utils.md.code('<workflow-stem>')}`),
+      content: md.p(`${md.bold('Error:')} required arg: ${md.code('<workflow-stem>')}`),
     })]
   }
 
   const filePath = `.github/workflows/${name}.yml`
-  if (await utils.fs.exists(filePath)) {
-    return [utils.section.create('workflow', {
+  if (await fs.exists(filePath)) {
+    return [section.create('workflow', {
       type: 'markdown',
-      content: utils.md.p(`${utils.md.bold('Skipped:')} ${utils.md.code(filePath)} already exists.`),
+      content: md.p(`${md.bold('Skipped:')} ${md.code(filePath)} already exists.`),
     })]
   }
 
   const workflowName = name.charAt(0).toUpperCase() + name.slice(1)
-  await utils.yaml.write(filePath, {
+  await yaml.write(filePath, {
     name: workflowName,
     on: trigger,
     jobs: {
@@ -27,8 +29,8 @@ export async function use(_dir, args, utils) {
     },
   })
 
-  return [utils.section.create('workflow', {
+  return [section.create('workflow', {
     type: 'markdown',
-    content: utils.md.p(`Created ${utils.md.code(filePath)}.`),
+    content: md.p(`Created ${md.code(filePath)}.`),
   })]
 }

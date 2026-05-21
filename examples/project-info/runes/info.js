@@ -1,6 +1,8 @@
-export async function use(dir, args, utils) {
-  const jsSections   = await utils.rune('project-info:js')
-  const javaSections = await utils.rune('project-info:java')
-  const ciSections   = await utils.rune('project-info:ci')
+import { rune } from '@utils'
+
+export async function use(args) {
+  const jsSections   = await rune('project-info:js')
+  const javaSections = await rune('project-info:java')
+  const ciSections   = await rune('project-info:ci')
   return [...jsSections, ...javaSections, ...ciSections]
 }

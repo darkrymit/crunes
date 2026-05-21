@@ -1,7 +1,9 @@
-export async function use(dir, args, utils) {
-  if (!(await utils.fs.exists('package.json'))) return []
+import { fs, json, md, section } from '@utils'
 
-  const pkg = await utils.json.read('package.json')
+export async function use(args) {
+  if (!(await fs.exists('package.json'))) return []
+
+  const pkg = await json.read('package.json')
   const name        = pkg.name        ?? '(unnamed)'
   const version     = pkg.version     ?? '(no version)'
   const description = pkg.description ?? ''
@@ -12,14 +14,14 @@ export async function use(dir, args, utils) {
   const scriptEntries = Object.entries(scripts)
 
   const lines = [
-    utils.md.h3(`${name}  v${version}`),
-    description && utils.md.p(description),
-    utils.md.p(`${utils.md.bold('Dependencies:')} ${depCount} prod, ${devCount} dev`),
+    md.h3(`${name}  v${version}`),
+    description && md.p(description),
+    md.p(`${md.bold('Dependencies:')} ${depCount} prod, ${devCount} dev`),
     scriptEntries.length && (
-      utils.md.p(utils.md.bold('Scripts:')) +
-      utils.md.ul(scriptEntries.map(([k, v]) => `${utils.md.code(k)}: ${v}`))
+      md.p(md.bold('Scripts:')) +
+      md.ul(scriptEntries.map(([k, v]) => `${md.code(k)}: ${v}`))
     ),
   ].filter(Boolean)
 
-  return [utils.section.create('js', { type: 'markdown', content: lines.join('\n') })]
+  return [section.create('js', { type: 'markdown', content: lines.join('\n') })]
 }
