@@ -1,0 +1,14 @@
+{
+  "name": "crypto-example",
+  "runes": {
+    "crypto": {
+      "name": "Crypto Demo",
+      "description": "Demonstrates utils.crypto — hash.hex, hash.base64, uuid, hex, base64",
+      "permissions": {
+        "use": {
+          "allow": []
+        }
+      }
+    }
+  }
+}
