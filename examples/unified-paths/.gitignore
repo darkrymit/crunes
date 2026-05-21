@@ -1,0 +1,3 @@
+# Local working dirs — generated at runtime, not committed
+.sit/
+.output/

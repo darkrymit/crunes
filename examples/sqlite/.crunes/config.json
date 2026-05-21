@@ -3,7 +3,15 @@
   "runes": {
     "notes": {
       "name": "Notes Demo",
-      "description": "Persists notes in @project-sqlite on each run; shows last 5 and total count"
+      "description": "Persists notes in @project-sqlite on each run; shows last 5 and total count",
+      "permissions": {
+        "use": {
+          "allow": [
+            "sqlite.read:@project-sqlite/**",
+            "sqlite.write:@project-sqlite/**"
+          ]
+        }
+      }
     }
   }
 }
