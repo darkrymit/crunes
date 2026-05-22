@@ -119,7 +119,7 @@ await socket.closed
 
 ## Permissions
 
-A flat `ws` permission token gates access to `utils.ws`. Runes declaring `ws` run without an isolate timeout — WebSocket exchanges are unbounded in duration, and a wall-clock timeout would terminate a rune mid-stream.
+`ws` permissions are URL-scoped using micromatch glob patterns — matching the same format as `fetch` permissions. Each `ws:<url-glob>` entry grants access to connect to URLs matching that pattern.
 
 ```json
 {
@@ -127,7 +127,12 @@ A flat `ws` permission token gates access to `utils.ws`. Runes declaring `ws` ru
     "chat": {
       "permissions": {
         "use": {
-          "allow": ["ws", "fetch", "env.get", "cache"]
+          "allow": [
+            "ws:ws://localhost:3000/**",
+            "fetch:POST:http://localhost:3000/graphql",
+            "env.get",
+            "cache"
+          ]
         }
       }
     }
@@ -135,7 +140,17 @@ A flat `ws` permission token gates access to `utils.ws`. Runes declaring `ws` ru
 }
 ```
 
-A `PermissionError` is thrown if a rune calls `ws.client()` without declaring `ws` in its allow list.
+When `ws.client(url)` is called, the runtime checks the URL against all `ws:` patterns in the allow list using micromatch. If none match, a `PermissionError` is thrown.
+
+Examples:
+
+| Permission | Grants access to |
+|---|---|
+| `ws:ws://localhost:3000/**` | Any path on `ws://localhost:3000` |
+| `ws:wss://api.example.com/**` | Any path on `wss://api.example.com` |
+| `ws:**` | Any WebSocket URL (use with caution) |
+
+The standard isolate timeout applies — runes using `ws` are subject to the same wall-clock limit as all other runes. Long-running or daemon-style socket connections are out of scope for v1.
 
 ## Implementation Groundwork
 
@@ -153,8 +168,6 @@ A `PermissionError` is thrown if a rune calls `ws.client()` without declaring `w
 
 4. **Bootstrap** — Wire `utils.ws.client(url, opts)` in `utils-bootstrap.js`. Returns a plain object `{ on, open, send, close, closed }` closing over the session ID. Follows the same handle pattern as `utils.lsp.connect()` and `utils.sqlite.open()`.
 
-5. **Timeout suppression** — In `runner.js`, check `effective.allow` for `'ws'`. If present, omit the `timeout` option from `context.eval()`, matching the behaviour for `'prompt'`.
+5. **Permission wiring** — Add `src/rune/permissions/permissions-ws.js` with a `matchWsPermission(url, pattern)` function using micromatch, following the same structure as `permissions-http.js`. Register it in `src/rune/permissions/permissions.js`. The value checked is the full WebSocket URL; the pattern body (after stripping `ws:`) is the glob.
 
-6. **Permission wiring** — Add `ws` as a flat token scope in `src/rune/permissions/permissions.js`.
-
-7. **Cleanup** — Extend `createUtils`'s `dispose()` hook to iterate the WS session registry and call `socket.terminate()` on any sessions still in the `OPEN` state, consistent with how `utils.lsp` and `utils.sqlite` handle their cleanup.
+6. **Cleanup** — Extend `createUtils`'s `dispose()` hook to iterate the WS session registry and call `socket.terminate()` on any sessions still in the `OPEN` state, consistent with how `utils.lsp` and `utils.sqlite` handle their cleanup.
