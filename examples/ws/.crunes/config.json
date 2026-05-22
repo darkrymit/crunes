@@ -1,0 +1,17 @@
+{
+  "name": "ws-example",
+  "runes": {
+    "echo": {
+      "name": "WS Echo Demo",
+      "description": "Starts a local echo server, connects via utils.ws, sends 3 messages, collects responses",
+      "permissions": {
+        "use": {
+          "allow": [
+            "ws:ws://localhost:**",
+            "shell.exec"
+          ]
+        }
+      }
+    }
+  }
+}
