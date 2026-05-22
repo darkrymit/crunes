@@ -12,10 +12,12 @@ A rune is simply a JavaScript module living inside your project:
 
 ```js
 // .crunes/runes/structure.js
-export async function generate(dir, args, utils, opts) {
+import { section, tree } from '@utils'
+
+export async function use(args) {
   // Build and return your live file tree, docs, or API surface
   // This executes on demand, ensuring 100% up-to-date context
-  return generateLiveProjectTree(dir); 
+  return section.create('structure', { type: 'tree', root: await generateLiveProjectTree() })
 }
 ```
 
