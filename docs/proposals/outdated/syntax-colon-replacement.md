@@ -1,6 +1,6 @@
 ---
 tags:
-  - proposed
+  - closed
 ---
 
 # Proposal: Replace Equals with Colon in Rune Syntax
