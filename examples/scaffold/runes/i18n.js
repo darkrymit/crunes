@@ -1,7 +1,13 @@
 import { fs, json, md, section } from '@utils'
 
+export async function args(b) {
+  return b
+    .positional('[locale]', 'Locale code to scaffold (default: en)')
+    .build()
+}
+
 export async function use(args) {
-  const [locale = 'en'] = args
+  const [locale = 'en'] = args._
   const filePath = `locales/${locale}.json`
 
   if (await fs.exists(filePath)) {

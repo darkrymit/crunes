@@ -1,7 +1,14 @@
 import { fs, yaml, md, section } from '@utils'
 
+export async function args(b) {
+  return b
+    .positional('<workflow>', 'Workflow filename under .github/workflows/ (e.g. ci.yml)')
+    .positional('<job>', 'Job key to add to the workflow')
+    .build()
+}
+
 export async function use(args) {
-  const [file, job] = args
+  const [file, job] = args._
   if (!file || !job) {
     return [section.create('ci-add-job', {
       type: 'markdown',

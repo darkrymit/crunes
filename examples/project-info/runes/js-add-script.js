@@ -1,5 +1,12 @@
 import { fs, json, md, section } from '@utils'
 
+export async function args(b) {
+  return b
+    .positional('<name>', 'Script name to add (e.g. lint)')
+    .positional('<command>', 'Shell command to register (e.g. eslint src/)')
+    .build()
+}
+
 export async function use(args) {
   if (!(await fs.exists('package.json'))) {
     return [section.create('js-add-script', {
@@ -8,7 +15,7 @@ export async function use(args) {
     })]
   }
 
-  const [name, cmd] = args
+  const [name, cmd] = args._
   if (!name || !cmd) {
     return [section.create('js-add-script', {
       type: 'markdown',

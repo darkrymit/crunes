@@ -1,6 +1,6 @@
 import { fs, yaml, md, section } from '@utils'
 
-export async function use(args) {
+export async function use() {
   const files = await fs.glob('.github/workflows/*.yml')
   if (files.length === 0) return []
 

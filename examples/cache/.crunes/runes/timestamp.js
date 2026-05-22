@@ -1,6 +1,6 @@
 import { cache, md, section } from '@utils'
 
-export async function use(args) {
+export async function use() {
   const h = await cache.open('@project-cache', 'timestamps')
   const cached = await h.get('ts')
   const now = Date.now()

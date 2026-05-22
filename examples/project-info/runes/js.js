@@ -1,6 +1,6 @@
 import { fs, json, md, section } from '@utils'
 
-export async function use(args) {
+export async function use() {
   if (!(await fs.exists('package.json'))) return []
 
   const pkg = await json.read('package.json')

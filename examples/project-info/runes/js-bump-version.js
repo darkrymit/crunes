@@ -1,6 +1,6 @@
 import { fs, json, md, section } from '@utils'
 
-export async function use(args) {
+export async function use() {
   if (!(await fs.exists('package.json'))) {
     return [section.create('js-bump-version', {
       type: 'markdown',

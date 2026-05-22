@@ -1,6 +1,6 @@
 import { archive, fs, md, section } from '@utils'
 
-export async function use(args) {
+export async function use() {
   const timestamp = new Date().toISOString().replace(/[:.]/g, '-').slice(0, 19)
   const dest = `backups/${timestamp}.zip`
 

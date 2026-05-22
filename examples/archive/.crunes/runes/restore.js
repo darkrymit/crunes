@@ -1,6 +1,6 @@
 import { archive, fs, md, section } from '@utils'
 
-export async function use(args) {
+export async function use() {
   const backups = (await fs.glob('backups/*.zip')).sort()
 
   if (backups.length === 0) {

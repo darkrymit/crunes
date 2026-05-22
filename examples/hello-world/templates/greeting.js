@@ -8,8 +8,14 @@
 
 import { md, section } from '@utils'
 
+export async function args(b) {
+  return b
+    .positional('[who]', 'Name to greet (default: World)')
+    .build()
+}
+
 export async function use(args) {
-  const who = args[0] ?? 'World'
+  const who = args._[0] ?? 'World'
 
   const content = [
     md.h3(`Hello, ${who}!`),

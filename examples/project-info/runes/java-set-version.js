@@ -1,5 +1,11 @@
 import { fs, xml, md, section } from '@utils'
 
+export async function args(b) {
+  return b
+    .positional('<version>', 'New version string to set in pom.xml (e.g. 1.2.3)')
+    .build()
+}
+
 export async function use(args) {
   if (!(await fs.exists('pom.xml'))) {
     return [section.create('java-set-version', {
@@ -8,7 +14,7 @@ export async function use(args) {
     })]
   }
 
-  const [version] = args
+  const [version] = args._
   if (!version) {
     return [section.create('java-set-version', {
       type: 'markdown',

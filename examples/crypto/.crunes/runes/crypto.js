@@ -1,6 +1,6 @@
 import { crypto, md, section } from '@utils'
 
-export async function use(args) {
+export async function use() {
   const checksum = crypto.hash.hex('sha256', 'hello, crunes')
   const hexToken = crypto.hex(16)
   const b64Token = crypto.base64(24)

@@ -1,7 +1,14 @@
 import { fs, yaml, md, section } from '@utils'
 
+export async function args(b) {
+  return b
+    .positional('<name>', 'Workflow filename stem (e.g. ci → .github/workflows/ci.yml)')
+    .positional('[trigger]', 'GitHub event trigger (default: push)')
+    .build()
+}
+
 export async function use(args) {
-  const [name, trigger = 'push'] = args
+  const [name, trigger = 'push'] = args._
   if (!name) {
     return [section.create('workflow', {
       type: 'markdown',

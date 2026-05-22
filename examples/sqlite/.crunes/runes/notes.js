@@ -1,6 +1,6 @@
 import { sqlite, md, section } from '@utils'
 
-export async function use(args) {
+export async function use() {
   const db = await sqlite.open('@project-sqlite', 'notes')
 
   await db.exec('CREATE TABLE IF NOT EXISTS notes (id INTEGER PRIMARY KEY, text TEXT, created_at INTEGER)')

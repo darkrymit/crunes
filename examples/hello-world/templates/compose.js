@@ -8,7 +8,7 @@
 
 import { rune, section, md } from '@utils'
 
-export async function use(args) {
+export async function use() {
   // Call other runes by key. Circular calls throw a CircularRuneError automatically.
   const helloSections    = await rune('hello-world:hello')
   const greetingSections = await rune('greeting')

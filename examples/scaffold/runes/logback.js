@@ -1,6 +1,6 @@
 import { fs, xml, md, section } from '@utils'
 
-export async function use(args) {
+export async function use() {
   const filePath = 'src/main/resources/logback.xml'
 
   if (await fs.exists(filePath)) {

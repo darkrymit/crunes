@@ -1,6 +1,6 @@
 import { fs, xml, md, section } from '@utils'
 
-export async function use(args) {
+export async function use() {
   if (!(await fs.exists('pom.xml'))) return []
 
   const doc        = await xml.read('pom.xml')

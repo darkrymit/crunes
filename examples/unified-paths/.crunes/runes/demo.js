@@ -1,6 +1,6 @@
 import { fs, sqlite, cache, section } from '@utils'
 
-export async function use(args) {
+export async function use() {
   const isSeeded = await fs.exists('@project-sqlite/catalog.sqlite')
   if (!isSeeded) {
     const seed = await sqlite.open('./.sit', 'catalog')
