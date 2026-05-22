@@ -1,6 +1,6 @@
 ---
 tags:
-  - proposed
+  - completed
 ---
 
 # Proposal: Declarative Rune Arguments
