@@ -51,14 +51,13 @@ await socket.open()
 // 3. Send — callable at any time after open
 await socket.send(JSON.stringify({ type: 'ping' }))
 
-// 4a. Wait for the server to close the connection
-await socket.closed
-
-// 4b. Or close explicitly
+// 4. Close — idempotent, always-awaitable
+//    First call initiates a graceful close; subsequent calls return the same settling promise.
+//    Call from inside a handler (fire-and-forget) or from the outer scope (await) — both work.
 await socket.close()
 ```
 
-**State machine:** `CREATED → OPEN → CLOSED`. Calling `send()` before `open()` or after `close()` throws. Calling `open()` on an already-open or closed socket throws.
+**State machine:** `CREATED → OPEN → CLOSED`. Calling `send()` before `open()` or after `close()` throws. Calling `open()` on an already-open or closed socket throws. Calling `close()` on an already-closing or closed socket is a no-op that returns the same promise.
 
 ### Patterns
 
@@ -72,12 +71,12 @@ socket.on('message', async (raw) => {
   const event = JSON.parse(raw)
   if (event.type === 'TEXT_DELTA')               output += event.textContent ?? ''
   if (event.type === 'ERROR')                    throw new Error(event.errorCode)
-  if (event.type === 'COMPLETE' || event.type === 'STOPPED') await socket.close()
+  if (event.type === 'COMPLETE' || event.type === 'STOPPED') socket.close()
 })
 
 await socket.open()
 await socket.send(JSON.stringify({ type: 'MESSAGE', text: args._[0] }))
-await socket.closed
+await socket.close()   // waits for close, whether triggered by handler or here
 
 return section.create('response', { type: 'markdown', content: output })
 ```
@@ -90,12 +89,12 @@ const socket = ws.client('ws://localhost:9229/json')
 socket.on('message', async (raw) => {
   const msg = JSON.parse(raw)
   if (msg.method === 'ping') await socket.send(JSON.stringify({ method: 'pong' }))
-  if (msg.type === 'result') await socket.close()
+  if (msg.type === 'result') socket.close()
 })
 
 await socket.open()
 await socket.send(JSON.stringify({ id: 1, method: 'subscribe', params: {} }))
-await socket.closed
+await socket.close()
 ```
 
 **Simple request-response:**
@@ -104,11 +103,11 @@ await socket.closed
 const socket = ws.client('ws://localhost:3000')
 socket.on('message', async (raw) => {
   // handle reply
-  await socket.close()
+  socket.close()
 })
 await socket.open()
 await socket.send(JSON.stringify({ type: 'query', q: args._[0] }))
-await socket.closed
+await socket.close()
 ```
 
 ### Notes
@@ -163,10 +162,9 @@ The standard isolate timeout applies — runes using `ws` are subject to the sam
    - `$__utils_ws_on(sessionId, event, callbackRef)` → registers handler reference
    - `$__utils_ws_open(sessionId)` → connects; resolves on open, rejects on error
    - `$__utils_ws_send(sessionId, message)` → sends string frame
-   - `$__utils_ws_close(sessionId)` → closes gracefully; resolves on close
-   - `$__utils_ws_closed(sessionId)` → returns a promise that resolves when the connection ends
+   - `$__utils_ws_close(sessionId)` → idempotent; initiates graceful close on first call, resolves when the connection ends; subsequent calls return the same settling promise
 
-4. **Bootstrap** — Wire `utils.ws.client(url, opts)` in `utils-bootstrap.js`. Returns a plain object `{ on, open, send, close, closed }` closing over the session ID. Follows the same handle pattern as `utils.lsp.connect()` and `utils.sqlite.open()`.
+4. **Bootstrap** — Wire `utils.ws.client(url, opts)` in `utils-bootstrap.js`. Returns a plain object `{ on, open, send, close }` closing over the session ID. Follows the same handle pattern as `utils.lsp.connect()` and `utils.sqlite.open()`.
 
 5. **Permission wiring** — Add `src/rune/permissions/permissions-ws.js` with a `matchWsPermission(url, pattern)` function using micromatch, following the same structure as `permissions-http.js`. Register it in `src/rune/permissions/permissions.js`. The value checked is the full WebSocket URL; the pattern body (after stripping `ws:`) is the glob.
 
