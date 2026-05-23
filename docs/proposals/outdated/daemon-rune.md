@@ -1,6 +1,6 @@
 ---
 tags:
-  - proposed
+  - completed
 ---
 
 # Proposal: Background Rune Execution (`rune.spawn`)
