@@ -1,0 +1,28 @@
+{
+  "name": "spawn-demo",
+  "runes": {
+    "worker": {
+      "name": "Background Worker",
+      "description": "Long-running background process that simulates background work",
+      "permissions": {
+        "use": {
+          "allow": ["shell:**"]
+        }
+      }
+    },
+    "server": {
+      "name": "Server Manager",
+      "description": "Manages the background worker lifecycle — start / stop / status",
+      "permissions": {
+        "use": {
+          "allow": [
+            "fs.write:.crunes/state/spawn-demo.json",
+            "rune.spawn:worker",
+            "rune.kill:worker",
+            "rune.exists:worker"
+          ]
+        }
+      }
+    }
+  }
+}
