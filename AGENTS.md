@@ -18,7 +18,7 @@ Each package has its own `AGENTS.md` with module-level context. Read the relevan
 
 ## Package Summaries
 
-**`crunes-cli/`** — The npm package `@darkrymit/crunes-cli`. Node.js ≥ 20, ESM, esbuild-bundled. Provides the `crunes` CLI: `use`, `list`, `init`, `create`, `check`, `bench`, `jobs`, `cache`, `sqlite`, and full plugin/marketplace/template management. All rune execution happens here inside isolated-vm sandboxes. Has its own KB at `crunes-cli/docs/knowledge-base/`.
+**`crunes-cli/`** — The npm package `@darkrymit/crunes-cli`. Node.js ≥ 20, ESM, esbuild-bundled. Provides the `crunes` CLI: `use`, `list`, `init`, `create`, `check`, `bench`, `job`, `cache`, `sqlite`, and full plugin/marketplace/template management. All rune execution happens here inside isolated-vm sandboxes. Has its own KB at `crunes-cli/docs/knowledge-base/`.
 
 **`crunes-aci/`** — The Claude Code plugin `crunes-aci`. Not an npm package — installed as a plugin directly into Claude Code via `crunes plugin install`. Contains:
 - `hooks/hooks.json` + `scripts/hook-wrapper.js` — `UserPromptSubmit` hook that resolves `$key`, `$key(arg1,arg2)`, `$key::section`, and `$plugin:key(args)::section` tokens and injects rune output as XML context before the model sees the prompt.

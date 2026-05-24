@@ -45,7 +45,7 @@ Context-runes is split into modular packages so you only use what you need:
 
 | Repository | Description |
 |---|---|
-| [crunes-cli](https://github.com/darkrymit/crunes-cli) | Core CLI (`crunes`) — `use`, `help`, `version`, `doctor`, `check`, `bench`, `list`, `jobs`, `cache`, `sqlite`, `init`, `create`, `plugin`, `template`, `marketplace`, `completions`. Works standalone in any environment. |
+| [crunes-cli](https://github.com/darkrymit/crunes-cli) | Core CLI (`crunes`) — `use`, `docs`, `version`, `doctor`, `check`, `bench`, `list`, `job`, `cache`, `sqlite`, `init`, `create`, `plugin`, `template`, `marketplace`, `completions`. Works standalone in any environment. |
 | [crunes-aci](https://github.com/darkrymit/crunes-aci) | Agentic Coder Interface — native integrations and skills built on top of the CLI (Claude Code and generic CLI tools supported). |
 
 ## License
