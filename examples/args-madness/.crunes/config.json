@@ -6,7 +6,7 @@
       "description": "Demonstrates every args() builder feature: required and optional positionals, number/string/boolean flags, aliases, defaults, and env-driven defaults",
       "permissions": {
         "use": {
-          "allow": ["env:SEARCH_DEFAULT_LIMIT"]
+          "allow": ["env.read:SEARCH_DEFAULT_LIMIT"]
         }
       }
     }

@@ -1,3 +1,8 @@
+---
+tags:
+  - completed
+---
+
 # Proposal: Interactive Shell Namespace (`utils.shell`)
 
 ## Motivation

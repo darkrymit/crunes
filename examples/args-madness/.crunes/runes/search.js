@@ -1,7 +1,7 @@
 import { env, md, section } from '@utils'
 
 export async function args(b) {
-  const defaultLimit = await env.get('SEARCH_DEFAULT_LIMIT') ?? 10
+  const defaultLimit = await env.read('SEARCH_DEFAULT_LIMIT') ?? 10
   return b
     .positional('<query>',  'Search query string (required)')
     .positional('[scope]',  'Narrow to a specific scope: src, docs, all (default: all)')

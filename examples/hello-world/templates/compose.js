@@ -3,7 +3,7 @@
 //
 // permissions:
 //   use:
-//     allow: []   — add patterns here if you use utils.shell or utils.fs
+//     allow: []   — add patterns here if you use utils.exec or utils.fs
 //     deny:  []
 
 import { rune, section, md } from '@utils'

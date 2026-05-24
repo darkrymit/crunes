@@ -23,5 +23,5 @@ crunes use echo ws://localhost:3100    # custom URL
 
 ## Permissions
 
-The rune declares `ws:ws://localhost:**` to allow connecting to any port on localhost.
+The rune declares `ws.client:ws://localhost:**` to allow connecting to any port on localhost.
 Change this in `.crunes/config.json` to match your server URL.

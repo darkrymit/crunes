@@ -7,7 +7,7 @@
       "permissions": {
         "use": {
           "allow": [
-            "ws:ws://localhost:**",
+            "ws.client:ws://localhost:**",
             "shell.exec"
           ]
         }
