@@ -1,0 +1,15 @@
+{
+  "name": "shell-interactive",
+  "version": "1.0.0",
+  "runes": {
+    "auto-answer": {
+      "path": ".crunes/runes/auto-answer.js",
+      "description": "Auto answer prompt",
+      "permissions": {
+        "use": {
+          "allow": ["shell:node *"]
+        }
+      }
+    }
+  }
+}
