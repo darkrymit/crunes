@@ -2,7 +2,7 @@ import { shell, section, fs } from '@utils';
 
 export async function use(args) {
   const dir = fs.cwd();
-  const session = shell.session(`node prompt.js`);
+  const session = shell.execInSession(`node prompt.js`);
   await session.expect('What is the magic word?');
   session.write('please\n');
   await session.waitForExit();

@@ -9,12 +9,12 @@ The current `utils.shell(cmd, opts)` API is too simplistic. It behaves purely as
 
 To solve this, `utils.shell` will migrate from a single function to a namespace containing two primary methods.
 
-### 1. `shell.run(cmd, opts)`
+### 1. `shell.exec(cmd, opts)`
 Maintains the existing behaviour for simple, run-to-completion tasks.
 - **Returns:** `Promise<string | object>` (depending on `throw` option, like the current API)
 - **Behaviour:** Spawns the process, buffers stdout/stderr, strips ANSI codes, throws on non-zero exit codes (by default), and returns the trimmed output.
 
-### 2. `shell.session(cmd, opts)`
+### 2. `shell.execInSession(cmd, opts)`
 The new interactive background API. It spawns the process and immediately returns a stateful `ShellSession` object.
 - **Returns:** `ShellSession`
 - **Behaviour:** Does not block or await completion. The process runs continuously in the background.
