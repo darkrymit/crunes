@@ -25,8 +25,8 @@ You can query it directly from the CLI with optional arguments:
 
 ```bash
 crunes use structure
-crunes use api=v2
-crunes use structure -a api=v2
+crunes use api v2
+crunes use structure + api v2
 ```
 
 With a native integration (like our Agentic Coder Interface), your AI assistant can automatically discover runes and seamlessly inject their live output directly into its context window.
@@ -45,7 +45,7 @@ Context-runes is split into modular packages so you only use what you need:
 
 | Repository | Description |
 |---|---|
-| [crunes-cli](https://github.com/darkrymit/crunes-cli) | Core CLI (`crunes`) — init, create, use, bench, list, and manage plugins. Works standalone in any environment. |
+| [crunes-cli](https://github.com/darkrymit/crunes-cli) | Core CLI (`crunes`) — `use`, `help`, `version`, `doctor`, `check`, `bench`, `list`, `jobs`, `cache`, `sqlite`, `init`, `create`, `plugin`, `template`, `marketplace`, `completions`. Works standalone in any environment. |
 | [crunes-aci](https://github.com/darkrymit/crunes-aci) | Agentic Coder Interface — native integrations and skills built on top of the CLI (Claude Code and generic CLI tools supported). |
 
 ## License
