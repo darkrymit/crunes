@@ -1,9 +1,5 @@
 {
   "format": "1",
-  "name": "hello-world",
-  "version": "1.0.0",
-  "description": "Hello World — example context-runes plugin",
-  "author": { "name": "you" },
   "templates": {
     "greeting": {
       "name": "Greeting",
