@@ -7,7 +7,7 @@
       "description": "Auto answer prompt",
       "permissions": {
         "use": {
-          "allow": ["shell:node *"]
+          "allow": ["shell.run:node *"]
         }
       }
     }
