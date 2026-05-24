@@ -8,6 +8,7 @@
 # Sub-repos (separate GitHub repos, stored locally as subdirs)
 crunes-cli/
 crunes-aci/
+crunes-plugins/
 
 # Local smoke / scratch testing directories
 smoke/
