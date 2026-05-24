@@ -1,9 +1,5 @@
 {
   "format": "1",
-  "name": "project-info",
-  "version": "1.0.0",
-  "description": "Project Info — read-only context runes for JS, Java, and CI projects",
-  "author": { "name": "you" },
   "runes": {
     "js": {
       "name": "JS Project Info",

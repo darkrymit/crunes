@@ -1,9 +1,5 @@
 {
   "format": "1",
-  "name": "scaffold",
-  "version": "1.0.0",
-  "description": "Scaffold — creates starter files for common project needs",
-  "author": { "name": "you" },
   "runes": {
     "workflow": {
       "name": "Create GitHub Actions Workflow",
