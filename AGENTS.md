@@ -34,8 +34,8 @@ cd crunes-cli
 # Module structure
 crunes -p use m <module>
 
-# Module + KB in one shot
-crunes -p use m <module> + kb -m <module>
+# Module + KB in one shot (batching requires -b)
+crunes -p use -b m <module> + kb -m <module>
 
 # All KB entries (index)
 crunes -p use kb
