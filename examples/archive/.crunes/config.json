@@ -19,6 +19,16 @@
           "allow": ["fs.read:backups/**", "fs.glob:backups/**", "fs.write:restore/**", "fs.glob:restore/**"]
         }
       }
+    },
+    "tar-demo": {
+      "path": ".crunes/runes/tar-demo.js",
+      "name": "Tar & TarGz Demo",
+      "description": "Demonstrates utils.archive.tar, untar, targz, and untargz",
+      "permissions": {
+        "use": {
+          "allow": ["fs.read:src/**", "fs.glob:src/**", "fs.write:backups/**", "fs.read:backups/**", "fs.glob:backups/**", "fs.write:restore/**", "fs.glob:restore/**"]
+        }
+      }
     }
   }
 }

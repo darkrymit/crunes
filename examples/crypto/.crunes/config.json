@@ -3,7 +3,7 @@
   "runes": {
     "crypto": {
       "name": "Crypto Demo",
-      "description": "Demonstrates utils.crypto — hash.hex, hash.base64, uuid, hex, base64",
+      "description": "Demonstrates utils.crypto — hash, hashAsHex, hashAsBase64, uuid, randomHex, randomBase64, encrypt, decrypt",
       "permissions": {
         "use": {
           "allow": []

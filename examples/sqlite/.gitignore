@@ -1,0 +1,6 @@
+# SQLite data is stored in the global crunes store (~/.crunes/), not here
+
+# IDE
+.vscode/
+.idea/
+*.iml
