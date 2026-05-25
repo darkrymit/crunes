@@ -6,12 +6,13 @@ AI-first guide to the crunes monorepo. Read this before touching any code.
 
 ```
 crunes/
-  crunes-cli/    ← Core CLI — the crunes command, rune execution, plugin system
-  crunes-aci/    ← Agentic Coder Interface — Claude Code plugin, hook wrapper, skills
+  crunes-cli/      ← Core CLI — the crunes command, rune execution, plugin system
+  crunes-aci/      ← Agentic Coder Interface — Claude Code plugin, hook wrapper, skills
+  crunes-plugins/  ← Official first-party plugin marketplace (git submodule)
   docs/
-    proposals/   ← Feature proposals (active/, outdated/, rework/)
+    proposals/     ← Feature proposals (active/, outdated/, rework/)
   examples/
-  smoke/         ← Smoke tests
+  smoke/           ← Smoke tests
 ```
 
 Each package has its own `AGENTS.md` with module-level context. Read the relevant one before touching that package's code.
@@ -23,6 +24,8 @@ Each package has its own `AGENTS.md` with module-level context. Read the relevan
 **`crunes-aci/`** — The Claude Code plugin `crunes-aci`. Not an npm package — installed as a plugin directly into Claude Code via `crunes plugin install`. Contains:
 - `hooks/hooks.json` + `scripts/hook-wrapper.js` — `UserPromptSubmit` hook that resolves `$key`, `$key(arg1,arg2)`, `$key::section`, and `$plugin:key(args)::section` tokens and injects rune output as XML context before the model sees the prompt.
 - `skills/` — `crunes-help`, `crunes-use-rune`, `crunes-use-plugin`, `crunes-write-rune`, `crunes-write-plugin` skills for mid-conversation rune and plugin access.
+
+**`crunes-plugins/`** — The official first-party plugin marketplace. A standalone git repository registered as a marketplace source. Each plugin lives in `plugins/<name>/`. To use: `crunes marketplace add darkrymit/crunes-plugins`. Has its own `AGENTS.md` — read it before touching any plugin.
 
 ## Context Rune Usage
 
