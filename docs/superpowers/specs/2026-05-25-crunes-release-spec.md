@@ -49,13 +49,32 @@ Releasing the new version involves three separate, synchronized steps:
    ## [0.5.0] - 2026-05-25
 
    ### Added
-   - High-performance WebSocket **Binary Support** inside the isolated-vm sandbox.
-   - Added `.sendBinary(data)` supporting `Uint8Array` and `ArrayBuffer` payloads.
-   - Introduced dedicated `'binary'` event yielding a raw `Uint8Array` for incoming binary frames.
-   - Added zero-copy `Buffer.from` conversion on the host side to maximize frame throughput.
-
-   ### Changed
-   - **Breaking**: Renamed WebSocket `.send()` to `.sendText(msg)` to offer clean method symmetry.
+   - **WebSocket Binary Support**:
+     - Introduced `.sendText(msg)` and `.sendBinary(data)` on `WsHandle` for sandboxed transmission of text and raw binary frames (`Uint8Array`/`ArrayBuffer`).
+     - Added dedicated `'binary'` event yielding a raw `Uint8Array` in sandboxed event listeners.
+     - Implemented zero-copy host-side memory wrapping using Node's `Buffer.from(arrayBuffer)` and direct isolate transfers via `isolated-vm`'s `arguments: { copy: true }`.
+   - **Claude Code Plugin (`crunes-aci`) Upgrades**:
+     - Restricted hook token-parsing to lowercase keys `[a-z]` to perfectly exclude `$PATH`, uppercase envs, and numeric variables.
+     - Implemented automatic token batching using the programmatically appended `-b` batch flag.
+     - Synchronized plugin naming and structure to the new `@darkrymit/crunes-cli` standard.
+   - **Interactive Shell Capability**: Exposed `utils.shell.exec(cmd)` and `utils.shell.execInSession(cmd)` namespaces supporting live command spawn streams, expect patterns, and terminal processes.
+   - **Rich Sandboxed Utilities (`@utils`)**:
+     - Exposed the `@utils` virtual ESM module for importing `fs`, `md`, `tree`, `section`, `crypto`, `sqlite`, etc.
+     - Added `utils.crypto` for robust SHA/MD5 hashing, UUID generation, and secure random byte strings.
+     - Added `utils.sqlite` backed by high-performance SQLite handles for persistent tables.
+     - Added `utils.cache` providing named TTL key-value stores.
+     - Added `utils.archive` for native `zip`, `unzip`, `tar`, and `untar`.
+     - Added `utils.yaml`, `utils.xml`, and `utils.json` with fully sandboxed `.read()`, `.write()`, and `.modify()` comment round-trips.
+   - **Modern CLI subcommands**:
+     - Standardized `use`, `check`, and `bench` command arguments.
+     - Renamed `help` command group to `docs`, and introduced TypeDoc-based API walkers: `crunes docs utils` and `crunes docs rune`.
+     - Added `crunes job`, `crunes cache`, and `crunes sqlite` shell subcommand suites to provision, list, and delete sandboxed resources.
+     - Added `m` (Module Structural Context) and `kb` (Knowledge Base Context) context runes to provide live structural data to AI models.
+   - **Security & Sandboxing**:
+     - Isolated dependencies for local plugins without polluting workspace.
+     - Strict namespaced permissions (`permissions.use.allow` in `plugin.json`).
+     - Prevented sandbox escapes by restricting `hostRequire` strictly to safe, pre-approved Node builtins.
+     - Resolved V8 isolate memory bloat via `ivm.ExternalCopy` native array transfers across boundaries.
 
    ### Fixed
    - Corrected the `release` verification rune to resolve program path errors, outdated `shell` calls, and permission capability matches.
