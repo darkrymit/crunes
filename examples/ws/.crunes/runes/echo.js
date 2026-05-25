@@ -12,16 +12,31 @@ export async function use(args) {
   const replies = []
   let count = 0
 
+  // Pure done barrier signal
+  let resolveDone
+  const done = new Promise((resolve) => {
+    resolveDone = resolve
+  })
+
+  // Register event listeners
   socket.on('message', async (msg) => {
     replies.push(msg)
     count++
-    if (count >= 3) socket.close()
+    if (count >= 3) {
+      resolveDone()
+    }
   })
 
+  // Linear flow
   await socket.open()
   await socket.send('hello')
   await socket.send('from')
   await socket.send('utils.ws')
+
+  // Block until the complex done signal is resolved
+  await done
+
+  // Clean up connection
   await socket.close()
 
   return [
