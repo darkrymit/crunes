@@ -29,9 +29,9 @@ export async function use(args) {
 
   // Linear flow
   await socket.open()
-  await socket.send('hello')
-  await socket.send('from')
-  await socket.send('utils.ws')
+  await socket.sendText('hello')
+  await socket.sendText('from')
+  await socket.sendText('utils.ws')
 
   // Block until the complex done signal is resolved
   await done
