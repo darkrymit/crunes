@@ -26,10 +26,10 @@ You can query it directly from the CLI with optional arguments:
 ```bash
 crunes use structure
 crunes use api v2
-crunes use structure + api v2
+crunes -b use structure + api v2
 ```
 
-With a native integration (like our Agentic Coder Interface), your AI assistant can automatically discover runes and seamlessly inject their live output directly into its context window.
+With a native integration (like our Agentic Coder Interface), your AI assistant can automatically discover runes and inject their live output directly into its context window. Simply write `$structure` or `$api(v2)` in your prompt and the hook resolves and injects the rune output before the model ever sees it.
 
 ## Why Context Runes?
 
