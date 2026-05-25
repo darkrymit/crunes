@@ -8,7 +8,13 @@ const httpServer = createServer()
 const wss = new WebSocketServer({ server: httpServer })
 
 wss.on('connection', (ws) => {
-  ws.on('message', (data) => ws.send(String(data)))
+  ws.on('message', (message, isBinary) => {
+    if (isBinary) {
+      ws.send(message, { binary: true })
+    } else {
+      ws.send(String(message))
+    }
+  })
 })
 
 httpServer.listen(port, () => {
