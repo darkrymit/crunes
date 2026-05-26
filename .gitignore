@@ -17,3 +17,6 @@ smoke/
 docs/proposals/.obsidian/workspace.json
 docs/proposals/.obsidian/workspace-mobile.json
 docs/proposals/.obsidian/appearance.json
+
+# Dynamic on-demand files
+INTRO.md
