@@ -1,0 +1,10 @@
+{
+  "name": "git-mock-example",
+  "runes": {
+    "git": {
+      "path": ".crunes/runes/git-mock.js",
+      "name": "git",
+      "description": "Mock git runner with nested commands"
+    }
+  }
+}
