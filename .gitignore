@@ -10,8 +10,8 @@ crunes-cli/
 crunes-aci/
 crunes-plugins/
 
-# Local smoke / scratch testing directories
-smoke/
+# Local manual testing scratch directories
+scratch/
 
 # Obsidian local state (workspace layout and appearance are per-user)
 docs/proposals/.obsidian/workspace.json
