@@ -1,4 +1,5 @@
-# No runtime-generated files for this example
+# Job state persisted by the server rune at runtime
+.crunes/state/
 
 # IDE
 .vscode/
