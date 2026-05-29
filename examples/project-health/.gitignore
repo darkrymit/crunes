@@ -1,0 +1,5 @@
+# No runtime output — fix-version modifies package.json in place (intentional)
+
+.vscode/
+.idea/
+*.iml

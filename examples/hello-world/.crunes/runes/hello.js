@@ -1,8 +1,8 @@
-import { section } from '@utils'
+import { section, md } from '@utils'
 
 export async function use() {
   return section.create('hello', {
     type: 'markdown',
-    content: 'Hello, World!',
+    content: md.p('Hello, World!'),
   })
 }

@@ -1,18 +1,9 @@
 {
   "name": "spawn-demo",
   "runes": {
-    "worker": {
-      "name": "Background Worker",
-      "description": "Long-running background process that simulates background work",
-      "permissions": {
-        "use": {
-          "allow": ["shell:**"]
-        }
-      }
-    },
     "server": {
-      "name": "Server Manager",
-      "description": "Manages the background worker lifecycle — start / stop / status",
+      "name": "Spawn Demo — Server",
+      "description": "Manages the background worker lifecycle — start, stop, or status.",
       "permissions": {
         "use": {
           "allow": [
@@ -21,6 +12,15 @@
             "rune.kill:worker",
             "rune.exists:worker"
           ]
+        }
+      }
+    },
+    "worker": {
+      "name": "Spawn Demo — Worker",
+      "description": "Long-running background process kept alive for up to one hour.",
+      "permissions": {
+        "use": {
+          "allow": ["shell:**"]
         }
       }
     }

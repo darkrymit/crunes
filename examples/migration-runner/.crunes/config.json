@@ -1,0 +1,33 @@
+{
+  "name": "migration-runner",
+  "runes": {
+    "migrate": {
+      "name": "Migration Runner — Migrate",
+      "description": "Runs pending SQL migrations and marks them as applied.",
+      "permissions": {
+        "use": {
+          "allow": [
+            "fs.read:./migrations/**",
+            "fs.glob:./migrations/**",
+            "sqlite.read:@project-sqlite/**",
+            "sqlite.write:@project-sqlite/**",
+            "cache.read:@project-cache/**",
+            "cache.write:@project-cache/**"
+          ]
+        }
+      }
+    },
+    "status": {
+      "name": "Migration Runner — Status",
+      "description": "Shows which migrations have been applied and which are pending.",
+      "permissions": {
+        "use": {
+          "allow": [
+            "fs.glob:./migrations/**",
+            "cache.read:@project-cache/**"
+          ]
+        }
+      }
+    }
+  }
+}

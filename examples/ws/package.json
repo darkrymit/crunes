@@ -1,9 +1,8 @@
 {
-  "name": "crunes-example-ws",
-  "version": "0.1.0",
+  "name": "ws-example",
+  "version": "1.0.0",
   "type": "module",
-  "private": true,
-  "dependencies": {
-    "ws": "^8.21.0"
+  "devDependencies": {
+    "ws": "^8.0.0"
   }
 }

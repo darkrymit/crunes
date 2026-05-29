@@ -1,0 +1,6 @@
+# Applied migration state is in global store (~/.crunes/store/) — not committed here
+# migrations/*.sql are fixtures — committed intentionally
+
+.vscode/
+.idea/
+*.iml

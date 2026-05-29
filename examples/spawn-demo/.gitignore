@@ -1,7 +1,6 @@
-# Job state persisted by the server rune at runtime
+# Runtime state persisted by the server rune
 .crunes/state/
 
-# IDE
 .vscode/
 .idea/
 *.iml

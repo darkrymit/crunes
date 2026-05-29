@@ -1,27 +1,31 @@
-# ws example
+# WebSocket Echo
 
-Demonstrates `utils.ws.client()` — connects to a local WebSocket echo server, sends
-3 messages, and returns the echoed replies as a section.
+Connect to a WebSocket echo server, send messages, and collect replies.
 
-## Run it
+## What it demonstrates
 
-**Terminal 1** — start the echo server (requires `ws` in node_modules):
+Uses `ws.client` to open a WebSocket connection, `socket.on('message')` to handle incoming frames, `socket.sendText` to send messages, and a Promise-based done barrier to wait for all replies before closing.
 
-```bash
-# from crunes-cli/ directory (where ws is installed):
-node ../examples/ws/echo-server.mjs
-# or pass a custom port:
-node ../examples/ws/echo-server.mjs 3100
-```
-
-**Terminal 2** — run the rune:
+## Setup
 
 ```bash
-crunes use echo                        # connects to ws://localhost:3099 (default)
-crunes use echo ws://localhost:3100    # custom URL
+cd examples/ws
+npm install
 ```
 
-## Permissions
+Start the echo server in a separate terminal:
 
-The rune declares `ws.client:ws://localhost:**` to allow connecting to any port on localhost.
-Change this in `.crunes/config.json` to match your server URL.
+```bash
+node echo-server.mjs
+```
+
+## How to run
+
+```bash
+crunes use echo
+crunes use echo ws://localhost:3099    # explicit URL
+```
+
+## What to expect
+
+Three messages are sent and echoed back. The rune waits for all three replies, then closes the connection and returns a section listing the received messages.

@@ -1,3 +1,31 @@
 {
-  "plugins": ["scaffold@scaffold"]
+  "name": "scaffold",
+  "runes": {
+    "init": {
+      "name": "Scaffold — Init",
+      "description": "Bootstraps a new crunes project with config stub and package.json.",
+      "permissions": {
+        "use": {
+          "allow": [
+            "fs.read:./.crunes/config.json",
+            "fs.write:./.crunes/**",
+            "fs.write:./package.json",
+            "fs.write:./.github/**"
+          ]
+        }
+      }
+    },
+    "add-workflow": {
+      "name": "Scaffold — Add Workflow",
+      "description": "Adds a named GitHub Actions workflow file to the project.",
+      "permissions": {
+        "use": {
+          "allow": [
+            "fs.read:./.github/workflows/**",
+            "fs.write:./.github/workflows/**"
+          ]
+        }
+      }
+    }
+  }
 }

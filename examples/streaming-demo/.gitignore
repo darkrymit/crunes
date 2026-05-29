@@ -1,6 +1,5 @@
-# No runtime-generated files for this example
+# No committed runtime output
 
-# IDE
 .vscode/
 .idea/
 *.iml

@@ -1,0 +1,30 @@
+{
+  "name": "project-health",
+  "runes": {
+    "check": {
+      "name": "Project Health — Check",
+      "description": "Reports package.json metadata and GitHub Actions workflow inventory.",
+      "permissions": {
+        "use": {
+          "allow": [
+            "fs.read:./package.json",
+            "fs.glob:./.github/workflows/**",
+            "fs.read:./.github/workflows/**"
+          ]
+        }
+      }
+    },
+    "fix-version": {
+      "name": "Project Health — Fix Version",
+      "description": "Updates the version field in package.json.",
+      "permissions": {
+        "use": {
+          "allow": [
+            "fs.read:./package.json",
+            "fs.write:./package.json"
+          ]
+        }
+      }
+    }
+  }
+}

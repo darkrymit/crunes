@@ -1,0 +1,17 @@
+{
+  "name": "release-notes",
+  "runes": {
+    "generate": {
+      "name": "Release Notes — Generate",
+      "description": "Generates a changelog entry from git log and appends it to CHANGELOG.md.",
+      "permissions": {
+        "use": {
+          "allow": [
+            "shell.exec:git *",
+            "fs.write:./CHANGELOG.md"
+          ]
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,30 @@
+{
+  "name": "audit-log",
+  "runes": {
+    "add": {
+      "name": "Audit Log — Add",
+      "description": "Appends a timestamped message to the project audit log.",
+      "permissions": {
+        "use": {
+          "allow": [
+            "fs.write:./audit.log",
+            "cache.read:@project-cache/**",
+            "cache.write:@project-cache/**"
+          ]
+        }
+      }
+    },
+    "export": {
+      "name": "Audit Log — Export",
+      "description": "Encodes the audit log as base64 and writes a chmod'd shell script.",
+      "permissions": {
+        "use": {
+          "allow": [
+            "fs.read:./audit.log",
+            "fs.write:./export/**"
+          ]
+        }
+      }
+    }
+  }
+}

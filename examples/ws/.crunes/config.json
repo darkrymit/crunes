@@ -3,12 +3,11 @@
   "runes": {
     "echo": {
       "name": "WS Echo Demo",
-      "description": "Starts a local echo server, connects via utils.ws, sends 3 messages, collects responses",
+      "description": "Connects to a WebSocket echo server, sends three messages, and collects replies.",
       "permissions": {
         "use": {
           "allow": [
-            "ws.client:ws://localhost:**",
-            "shell.exec"
+            "ws.client:ws://localhost:**"
           ]
         }
       }

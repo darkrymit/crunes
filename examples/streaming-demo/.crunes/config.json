@@ -1,10 +1,9 @@
 {
   "name": "streaming-demo",
-  "version": "1.0.0",
   "runes": {
     "stream-count": {
-      "path": ".crunes/runes/stream-count.js",
-      "description": "Stream active count progressively, showing TextDecoder & AbortSignal timing controls",
+      "name": "Streaming Demo",
+      "description": "Streams subprocess output progressively, emitting section updates until a tick limit.",
       "permissions": {
         "use": {
           "allow": ["shell.exec:node *"]

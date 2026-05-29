@@ -1,0 +1,8 @@
+# Decrypted output written by the decrypt rune
+decrypted/
+
+# Vault contents are in global store (~/.crunes/store/) — not committed here
+
+.vscode/
+.idea/
+*.iml

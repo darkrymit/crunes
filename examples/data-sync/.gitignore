@@ -1,0 +1,5 @@
+# SQLite DB and cache are in global store (~/.crunes/store/) — not committed here
+
+.vscode/
+.idea/
+*.iml

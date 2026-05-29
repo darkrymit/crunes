@@ -1,8 +1,0 @@
-# Local working dirs — generated at runtime, not committed
-.sit/
-.output/
-
-# IDE
-.vscode/
-.idea/
-*.iml

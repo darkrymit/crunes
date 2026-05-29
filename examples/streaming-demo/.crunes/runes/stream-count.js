@@ -1,50 +1,45 @@
-import { shell, section } from '@utils';
+import { shell, section } from '@utils'
+
+export async function args(b) {
+  return b
+    .positional('[limit]', 'Stop after this many ticks (default: 5)')
+    .build()
+}
 
 export async function use(args) {
-  const limit = args._[0] ? parseInt(args._[0]) : 5;
-  
-  return new Promise((resolve, reject) => {
-    const controller = new AbortController();
-    const decoder = new TextDecoder('utf-8');
-    
-    // Spawn standard counter process with timeout AbortSignal bound
-    const session = shell.execInSession('node counter.js', { signal: controller.signal });
-    let ticks = [];
+  const limit = args._[0] ? parseInt(args._[0]) : 5
+  const controller = new AbortController()
+  const decoder = new TextDecoder('utf-8')
+  const session = shell.execInSession('node counter.js', { signal: controller.signal })
+  const ticks = []
 
+  return new Promise((resolve, reject) => {
     session.stdout.on('data', (chunk) => {
-      const text = decoder.decode(chunk);
-      const lines = text.split('\n').filter(Boolean);
-      
+      const lines = decoder.decode(chunk).split('\n').filter(Boolean)
       for (const line of lines) {
-        ticks.push(line);
-        
-        // Progressively emit dynamic real-time section updates
+        ticks.push(line)
         section.emit(
           section.create('ticks-progress', {
             type: 'markdown',
-            content: `### Progressive Tick Stream\n\n* **Status:** Stream active...\n* **Latest tick:** \`${line}\`\n\n**All Received Ticks:**\n${ticks.map(t => `- ${t}`).join('\n')}`
+            content: `**Ticks received:** ${ticks.length}\n\n**Latest:** \`${line}\`\n\n${ticks.map(t => `- ${t}`).join('\n')}`,
           })
-        );
-        
-        // Trigger abort if we exceed the user-defined limit
-        const tickNum = parseInt(line.replace('Tick: ', ''));
-        if (tickNum >= limit) {
-          controller.abort();
+        )
+        // AbortController stop: signals the session to terminate the subprocess
+        if (parseInt(line.replace('Tick: ', '')) >= limit) {
+          controller.abort()
         }
       }
-    });
+    })
 
     session.on('exit', (code) => {
       resolve(
         section.create('ticks-final', {
           type: 'markdown',
-          content: `### Stream Finished\n\n* **Final Exit Code:** ${code} (SIGTERM/aborted if limit < 5)\n\n**Final Result Logs:**\n${ticks.map(t => `- ${t}`).join('\n')}`
+          content: `**Done** — ${ticks.length} ticks received (exit ${code})\n\n${ticks.map(t => `- ${t}`).join('\n')}`,
         })
-      );
-    });
+      )
+    })
 
-    session.on('error', (err) => {
-      reject(err);
-    });
-  });
+    session.on('error', reject)
+  })
 }

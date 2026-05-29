@@ -1,0 +1,14 @@
+{
+  "name": "hello-world",
+  "runes": {
+    "hello": {
+      "name": "Hello World",
+      "description": "Returns a greeting section.",
+      "permissions": {
+        "use": {
+          "allow": []
+        }
+      }
+    }
+  }
+}

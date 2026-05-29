@@ -1,8 +1,0 @@
-# Runtime-generated output directories — not committed
-backups/
-restore/
-
-# IDE
-.vscode/
-.idea/
-*.iml

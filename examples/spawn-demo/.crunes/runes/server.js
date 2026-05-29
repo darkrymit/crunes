@@ -4,7 +4,7 @@ const STATE_FILE = '.crunes/state/spawn-demo.json'
 
 export async function args(b) {
   return b
-    .positional('[action]', 'Action: start | stop | status (default: status)')
+    .positional('[action]', 'start | stop | status (default: status)')
     .build()
 }
 
@@ -39,7 +39,7 @@ export async function use(args) {
     })
   }
 
-  // status (default action)
+  // default: status
   const state = await json.read(STATE_FILE, { throw: false })
   if (!state?.id) {
     return section.create('status', { type: 'markdown', content: md.p('Not running') })

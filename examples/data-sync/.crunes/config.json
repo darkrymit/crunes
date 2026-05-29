@@ -1,0 +1,31 @@
+{
+  "name": "data-sync",
+  "runes": {
+    "sync": {
+      "name": "Data Sync — Sync",
+      "description": "Fetches remote posts, caches the fetch timestamp, and inserts new rows into SQLite.",
+      "permissions": {
+        "use": {
+          "allow": [
+            "http.fetch:GET:https://jsonplaceholder.typicode.com/**",
+            "cache.read:@project-cache/**",
+            "cache.write:@project-cache/**",
+            "sqlite.read:@project-sqlite/**",
+            "sqlite.write:@project-sqlite/**"
+          ]
+        }
+      }
+    },
+    "report": {
+      "name": "Data Sync — Report",
+      "description": "Queries and displays the most recent stored posts.",
+      "permissions": {
+        "use": {
+          "allow": [
+            "sqlite.read:@project-sqlite/**"
+          ]
+        }
+      }
+    }
+  }
+}

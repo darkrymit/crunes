@@ -1,0 +1,41 @@
+{
+  "name": "file-vault",
+  "runes": {
+    "encrypt": {
+      "name": "File Vault — Encrypt",
+      "description": "Encrypts a file into the vault using AES-256-CBC.",
+      "permissions": {
+        "use": {
+          "allow": [
+            "fs.read:./**",
+            "fs.write:@project-cache/vault/**"
+          ]
+        }
+      }
+    },
+    "list": {
+      "name": "File Vault — List",
+      "description": "Lists files currently stored in the vault.",
+      "permissions": {
+        "use": {
+          "allow": [
+            "fs.read:@project-cache/vault/**",
+            "fs.glob:@project-cache/vault/**"
+          ]
+        }
+      }
+    },
+    "decrypt": {
+      "name": "File Vault — Decrypt",
+      "description": "Decrypts a vault file back to the decrypted/ directory.",
+      "permissions": {
+        "use": {
+          "allow": [
+            "fs.read:@project-cache/vault/**",
+            "fs.write:./decrypted/**"
+          ]
+        }
+      }
+    }
+  }
+}

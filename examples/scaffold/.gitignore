@@ -1,6 +1,6 @@
-# No runtime-generated files for this example
+# scaffold writes files intentionally — outputs are committed by the user
+# Only ignore IDE metadata
 
-# IDE
 .vscode/
 .idea/
 *.iml
