@@ -1,0 +1,13 @@
+import { section, md } from '@utils'
+
+export async function args(b) {
+  return b.positional('<name>', 'Name to greet').build()
+}
+
+export async function use(args) {
+  const name = args._[0]
+  return section.create('greeting', {
+    type: 'markdown',
+    content: md.p(`Hello, ${md.bold(name)}! Greetings from the local marketplace.`),
+  })
+}
