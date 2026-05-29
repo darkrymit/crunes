@@ -1,0 +1,17 @@
+{
+  "name": "task-manager",
+  "runes": {
+    "task": {
+      "name": "Task Manager",
+      "description": "Per-project task tracker with nested tag management.",
+      "permissions": {
+        "use": {
+          "allow": [
+            "fs.read:./tasks.json",
+            "fs.write:./tasks.json"
+          ]
+        }
+      }
+    }
+  }
+}
