@@ -1,0 +1,16 @@
+{
+  "format": "1",
+  "name": "notes-marketplace",
+  "description": "Example plugin with runes and templates",
+  "owner": { "name": "example" },
+  "plugins": [
+    {
+      "name": "notes",
+      "description": "Append and list timestamped project notes",
+      "version": "1.0.0",
+      "author": { "name": "example" },
+      "source": "./plugins/notes",
+      "category": "runes"
+    }
+  ]
+}

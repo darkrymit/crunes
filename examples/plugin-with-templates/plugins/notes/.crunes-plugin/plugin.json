@@ -1,0 +1,27 @@
+{
+  "format": "1",
+  "runes": {
+    "add": {
+      "name": "Notes — Add",
+      "description": "Appends a timestamped note to the project notes file.",
+      "permissions": {
+        "use": {
+          "allow": [
+            "fs.write:./notes.md"
+          ]
+        }
+      }
+    },
+    "list": {
+      "name": "Notes — List",
+      "description": "Reads and displays all notes from the project notes file.",
+      "permissions": {
+        "use": {
+          "allow": [
+            "fs.read:./notes.md"
+          ]
+        }
+      }
+    }
+  }
+}
