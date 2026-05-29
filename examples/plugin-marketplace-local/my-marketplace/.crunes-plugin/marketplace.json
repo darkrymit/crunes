@@ -1,0 +1,16 @@
+{
+  "format": "1",
+  "name": "my-marketplace",
+  "description": "Example local marketplace",
+  "owner": { "name": "example" },
+  "plugins": [
+    {
+      "name": "greeter",
+      "description": "Greets the user by name",
+      "version": "1.0.0",
+      "author": { "name": "example" },
+      "source": "./plugins/greeter",
+      "category": "runes"
+    }
+  ]
+}

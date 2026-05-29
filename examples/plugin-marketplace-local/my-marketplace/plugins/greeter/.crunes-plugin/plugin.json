@@ -1,0 +1,14 @@
+{
+  "format": "1",
+  "runes": {
+    "greet": {
+      "name": "Greeter",
+      "description": "Returns a personalised greeting.",
+      "permissions": {
+        "use": {
+          "allow": []
+        }
+      }
+    }
+  }
+}
