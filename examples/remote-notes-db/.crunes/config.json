@@ -1,0 +1,37 @@
+{
+  "runes": {
+    "init": {
+      "permissions": {
+        "use": {
+          "allow": [
+            "env.read:DB_HOST",
+            "env.read:DB_PORT",
+            "env.read:DB_USER",
+            "env.read:DB_PASSWORD",
+            "env.read:DB_NAME",
+            "fs.read:.env",
+            "fs.read:.env.example",
+            "fs.write:.env",
+            "fs.exists:.env",
+            "shell.exec:docker compose up -d",
+            "db.connect:postgres:localhost:5432/notes_db"
+          ]
+        }
+      }
+    },
+    "notes": {
+      "permissions": {
+        "use": {
+          "allow": [
+            "env.read:DB_HOST",
+            "env.read:DB_PORT",
+            "env.read:DB_USER",
+            "env.read:DB_PASSWORD",
+            "env.read:DB_NAME",
+            "db.connect:postgres:localhost:5432/notes_db"
+          ]
+        }
+      }
+    }
+  }
+}
