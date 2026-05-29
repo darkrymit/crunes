@@ -1,0 +1,5 @@
+# local overrides (machine-specific, never commit)
+config.local.json
+
+# run logs
+logs/

@@ -1,0 +1,12 @@
+{
+  "runes": {
+    "deployer": {
+      "path": ".crunes/runes/deployer.js",
+      "name": "Cloud Deployment Orchestrator",
+      "description": "Orchestrates service deployments and environment stacks",
+      "vars": {
+        "profile": "developer"
+      }
+    }
+  }
+}
