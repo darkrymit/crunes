@@ -19,7 +19,7 @@ export async function use(args) {
   const ciphertext = await crypto.encrypt('aes-256-cbc', key, iv, bytes)
 
   const basename = file.split('/').pop().split('\\').pop()
-  const dest = `@project-cache/vault/${basename}.enc`
+  const dest = `@local-project-cache/vault/${basename}.enc`
   await fs.writeAsBytes(dest, ciphertext)
 
   return section.create('encrypted', {

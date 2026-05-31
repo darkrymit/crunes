@@ -1,7 +1,7 @@
 import { fs, section, md } from '@utils'
 
 export async function use() {
-  const files = await fs.glob('@project-cache/vault/*.enc')
+  const files = await fs.glob('@local-project-cache/vault/*.enc')
 
   if (files.length === 0) {
     return section.create('vault', {

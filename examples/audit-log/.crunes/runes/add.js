@@ -8,7 +8,7 @@ export async function args(b) {
 
 export async function use(args) {
   const message = args._[0]
-  const h = await cache.open('@project-cache', 'audit-log')
+  const h = await cache.open('@local-project-cache', 'audit-log')
 
   if (!(await h.has('initialized'))) {
     await fs.append('audit.log', `# Audit Log — initialized ${new Date().toISOString()}\n`)

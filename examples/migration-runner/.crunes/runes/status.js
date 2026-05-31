@@ -1,7 +1,7 @@
 import { cache, fs, section, md } from '@utils'
 
 export async function use() {
-  const h = await cache.open('@project-cache', 'migrations')
+  const h = await cache.open('@local-project-cache', 'migrations')
   const files = (await fs.glob('migrations/*.sql')).sort()
 
   const rows = await Promise.all(
