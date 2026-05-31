@@ -9,6 +9,15 @@
           "allow": ["shell.exec:node *"]
         }
       }
+    },
+    "stream-fetch": {
+      "name": "Stream Fetch",
+      "description": "Streams an HTTP response body chunk-by-chunk using res.body().getReader().",
+      "permissions": {
+        "use": {
+          "allow": ["http.fetch:GET:*"]
+        }
+      }
     }
   }
 }
