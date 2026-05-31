@@ -1,0 +1,7 @@
+# Runtime output
+large_data.bin
+processed_data.txt
+
+.vscode/
+.idea/
+*.iml

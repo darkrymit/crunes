@@ -1,0 +1,21 @@
+{
+  "name": "streams-demo",
+  "runes": {
+    "generate": {
+      "name": "Generate Large File",
+      "permissions": {
+        "use": {
+          "allow": ["fs.read:large_data.bin", "fs.write:large_data.bin"]
+        }
+      }
+    },
+    "decode": {
+      "name": "Decode Large File",
+      "permissions": {
+        "use": {
+          "allow": ["fs.read:large_data.bin", "fs.read:processed_data.txt", "fs.write:processed_data.txt"]
+        }
+      }
+    }
+  }
+}
