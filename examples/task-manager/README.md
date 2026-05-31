@@ -16,6 +16,7 @@ A per-project task tracker demonstrating complex argument structures in crunes r
 ```bash
 cd examples/task-manager
 
+crunes use init
 crunes use task add "Buy milk" --priority high --tag shopping
 crunes use task add "Write docs" --tag docs
 crunes use task list
