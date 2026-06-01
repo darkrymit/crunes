@@ -15,7 +15,7 @@
       "description": "Streams an HTTP response body chunk-by-chunk using res.body().getReader().",
       "permissions": {
         "use": {
-          "allow": ["http.fetch:GET:*"]
+          "allow": ["http.fetch:GET:**"]
         }
       }
     }
