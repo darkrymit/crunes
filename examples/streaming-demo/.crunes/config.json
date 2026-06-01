@@ -6,7 +6,7 @@
       "description": "Streams subprocess output progressively, emitting section updates until a tick limit.",
       "permissions": {
         "use": {
-          "allow": ["shell.exec:node *"]
+          "allow": ["shell.exec:node counter.js"]
         }
       }
     },
@@ -16,6 +16,19 @@
       "permissions": {
         "use": {
           "allow": ["http.fetch:GET:**"]
+        }
+      }
+    },
+    "stream-shell-features": {
+      "name": "Stream Shell Features",
+      "description": "Demonstrates WHATWG Web standard streams, stdin stream piping, and binary mode in sandboxed shell executions.",
+      "permissions": {
+        "use": {
+          "allow": [
+            "shell.exec:node pipe.js",
+            "shell.exec:node binary.js",
+            "shell.exec:node counter.js"
+          ]
         }
       }
     }
