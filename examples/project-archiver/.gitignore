@@ -1,0 +1,8 @@
+# Runtime outputs
+temp-src/
+backups/
+project_backup.zip
+
+.vscode/
+.idea/
+*.iml
