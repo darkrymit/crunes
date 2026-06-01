@@ -1,0 +1,30 @@
+{
+  "name": "zip-upload-stream",
+  "runes": {
+    "pack-and-upload": {
+      "name": "Pack & Upload Stream",
+      "description": "Zips a directory, Base64 encodes it, and streams the result directly to disk and HTTP POST.",
+      "permissions": {
+        "use": {
+          "allow": [
+            "fs.read:./**",
+            "fs.write:./**",
+            "http.fetch:POST:https://httpbin.org/post"
+          ]
+        }
+      }
+    },
+    "download-and-unpack": {
+      "name": "Download & Unpack Stream",
+      "description": "Reads a Base64 encoded zip stream from disk, decodes it, and extracts it directly.",
+      "permissions": {
+        "use": {
+          "allow": [
+            "fs.read:./**",
+            "fs.write:./**"
+          ]
+        }
+      }
+    }
+  }
+}

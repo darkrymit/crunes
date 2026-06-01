@@ -1,0 +1,10 @@
+# Runtime outputs
+temp_upload_source/
+temp_extracted/
+packed_payload.b64
+http_response.json
+secret.json
+
+.vscode/
+.idea/
+*.iml
