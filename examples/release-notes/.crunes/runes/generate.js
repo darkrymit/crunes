@@ -8,7 +8,7 @@ export async function args(b) {
 
 export async function use(args) {
   const { since } = args
-  const output = await shell.exec(`git log ${since}..HEAD --oneline`, { trim: true })
+  const { stdout: output } = await shell.exec(`git log ${since}..HEAD --oneline`, { trim: true })
 
   const commits = output
     .split('\n')

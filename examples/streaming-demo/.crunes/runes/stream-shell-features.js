@@ -32,7 +32,7 @@ export async function use(args) {
 
   // 2. Showcase: shell.exec returning raw Uint8Array (binary: true)
   console.log('--- Step 2: Running shell.exec in binary mode ---')
-  const binaryResult = await shell.exec('node binary.js', {
+  const { stdout: binaryResult } = await shell.exec('node binary.js', {
     binary: true
   })
 
