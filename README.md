@@ -38,7 +38,7 @@ You can query it directly from the CLI:
 crunes use api endpoints authentication
 ```
 
-With a native integration (like our Agentic Coder Interface), your AI assistant can automatically discover runes and inject their live output directly into its context window. Simply write `$api(endpoints,authentication)` or `$api::api-endpoints` in your prompt and the hook resolves and injects the rune output before the model ever sees it.
+With a native integration (like our Agentic Coder Interface), your AI assistant can automatically discover runes and inject their live output directly into its context window. Simply write `$$api(endpoints,authentication)` or `$$api::api-endpoints` in your prompt and the hook resolves and injects the rune output before the model ever sees it.
 
 ## Why Crunes?
 
