@@ -15,7 +15,7 @@ export async function use(args) {
     })
   }
 
-  const reader = res.body().getReader()
+  const reader = res.body.getReader()
   const decoder = new TextDecoder()
   const chunks = []
 

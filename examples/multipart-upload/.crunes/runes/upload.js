@@ -35,7 +35,7 @@ export async function use({ file, field }) {
   }
 
   // Stream the response body chunk by chunk, emitting progress as we go
-  const reader = res.body().getReader()
+  const reader = res.body.getReader()
   const decoder = new TextDecoder()
   let received = 0
   let rawText = ''
