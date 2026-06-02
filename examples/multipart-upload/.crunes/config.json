@@ -8,7 +8,7 @@
         "use": {
           "allow": [
             "fs.read:./**",
-            "http.fetch:POST:https://httpbin.org/post"
+            "http.fetch:POST::https://httpbin.org/post"
           ]
         }
       }

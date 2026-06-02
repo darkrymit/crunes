@@ -9,7 +9,7 @@
           "allow": [
             "fs.read:./**",
             "fs.write:./**",
-            "http.fetch:POST:https://httpbin.org/post"
+            "http.fetch:POST::https://httpbin.org/post"
           ]
         }
       }
