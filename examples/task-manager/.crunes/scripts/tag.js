@@ -9,7 +9,7 @@ export async function handleTag(args, fs, section, md) {
     })
   }
 
-  const sub = args.command // 'tag add', 'tag remove', 'tag list'
+  const sub = args.$command // 'tag add', 'tag remove', 'tag list'
 
   if (sub === 'tag list') {
     return section.create('task-tag', {

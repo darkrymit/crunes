@@ -50,7 +50,7 @@ export async function args(b) {
 }
 
 export async function use(args) {
-  const cmd = args.command ?? ''
+  const cmd = args.$command ?? ''
   if (cmd === 'add')         return handleAdd(args, fs, section, md)
   if (cmd === 'list')        return handleList(args, fs, section, md)
   if (cmd === 'done')        return handleDone(args, fs, section, md)

@@ -29,13 +29,13 @@ export async function args(b) {
 
 export async function use(args) {
   // Intercept unregistered commands passed as positionals due to lenient parser
-  if (!args.command && args._.length > 0) {
+  if (!args.$command && args._.length > 0) {
     throw new Error(`Command "${args._[0]}" is invalid or not exposed for the active profile.`)
   }
 
   const sections = []
 
-  switch (args.command) {
+  switch (args.$command) {
     case 'status': {
       sections.push(section.create('status-report', {
         type: 'markdown',

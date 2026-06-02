@@ -28,7 +28,7 @@ export async function use(args) {
 
   const client = await db.connect(uri)
 
-  const cmd = args.command || 'list'
+  const cmd = args.$command || 'list'
 
   // --- ADD NOTE ---
   if (cmd === 'add') {

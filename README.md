@@ -25,7 +25,7 @@ export async function args(b) {
 
 // 2. Execute on demand to gather knowledge or take action
 export async function use(args) {
-  if (args.command === 'endpoints') {
+  if (args.$command === 'endpoints') {
     const data = await scanModuleEndpoints(args.module)
     return section.create('api-endpoints', { type: 'markdown', content: data })
   }

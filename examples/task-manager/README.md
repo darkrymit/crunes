@@ -8,7 +8,7 @@ A per-project task tracker demonstrating complex argument structures in crunes r
 - **Three-level nesting** — `task tag <id> add|remove|list` with positionals accumulating across levels
 - **Per-subcommand flags and positionals** — each command declares its own `option()` and `positional()` calls
 - **`.example()` calls** — on the root builder, individual subcommands, and the `tag` subtree
-- **`args.command` routing** — the `use()` function routes on the space-joined command path (`'tag add'`, `'tag remove'`, `'tag list'`)
+- **`args.$command` routing** — the `use()` function routes on the space-joined command path (`'tag add'`, `'tag remove'`, `'tag list'`)
 - **Relative imports inside the sandbox** — `task.js` imports handlers from `../scripts/*.js` with no permission token required
 
 ## How to run
@@ -38,12 +38,12 @@ crunes use task rm 2
 
 ## Key patterns
 
-### `args.command` routing
+### `args.$command` routing
 
-`args.command` is the space-joined string of matched command tokens. The `use()` function in `task.js` routes on it:
+`args.$command` is the space-joined string of matched command tokens. The `use()` function in `task.js` routes on it:
 
 ```js
-const cmd = args.command ?? ''
+const cmd = args.$command ?? ''
 if (cmd === 'add')         return handleAdd(args, fs, section, md)
 if (cmd.startsWith('tag')) return handleTag(args, fs, section, md)
 ```
@@ -51,7 +51,7 @@ if (cmd.startsWith('tag')) return handleTag(args, fs, section, md)
 Inside `tag.js`, the same value distinguishes sub-levels:
 
 ```js
-const sub = args.command  // 'tag add', 'tag remove', 'tag list'
+const sub = args.$command  // 'tag add', 'tag remove', 'tag list'
 if (sub === 'tag add') { ... }
 ```
 
@@ -73,5 +73,5 @@ The `tag` command declares `<id>` as a positional, and its sub-commands (`add`, 
 crunes use task tag 1 add urgent
   → args.id === '1'
   → args.tag === 'urgent'
-  → args.command === 'tag add'
+  → args.$command === 'tag add'
 ```
