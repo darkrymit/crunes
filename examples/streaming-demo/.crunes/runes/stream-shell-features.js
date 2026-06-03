@@ -44,9 +44,9 @@ export async function run(args) {
     hex: Array.from(binaryResult).map(b => b.toString(16).padStart(2, '0')).join(' ')
   })
 
-  // 3. Showcase: execInSession with Web Streams (getReader)
+  // 3. Showcase: shell.spawn with Web Streams (getReader)
   console.log('--- Step 3: Running interactive session with standard Web Streams ---')
-  const session = shell.execInSession('node counter.js', {
+  const session = shell.spawn('node counter.js', {
     binary: false
   })
 
@@ -59,7 +59,7 @@ export async function run(args) {
   }
 
   steps.push({
-    title: '3. `shell.execInSession` Web Streams consumption',
+    title: '3. `shell.spawn` Web Streams consumption',
     description: 'Consumed interactive `session.stdout` using standard `getReader()` with asynchronous stream reading loops.',
     output: sessionOutput
   })

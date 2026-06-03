@@ -8,7 +8,7 @@ Demonstrates HTTP server + two piggybacked WebSocket servers in a server-worker 
 - Two `ws.server()` instances piggybacking on the same HTTP server
 - `ws.server({ path: '/jobs' })` — broadcast channel for queue events
 - `ws.server({ path: '/logs' })` — per-job log channel routed via `conn.pathname`
-- `rune.spawn` / `rune.exists` / `rune.kill` for worker lifecycle management
+- `rune.job.start` / `rune.job.exists` / `rune.job.kill` for worker lifecycle management
 - `ws.client()` in a consumer rune with concurrent connections
 
 ## How to run

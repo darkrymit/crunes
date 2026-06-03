@@ -4,7 +4,7 @@ Start, monitor, and stop a long-running background worker process.
 
 ## What it demonstrates
 
-Uses `rune.spawn` to start a rune as a background job, `rune.exists` to check if it's still alive, and `rune.kill` to terminate it. State is persisted between calls via `json.write`/`json.read`.
+Uses `rune.job.start` to start a rune as a background job, `rune.job.exists` to check if it's still alive, and `rune.job.kill` to terminate it. State is persisted between calls via `json.write`/`json.read`.
 
 ## How to run
 

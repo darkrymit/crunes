@@ -10,7 +10,7 @@ export async function run(args) {
   const limit = args._[0] ? parseInt(args._[0]) : 5
   const controller = new AbortController()
   const decoder = new TextDecoder('utf-8')
-  const session = shell.execInSession('node counter.js', { signal: controller.signal })
+  const session = shell.spawn('node counter.js', { signal: controller.signal })
   const ticks = []
 
   return new Promise((resolve, reject) => {

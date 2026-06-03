@@ -6,7 +6,7 @@ Stream data in real time — from a subprocess or an HTTP response body.
 
 ### `stream-count`
 
-Uses `shell.execInSession` to start a subprocess and listen to its stdout, `section.emit` to push intermediate updates before the rune resolves, `TextDecoder` to decode binary chunks, and `AbortController` to stop the subprocess when a condition is met.
+Uses `shell.spawn` to start a subprocess and listen to its stdout, `section.emit` to push intermediate updates before the rune resolves, `TextDecoder` to decode binary chunks, and `AbortController` to stop the subprocess when a condition is met.
 
 ### `stream-fetch`
 
