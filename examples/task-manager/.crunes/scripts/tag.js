@@ -40,7 +40,7 @@ export async function handleTag(args, fs, section, md) {
 
   return section.create('task-tag', {
     type: 'markdown',
-    content: md.p('Usage: `crunes use task tag <id> add|remove|list [<tag>]`'),
+    content: md.p('Usage: `crunes run task tag <id> add|remove|list [<tag>]`'),
   })
 }
 

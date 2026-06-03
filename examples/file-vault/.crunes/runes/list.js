@@ -6,7 +6,7 @@ export async function run() {
   if (files.length === 0) {
     return section.create('vault', {
       type: 'markdown',
-      content: md.p('Vault is empty — run `crunes use encrypt` first.'),
+      content: md.p('Vault is empty — run `crunes run encrypt` first.'),
     })
   }
 

@@ -6,11 +6,11 @@ export async function run(args) {
   // 1. Check if payload and secret exist
   const hasPayload = await fs.exists('packed_payload.b64')
   if (!hasPayload) {
-    throw new Error('packed_payload.b64 not found. Run "crunes use pack-and-upload" first to generate the payload!')
+    throw new Error('packed_payload.b64 not found. Run "crunes run pack-and-upload" first to generate the payload!')
   }
   const hasSecret = await fs.exists('secret.json')
   if (!hasSecret) {
-    throw new Error('secret.json not found. Run "crunes use pack-and-upload" first to generate the symmetric keys!')
+    throw new Error('secret.json not found. Run "crunes run pack-and-upload" first to generate the symmetric keys!')
   }
 
   // 2. Load symmetric keys

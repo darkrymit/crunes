@@ -4,8 +4,8 @@ export function args(builder) {
   return builder
     .positional('<file>', 'Relative path to the file to upload')
     .option('--field', 'Form field name for the file', 'file')
-    .example('crunes use upload sample.txt', 'Upload sample.txt under the "file" field')
-    .example('crunes use upload data.json --field payload', 'Upload with a custom field name')
+    .example('crunes run upload sample.txt', 'Upload sample.txt under the "file" field')
+    .example('crunes run upload data.json --field payload', 'Upload with a custom field name')
 }
 
 export async function run({ file, field }) {

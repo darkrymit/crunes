@@ -5,7 +5,7 @@ export async function run() {
   if (!content) {
     return section.create('notes', {
       type: 'markdown',
-      content: md.p('No notes yet. Run `crunes use notes:add` to add one.'),
+      content: md.p('No notes yet. Run `crunes run notes:add` to add one.'),
     })
   }
   return section.create('notes', {

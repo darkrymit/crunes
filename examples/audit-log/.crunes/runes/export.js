@@ -5,7 +5,7 @@ export async function run() {
   if (!content) {
     return section.create('export', {
       type: 'markdown',
-      content: md.p('No audit.log found — run `crunes use add` first.'),
+      content: md.p('No audit.log found — run `crunes run add` first.'),
     })
   }
 

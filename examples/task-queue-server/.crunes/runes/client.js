@@ -23,7 +23,7 @@ export async function run(args) {
     } catch {}
     await new Promise(r => setTimeout(r, 200))
   }
-  if (!ready) throw new Error('Worker did not become ready within 5s — run: crunes use server start')
+  if (!ready) throw new Error('Worker did not become ready within 5s — run: crunes run server start')
 
   // 2. Submit N jobs
   const submitResults = await Promise.all(

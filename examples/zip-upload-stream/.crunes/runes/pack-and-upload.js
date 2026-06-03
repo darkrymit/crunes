@@ -65,7 +65,7 @@ export async function run(args) {
       `*   **Direct HTTP Stream Upload**: Streamed encrypted zip archive bytes directly to \`https://httpbin.org/post\` with zero intermediate buffering.`,
       `*   **HTTP Response**: Captured server reply in \`http_response.json\`.`,
       '',
-      'Run \`crunes use download-and-unpack\` to decode, decrypt, and extract the payload!'
+      'Run \`crunes run download-and-unpack\` to decode, decrypt, and extract the payload!'
     ].join('\n')
   })
 }

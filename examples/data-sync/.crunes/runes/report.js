@@ -8,7 +8,7 @@ export async function run() {
     await db.close()
     return section.create('report', {
       type: 'markdown',
-      content: md.p('No posts stored yet — run `crunes use sync` first.'),
+      content: md.p('No posts stored yet — run `crunes run sync` first.'),
     })
   }
 

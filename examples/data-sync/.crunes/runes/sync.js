@@ -6,7 +6,7 @@ export async function run() {
   if (await h.has('last-fetch')) {
     return section.create('sync', {
       type: 'markdown',
-      content: md.p('Already synced recently. Run `crunes use report` to see stored data, or wait for cache to expire (5 min).'),
+      content: md.p('Already synced recently. Run `crunes run report` to see stored data, or wait for cache to expire (5 min).'),
     })
   }
 
