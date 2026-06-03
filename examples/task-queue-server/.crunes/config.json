@@ -1,0 +1,42 @@
+{
+  "name": "task-queue-server",
+  "runes": {
+    "server": {
+      "name": "Task Queue — Server",
+      "description": "Manages the worker lifecycle — start, stop, or check status.",
+      "permissions": {
+        "use": {
+          "allow": [
+            "fs.read:.crunes/state/task-queue-server.json",
+            "fs.write:.crunes/state/task-queue-server.json",
+            "rune.spawn:worker",
+            "rune.kill:worker",
+            "rune.exists:worker"
+          ]
+        }
+      }
+    },
+    "worker": {
+      "name": "Task Queue — Worker",
+      "description": "Long-running HTTP + WebSocket server. Accepts job submissions, simulates work, and streams logs.",
+      "permissions": {
+        "use": {
+          "allow": []
+        }
+      }
+    },
+    "client": {
+      "name": "Task Queue — Client",
+      "description": "Submits jobs via HTTP, streams per-job logs via WebSocket, and prints a completion report.",
+      "permissions": {
+        "use": {
+          "allow": [
+            "http.fetch:GET::http://127.0.0.1:3700/**",
+            "http.fetch:POST::http://127.0.0.1:3700/jobs",
+            "ws.client:ws://127.0.0.1:3700/**"
+          ]
+        }
+      }
+    }
+  }
+}
