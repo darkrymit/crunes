@@ -1,6 +1,6 @@
 import { fs, section, md } from '@utils'
 
-export async function use() {
+export async function run() {
   if (await fs.exists('tasks.json')) {
     return section.create('init', {
       type: 'markdown',

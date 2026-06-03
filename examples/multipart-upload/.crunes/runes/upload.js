@@ -8,7 +8,7 @@ export function args(builder) {
     .example('crunes use upload data.json --field payload', 'Upload with a custom field name')
 }
 
-export async function use({ file, field }) {
+export async function run({ file, field }) {
   const bytes = await fs.readAsBytes(file)
   if (!bytes) {
     return section.create('upload', {

@@ -1,6 +1,6 @@
 import { json, yaml, fs, section, md } from '@utils'
 
-export async function use() {
+export async function run() {
   const pkg = await json.read('package.json')
   const workflows = await fs.glob('.github/workflows/*.yml')
 

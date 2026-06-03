@@ -6,7 +6,7 @@ export async function args(b) {
     .build()
 }
 
-export async function use(args) {
+export async function run(args) {
   const { name } = args
   const path = `.github/workflows/${name}.yml`
 

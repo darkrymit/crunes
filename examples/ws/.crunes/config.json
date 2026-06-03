@@ -5,7 +5,7 @@
       "name": "WS Echo Demo",
       "description": "Connects to a WebSocket echo server, sends three messages, and collects replies.",
       "permissions": {
-        "use": {
+        "run": {
           "allow": [
             "ws.client:ws://localhost:**"
           ]

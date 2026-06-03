@@ -5,7 +5,7 @@
       "name": "Streaming Demo",
       "description": "Streams subprocess output progressively, emitting section updates until a tick limit.",
       "permissions": {
-        "use": {
+        "run": {
           "allow": ["shell.exec:node counter.js"]
         }
       }
@@ -14,7 +14,7 @@
       "name": "Stream Fetch",
       "description": "Streams an HTTP response body chunk-by-chunk using res.body().getReader().",
       "permissions": {
-        "use": {
+        "run": {
           "allow": ["http.fetch:GET::**"]
         }
       }
@@ -23,7 +23,7 @@
       "name": "Stream Shell Features",
       "description": "Demonstrates WHATWG Web standard streams, stdin stream piping, and binary mode in sandboxed shell executions.",
       "permissions": {
-        "use": {
+        "run": {
           "allow": [
             "shell.exec:node pipe.js",
             "shell.exec:node binary.js",

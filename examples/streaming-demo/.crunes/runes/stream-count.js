@@ -6,7 +6,7 @@ export async function args(b) {
     .build()
 }
 
-export async function use(args) {
+export async function run(args) {
   const limit = args._[0] ? parseInt(args._[0]) : 5
   const controller = new AbortController()
   const decoder = new TextDecoder('utf-8')

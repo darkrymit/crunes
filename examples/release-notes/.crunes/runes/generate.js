@@ -6,7 +6,7 @@ export async function args(b) {
     .build()
 }
 
-export async function use(args) {
+export async function run(args) {
   const { since } = args
   const { stdout: output } = await shell.exec(`git log ${since}..HEAD --oneline`, { trim: true })
 

@@ -8,7 +8,7 @@ export async function args(b) {
     .build()
 }
 
-export async function use(args) {
+export async function run(args) {
   const action = args._[0] ?? 'status'
 
   if (action === 'start') {

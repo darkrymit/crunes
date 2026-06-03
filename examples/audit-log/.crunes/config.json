@@ -5,7 +5,7 @@
       "name": "Audit Log — Add",
       "description": "Appends a timestamped message to the project audit log.",
       "permissions": {
-        "use": {
+        "run": {
           "allow": [
             "fs.write:./audit.log",
             "cache.read:@project-cache/**",
@@ -18,7 +18,7 @@
       "name": "Audit Log — Export",
       "description": "Encodes the audit log as base64 and writes a chmod'd shell script.",
       "permissions": {
-        "use": {
+        "run": {
           "allow": [
             "fs.read:./audit.log",
             "fs.write:./export/**"

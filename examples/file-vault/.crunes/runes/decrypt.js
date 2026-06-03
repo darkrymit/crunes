@@ -7,7 +7,7 @@ export async function args(b) {
     .build()
 }
 
-export async function use(args) {
+export async function run(args) {
   const { file, password } = args
 
   const key = codec.fromUtf8(password.padEnd(32, '0').slice(0, 32))

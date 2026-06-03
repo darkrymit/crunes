@@ -1,6 +1,6 @@
 import { http, ws, time, section, md } from '@utils'
 
-export async function use() {
+export async function run() {
   const jobs = new Map()          // jobId → { id, status, logConn, pendingLogs }
   const jobsWatchers = new Set()  // active /jobs WS connections
 

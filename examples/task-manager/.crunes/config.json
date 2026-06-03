@@ -5,7 +5,7 @@
       "name": "Init",
       "description": "Create tasks.json if it does not exist.",
       "permissions": {
-        "use": {
+        "run": {
           "allow": [
             "fs.read:./tasks.json",
             "fs.write:./tasks.json"
@@ -17,7 +17,7 @@
       "name": "Task Manager",
       "description": "Per-project task tracker with nested tag management.",
       "permissions": {
-        "use": {
+        "run": {
           "allow": [
             "fs.read:./tasks.json",
             "fs.write:./tasks.json"

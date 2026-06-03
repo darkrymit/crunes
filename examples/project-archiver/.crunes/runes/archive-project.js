@@ -7,7 +7,7 @@ export async function args(b) {
     .build()
 }
 
-export async function use(args) {
+export async function run(args) {
   const targetDir = args['target-dir']
   const backupDir = args['backup-dir']
 

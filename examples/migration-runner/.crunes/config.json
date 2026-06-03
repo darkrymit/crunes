@@ -5,7 +5,7 @@
       "name": "Migration Runner — Migrate",
       "description": "Runs pending SQL migrations and marks them as applied.",
       "permissions": {
-        "use": {
+        "run": {
           "allow": [
             "fs.read:./migrations/**",
             "fs.glob:./migrations/**",
@@ -21,7 +21,7 @@
       "name": "Migration Runner — Status",
       "description": "Shows which migrations have been applied and which are pending.",
       "permissions": {
-        "use": {
+        "run": {
           "allow": [
             "fs.glob:./migrations/**",
             "cache.read:@project-cache/**"

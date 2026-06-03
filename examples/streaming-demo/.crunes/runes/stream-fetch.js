@@ -4,7 +4,7 @@ export const args = (b) => b
   .positional('[url]', 'URL to stream from (default: httpbin.org/stream/3)')
   .build()
 
-export async function use(args) {
+export async function run(args) {
   const url = args._[0] ?? 'https://httpbin.org/stream/3'
   const res = await http.fetch(url)
 

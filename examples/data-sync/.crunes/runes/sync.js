@@ -1,6 +1,6 @@
 import { http, cache, sqlite, section, md } from '@utils'
 
-export async function use() {
+export async function run() {
   const h = await cache.open('@local-project-cache', 'data-sync')
 
   if (await h.has('last-fetch')) {

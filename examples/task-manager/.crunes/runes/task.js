@@ -49,7 +49,7 @@ export async function args(b) {
     .build()
 }
 
-export async function use(args) {
+export async function run(args) {
   const cmd = args.$command ?? ''
   if (cmd === 'add')         return handleAdd(args, fs, section, md)
   if (cmd === 'list')        return handleList(args, fs, section, md)

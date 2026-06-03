@@ -1,6 +1,6 @@
 import { fs, codec, section, md } from '@utils'
 
-export async function use() {
+export async function run() {
   const content = await fs.read('audit.log')
   if (!content) {
     return section.create('export', {

@@ -7,7 +7,7 @@ export async function args(b) {
     .build()
 }
 
-export async function use(args) {
+export async function run(args) {
   const { file, password } = args
 
   // Demo-only key derivation: pad/truncate password to 32 bytes

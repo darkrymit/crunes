@@ -4,7 +4,7 @@ export async function args(b) {
   return b.positional('<name>', 'Name to greet').build()
 }
 
-export async function use(args) {
+export async function run(args) {
   const name = args._[0]
   return section.create('greeting', {
     type: 'markdown',

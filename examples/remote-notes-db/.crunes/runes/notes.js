@@ -18,7 +18,7 @@ export async function args(b) {
     .build()
 }
 
-export async function use(args) {
+export async function run(args) {
   const host = await env.read('DB_HOST', 'localhost')
   const port = await env.read('DB_PORT', '5432')
   const user = await env.read('DB_USER', 'postgres')

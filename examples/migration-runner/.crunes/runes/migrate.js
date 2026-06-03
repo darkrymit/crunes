@@ -1,6 +1,6 @@
 import { sqlite, cache, fs, section, md } from '@utils'
 
-export async function use() {
+export async function run() {
   const db = await sqlite.open('@local-project-sqlite', 'app')
   const h = await cache.open('@local-project-cache', 'migrations')
 

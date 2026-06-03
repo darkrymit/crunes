@@ -4,7 +4,7 @@ export const args = (b) => b
   .option('--size <value>', 'Size in MB to generate', 1024)
   .build()
 
-export async function use(args) {
+export async function run(args) {
   const totalChunks = args.size
   const chunkSize = 1024 * 1024 // 1MB chunk
 

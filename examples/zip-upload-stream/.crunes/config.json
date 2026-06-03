@@ -5,7 +5,7 @@
       "name": "Pack & Upload Stream",
       "description": "Zips a directory, Base64 encodes it, and streams the result directly to disk and HTTP POST.",
       "permissions": {
-        "use": {
+        "run": {
           "allow": [
             "fs.read:./**",
             "fs.write:./**",
@@ -18,7 +18,7 @@
       "name": "Download & Unpack Stream",
       "description": "Reads a Base64 encoded zip stream from disk, decodes it, and extracts it directly.",
       "permissions": {
-        "use": {
+        "run": {
           "allow": [
             "fs.read:./**",
             "fs.write:./**"

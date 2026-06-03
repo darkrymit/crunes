@@ -1,6 +1,6 @@
 import { fs, section, md } from '@utils'
 
-export async function use() {
+export async function run() {
   const content = await fs.read('notes.md')
   if (!content) {
     return section.create('notes', {

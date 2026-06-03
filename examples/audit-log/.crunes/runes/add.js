@@ -6,7 +6,7 @@ export async function args(b) {
     .build()
 }
 
-export async function use(args) {
+export async function run(args) {
   const message = args._[0]
   const h = await cache.open('@local-project-cache', 'audit-log')
 

@@ -5,7 +5,7 @@
       "name": "Release Notes — Generate",
       "description": "Generates a changelog entry from git log and appends it to CHANGELOG.md.",
       "permissions": {
-        "use": {
+        "run": {
           "allow": [
             "shell.exec:git *",
             "fs.write:./CHANGELOG.md"

@@ -6,7 +6,7 @@ export async function args(b) {
     .build()
 }
 
-export async function use(args) {
+export async function run(args) {
   const url = args._[0] ?? 'ws://localhost:3099'
   const socket = ws.client(url)
   const replies = []

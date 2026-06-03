@@ -5,7 +5,7 @@
       "name": "Multipart File Upload",
       "description": "Uploads a local file as a multipart/form-data POST and streams the response body.",
       "permissions": {
-        "use": {
+        "run": {
           "allow": [
             "fs.read:./**",
             "http.fetch:POST::https://httpbin.org/post"

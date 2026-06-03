@@ -5,7 +5,7 @@
       "name": "File Vault — Encrypt",
       "description": "Encrypts a file into the vault using AES-256-CBC.",
       "permissions": {
-        "use": {
+        "run": {
           "allow": [
             "fs.read:./**",
             "fs.write:@project-cache/vault/**"
@@ -17,7 +17,7 @@
       "name": "File Vault — List",
       "description": "Lists files currently stored in the vault.",
       "permissions": {
-        "use": {
+        "run": {
           "allow": [
             "fs.read:@project-cache/vault/**",
             "fs.glob:@project-cache/vault/**"
@@ -29,7 +29,7 @@
       "name": "File Vault — Decrypt",
       "description": "Decrypts a vault file back to the decrypted/ directory.",
       "permissions": {
-        "use": {
+        "run": {
           "allow": [
             "fs.read:@project-cache/vault/**",
             "fs.write:./decrypted/**"

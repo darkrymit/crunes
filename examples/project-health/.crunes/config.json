@@ -5,7 +5,7 @@
       "name": "Project Health — Check",
       "description": "Reports package.json metadata and GitHub Actions workflow inventory.",
       "permissions": {
-        "use": {
+        "run": {
           "allow": [
             "fs.read:./package.json",
             "fs.glob:./.github/workflows/**",
@@ -18,7 +18,7 @@
       "name": "Project Health — Fix Version",
       "description": "Updates the version field in package.json.",
       "permissions": {
-        "use": {
+        "run": {
           "allow": [
             "fs.read:./package.json",
             "fs.write:./package.json"

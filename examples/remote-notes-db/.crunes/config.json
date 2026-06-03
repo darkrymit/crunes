@@ -2,7 +2,7 @@
   "runes": {
     "init": {
       "permissions": {
-        "use": {
+        "run": {
           "allow": [
             "env.read:DB_HOST",
             "env.read:DB_PORT",
@@ -21,7 +21,7 @@
     },
     "notes": {
       "permissions": {
-        "use": {
+        "run": {
           "allow": [
             "env.read:DB_HOST",
             "env.read:DB_PORT",

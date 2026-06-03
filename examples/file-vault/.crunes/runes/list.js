@@ -1,6 +1,6 @@
 import { fs, section, md } from '@utils'
 
-export async function use() {
+export async function run() {
   const files = await fs.glob('@local-project-cache/vault/*.enc')
 
   if (files.length === 0) {

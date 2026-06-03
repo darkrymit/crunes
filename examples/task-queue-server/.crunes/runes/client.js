@@ -7,7 +7,7 @@ export async function args(b) {
     .build()
 }
 
-export async function use(args) {
+export async function run(args) {
   const jobCount = parseInt(args.jobs, 10)
   const port = parseInt(args.port, 10)
   const base = `http://127.0.0.1:${port}`

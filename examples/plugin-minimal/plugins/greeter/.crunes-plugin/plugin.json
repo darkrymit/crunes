@@ -5,7 +5,7 @@
       "name": "Greeter",
       "description": "Returns a personalised greeting.",
       "permissions": {
-        "use": {
+        "run": {
           "allow": []
         }
       }
