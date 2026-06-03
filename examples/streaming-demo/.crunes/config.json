@@ -6,7 +6,7 @@
       "description": "Streams subprocess output progressively, emitting section updates until a tick limit.",
       "permissions": {
         "run": {
-          "allow": ["shell.exec:node counter.js"]
+          "allow": ["shell.run:node counter.js"]
         }
       }
     },
@@ -25,9 +25,9 @@
       "permissions": {
         "run": {
           "allow": [
-            "shell.exec:node pipe.js",
-            "shell.exec:node binary.js",
-            "shell.exec:node counter.js"
+            "shell.run:node pipe.js",
+            "shell.run:node binary.js",
+            "shell.run:node counter.js"
           ]
         }
       }

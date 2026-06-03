@@ -13,13 +13,13 @@ export async function run(args) {
 
   if (action === 'start') {
     const existing = await json.read(STATE_FILE, { throw: false })
-    if (existing?.id && await rune.exists(existing.id)) {
+    if (existing?.id && await rune.job.exists(existing.id)) {
       return section.create('status', {
         type: 'markdown',
         content: md.p(`Already running (job ${existing.id})`),
       })
     }
-    const job = await rune.spawn('worker', [])
+    const job = await rune.job.start('worker', [])
     await json.write(STATE_FILE, { id: job.id, startedAt: new Date().toISOString() })
     return section.create('started', {
       type: 'markdown',
@@ -32,7 +32,7 @@ export async function run(args) {
     if (!state?.id) {
       return section.create('status', { type: 'markdown', content: md.p('Not running') })
     }
-    await rune.kill(state.id)
+    await rune.job.kill(state.id)
     return section.create('stopped', {
       type: 'markdown',
       content: md.p(`Stopped job ${state.id}`),
@@ -44,7 +44,7 @@ export async function run(args) {
   if (!state?.id) {
     return section.create('status', { type: 'markdown', content: md.p('Not running') })
   }
-  const alive = await rune.exists(state.id)
+  const alive = await rune.job.exists(state.id)
   return section.create('status', {
     type: 'markdown',
     content: md.p(

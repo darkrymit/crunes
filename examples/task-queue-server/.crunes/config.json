@@ -9,9 +9,9 @@
           "allow": [
             "fs.read:.crunes/state/task-queue-server.json",
             "fs.write:.crunes/state/task-queue-server.json",
-            "rune.spawn:worker",
-            "rune.kill:worker",
-            "rune.exists:worker"
+            "rune.job.start:worker",
+            "rune.job.kill",
+            "rune.job.exists"
           ]
         }
       }

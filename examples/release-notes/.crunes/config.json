@@ -7,7 +7,7 @@
       "permissions": {
         "run": {
           "allow": [
-            "shell.exec:git *",
+            "shell.run:git *",
             "fs.write:./CHANGELOG.md"
           ]
         }

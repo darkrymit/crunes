@@ -8,9 +8,9 @@
         "run": {
           "allow": [
             "fs.write:.crunes/state/spawn-demo.json",
-            "rune.spawn:worker",
-            "rune.kill:worker",
-            "rune.exists:worker"
+            "rune.job.start:worker",
+            "rune.job.kill",
+            "rune.job.exists"
           ]
         }
       }
