@@ -24,7 +24,7 @@ export async function args(b) {
 }
 
 // 2. Execute on demand to gather knowledge or take action
-export async function use(args) {
+export async function run(args) {
   if (args.$command === 'endpoints') {
     const data = await scanModuleEndpoints(args.module)
     return section.create('api-endpoints', { type: 'markdown', content: data })
@@ -35,7 +35,7 @@ export async function use(args) {
 You can query it directly from the CLI:
 
 ```bash
-crunes use api endpoints authentication
+crunes run api endpoints authentication
 ```
 
 With a native integration (like our Agentic Coder Interface), your AI assistant can automatically discover runes and inject their live output directly into its context window. Simply write `$$api(endpoints,authentication)` or `$$api::api-endpoints` in your prompt and the hook resolves and injects the rune output before the model ever sees it.
