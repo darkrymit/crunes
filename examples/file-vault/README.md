@@ -22,4 +22,4 @@ crunes use decrypt --file secrets.txt --password mypassword
 
 ## What to expect
 
-After encrypt, the file is stored in `~/.crunes/store/file-vault/cache/vault/secrets.txt.enc`. After decrypt, `decrypted/secrets.txt` matches the original `secrets.txt`.
+After encrypt, the file is stored in `vault/secrets.txt.enc` (gitignored). After decrypt, `decrypted/secrets.txt` matches the original `secrets.txt`.

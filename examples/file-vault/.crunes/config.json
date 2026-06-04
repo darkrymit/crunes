@@ -8,7 +8,7 @@
         "run": {
           "allow": [
             "fs.read:./**",
-            "fs.write:@local-project-cache/vault/**"
+            "fs.write:./vault/**"
           ]
         }
       }
@@ -19,8 +19,8 @@
       "permissions": {
         "run": {
           "allow": [
-            "fs.read:@local-project-cache/vault/**",
-            "fs.glob:@local-project-cache/vault/**"
+            "fs.read:./vault/**",
+            "fs.glob:./vault/**"
           ]
         }
       }
@@ -31,7 +31,7 @@
       "permissions": {
         "run": {
           "allow": [
-            "fs.read:@local-project-cache/vault/**",
+            "fs.read:./vault/**",
             "fs.write:./decrypted/**"
           ]
         }
