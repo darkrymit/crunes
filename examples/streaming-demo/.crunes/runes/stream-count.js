@@ -54,5 +54,6 @@ export async function run(args) {
     })
 
     session.on('error', reject)
+    session.open()
   })
 }

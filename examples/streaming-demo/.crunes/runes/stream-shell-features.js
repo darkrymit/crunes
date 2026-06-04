@@ -51,6 +51,7 @@ export async function run(args) {
   })
 
   const reader = session.stdout.getReader()
+  session.open()
   let sessionOutput = ''
   while (true) {
     const { value, done } = await reader.read()
