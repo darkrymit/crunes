@@ -5,7 +5,7 @@ A per-project task tracker demonstrating complex argument structures in crunes r
 ## What it demonstrates
 
 - **Nested subcommands** — `task add`, `task list`, `task done`, `task rm`, `task tag`
-- **Three-level nesting** — `task tag <id> add|remove|list` with positionals accumulating across levels
+- **Three-level nesting** — `task tag add|remove|list <id>` with positionals accumulating across levels
 - **Per-subcommand flags and positionals** — each command declares its own `option()` and `positional()` calls
 - **`.example()` calls** — on the root builder, individual subcommands, and the `tag` subtree
 - **`args.$command` routing** — the `use()` function routes on the space-joined command path (`'tag add'`, `'tag remove'`, `'tag list'`)
@@ -16,16 +16,16 @@ A per-project task tracker demonstrating complex argument structures in crunes r
 ```bash
 cd examples/task-manager
 
-crunes use init
-crunes use task add "Buy milk" --priority high --tag shopping
-crunes use task add "Write docs" --tag docs
-crunes use task list
-crunes use task list --status open --tag shopping
-crunes use task done 1
-crunes use task tag 2 add urgent
-crunes use task tag 2 list
-crunes use task tag 2 remove urgent
-crunes use task rm 2
+crunes run init
+crunes run task add "Buy milk" --priority high --tag shopping
+crunes run task add "Write docs" --tag docs
+crunes run task list
+crunes run task list --status open --tag shopping
+crunes run task done 1
+crunes run task tag add 2 urgent
+crunes run task tag list 2
+crunes run task tag remove 2 urgent
+crunes run task rm 2
 ```
 
 ## What to expect
@@ -67,10 +67,10 @@ The sandbox resolves these off the referrer's path — no `@project/` prefix or 
 
 ### Positionals accumulate across nesting levels
 
-The `tag` command declares `<id>` as a positional, and its sub-commands (`add`, `remove`) each declare `<tag>`. Both land on the same `args` object:
+Each `tag` sub-command (`add`, `remove`, `list`) declares `<id>` as its first positional; `add` and `remove` also declare `<tag>`. Both land on the same `args` object:
 
 ```
-crunes use task tag 1 add urgent
+crunes run task tag add 1 urgent
   → args.id === '1'
   → args.tag === 'urgent'
   → args.$command === 'tag add'

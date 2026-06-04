@@ -9,7 +9,7 @@ export async function args(b) {
   return b
     .example('crunes run task add "Buy milk" --priority high --tag shopping', 'Add a high-priority task')
     .example('crunes run task list --status open --tag shopping', 'List open tasks tagged shopping')
-    .example('crunes run task tag 1 add urgent', 'Add the urgent tag to task 1')
+    .example('crunes run task tag add 1 urgent', 'Add the urgent tag to task 1')
     .command('add', 'Add a new task', add => {
       add
         .positional('<title>', 'Task title')
@@ -34,17 +34,18 @@ export async function args(b) {
     })
     .command('tag', 'Manage tags on a task', tag => {
       tag
-        .positional('<id>', 'Task ID')
-        .example('crunes run task tag 1 add urgent', 'Add urgent tag to task 1')
-        .example('crunes run task tag 1 remove urgent', 'Remove urgent tag from task 1')
-        .example('crunes run task tag 1 list', 'List all tags on task 1')
+        .example('crunes run task tag add 1 urgent', 'Add urgent tag to task 1')
+        .example('crunes run task tag remove 1 urgent', 'Remove urgent tag from task 1')
+        .example('crunes run task tag list 1', 'List all tags on task 1')
         .command('add', 'Add a tag to a task', tagAdd => {
-          tagAdd.positional('<tag>', 'Tag name to add')
+          tagAdd.positional('<id>', 'Task ID').positional('<tag>', 'Tag name to add')
         })
         .command('remove', 'Remove a tag from a task', tagRemove => {
-          tagRemove.positional('<tag>', 'Tag name to remove')
+          tagRemove.positional('<id>', 'Task ID').positional('<tag>', 'Tag name to remove')
         })
-        .command('list', 'List tags on a task')
+        .command('list', 'List tags on a task', tagList => {
+          tagList.positional('<id>', 'Task ID')
+        })
     })
     .build()
 }
