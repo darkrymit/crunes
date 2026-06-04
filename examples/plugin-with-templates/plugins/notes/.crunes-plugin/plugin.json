@@ -23,5 +23,19 @@
         }
       }
     }
+  },
+  "templates": {
+    "new-note": {
+      "name": "New Note",
+      "description": "Starter rune that appends a titled note to notes.md",
+      "path": "templates/new-note.js",
+      "permissions": {
+        "run": {
+          "allow": [
+            "fs.write:./notes.md"
+          ]
+        }
+      }
+    }
   }
 }
