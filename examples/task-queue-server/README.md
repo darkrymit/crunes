@@ -14,11 +14,11 @@ Demonstrates HTTP server + two piggybacked WebSocket servers in a server-worker 
 ## How to run
 
 ```bash
-crunes use server start      # spawn the worker (HTTP + WS on :3700)
-crunes use server            # check status
-crunes use client            # submit 3 jobs, stream logs, print report
-crunes use client --jobs 5   # submit 5 jobs
-crunes use server stop       # stop the worker
+crunes run server start      # spawn the worker (HTTP + WS on :3700)
+crunes run server            # check status
+crunes run client            # submit 3 jobs, stream logs, print report
+crunes run client --jobs 5   # submit 5 jobs
+crunes run server stop       # stop the worker
 ```
 
 ## What to expect

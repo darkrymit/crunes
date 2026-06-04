@@ -22,8 +22,8 @@ node echo-server.mjs
 ## How to run
 
 ```bash
-crunes use echo
-crunes use echo ws://localhost:3099    # explicit URL
+crunes run echo
+crunes run echo ws://localhost:3099    # explicit URL
 ```
 
 ## What to expect

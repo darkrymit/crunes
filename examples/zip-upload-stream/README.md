@@ -19,13 +19,13 @@ This example utilizes advanced streaming compositions:
 ### 1. Pack, Encrypt and Upload the Stream
 Zips the target directory, encrypts it, encodes it, saves the key material (`secret.json`) and base64 payload to disk, and streams the upload to `httpbin.org`:
 ```bash
-crunes use pack-and-upload
+crunes run pack-and-upload
 ```
 
 ### 2. Download, Decrypt and Unpack the Stream
 Reads the keys and payload stream from disk, decodes and decrypts it chunk-by-chunk, and extracts files directly:
 ```bash
-crunes use download-and-unpack
+crunes run download-and-unpack
 ```
 
 ---

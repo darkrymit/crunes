@@ -9,9 +9,9 @@ Uses `rune.job.start` to start a rune as a background job, `rune.job.exists` to 
 ## How to run
 
 ```bash
-crunes use server start    # start the background worker
-crunes use server          # check status (default action)
-crunes use server stop     # stop the worker
+crunes run server start    # start the background worker
+crunes run server          # check status (default action)
+crunes run server stop     # stop the worker
 ```
 
 ## What to expect

@@ -15,11 +15,11 @@ Uses `http.fetch` and `res.body().getReader()` to consume an HTTP response body 
 ## How to run
 
 ```bash
-crunes use stream-count        # stream 5 ticks (default)
-crunes use stream-count 10     # stream 10 ticks
+crunes run stream-count        # stream 5 ticks (default)
+crunes run stream-count 10     # stream 10 ticks
 
-crunes use stream-fetch                            # stream from httpbin.org/stream/3
-crunes use stream-fetch https://httpbin.org/stream/5  # custom URL
+crunes run stream-fetch                            # stream from httpbin.org/stream/3
+crunes run stream-fetch https://httpbin.org/stream/5  # custom URL
 ```
 
 ## What to expect

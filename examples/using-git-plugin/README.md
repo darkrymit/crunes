@@ -6,7 +6,7 @@ Install and invoke the official `git` plugin from the crunes GitHub marketplace.
 
 - Registering a remote GitHub marketplace source with `crunes marketplace add`
 - Installing a plugin with `crunes plugin install`
-- Invoking a plugin rune with `crunes use <plugin>:<rune>`
+- Invoking a plugin rune with `crunes run <plugin>:<rune>`
 
 ## Prerequisites
 
@@ -20,12 +20,12 @@ From this directory:
 ```bash
 crunes marketplace add darkrymit/crunes-plugins
 crunes plugin install crunes-plugins@git
-crunes use git:status
+crunes run git:status
 ```
 
 The `marketplace add` step registers the GitHub-hosted `darkrymit/crunes-plugins` repository as a source.
 The `plugin install` step downloads the `git` plugin and prompts you to consent to its permissions.
-The `crunes use git:status` step runs the installed rune.
+The `crunes run git:status` step runs the installed rune.
 
 ## What to expect
 

@@ -16,8 +16,8 @@ Upload a local file as a `multipart/form-data` POST and stream the response body
 Requires a file to upload — any file in the project directory works:
 
 ```bash
-crunes use upload README.md
-crunes use upload README.md --field document
+crunes run upload README.md
+crunes run upload README.md --field document
 ```
 
 The example targets `https://httpbin.org/post`, which echoes the full request back as JSON so you can see what the server received.

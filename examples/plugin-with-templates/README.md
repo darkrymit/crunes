@@ -40,9 +40,9 @@ Files in `templates/` are copied into the user's project when they run `crunes c
 cd examples/plugin-with-templates
 crunes marketplace add .
 crunes plugin install notes-marketplace@notes
-crunes use notes:add "First note"
-crunes use notes:add "Second note"
-crunes use notes:list
+crunes run notes:add "First note"
+crunes run notes:add "Second note"
+crunes run notes:list
 crunes create my-note.md --from notes:new-note
 ```
 

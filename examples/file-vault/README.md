@@ -11,9 +11,9 @@ Uses `crypto.encrypt`/`decrypt` (AES-256-CBC) with `fs.readAsBytes`/`writeAsByte
 ## How to run
 
 ```bash
-crunes use encrypt --file secrets.txt --password mypassword
-crunes use list
-crunes use decrypt --file secrets.txt --password mypassword
+crunes run encrypt --file secrets.txt --password mypassword
+crunes run list
+crunes run decrypt --file secrets.txt --password mypassword
 ```
 
 - `encrypt --file <path> --password <text>` — encrypts a file into the vault

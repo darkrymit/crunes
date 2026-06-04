@@ -9,9 +9,9 @@ Uses `http.fetch` to call a remote API, `cache.has` as a fetch guard (5-minute T
 ## How to run
 
 ```bash
-crunes use sync      # fetch and store (hits the network)
-crunes use report    # display stored posts
-crunes use sync      # runs again within 5 min — skips fetch
+crunes run sync      # fetch and store (hits the network)
+crunes run report    # display stored posts
+crunes run sync      # runs again within 5 min — skips fetch
 ```
 
 ## What to expect

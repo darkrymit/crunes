@@ -41,7 +41,7 @@ Rune code runs inside a V8 isolate. All I/O goes through the `@utils` API inject
 cd examples/plugin-minimal
 crunes marketplace add .
 crunes plugin install greeter-marketplace@greeter
-crunes use greeter:greet World
+crunes run greeter:greet World
 ```
 
 ## Contributing to `crunes-plugins/`

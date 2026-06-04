@@ -9,7 +9,7 @@ Uses `shell.exec` to run a git command and capture output, string parsing to for
 ## How to run
 
 ```bash
-crunes use generate --since HEAD~5
+crunes run generate --since HEAD~5
 ```
 
 Replace `HEAD~5` with any git tag or commit hash (e.g. `v1.0.0`).

@@ -17,14 +17,14 @@ This example utilizes several newly stabilized sandboxed V8 isolate-to-host brid
 From this directory, execute the project archiver:
 
 ```bash
-crunes use archive-project
+crunes run archive-project
 ```
 
 ### Specifying Custom Targets & Backups
 You can pass custom source targets and deep backup paths using the parsed options:
 
 ```bash
-crunes use archive-project --target-dir custom_staging_dir --backup-dir backups/deep/nested/my_v2_backup
+crunes run archive-project --target-dir custom_staging_dir --backup-dir backups/deep/nested/my_v2_backup
 ```
 
 ---

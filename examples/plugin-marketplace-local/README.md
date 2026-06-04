@@ -15,7 +15,7 @@ From this directory:
 ```bash
 crunes marketplace add ./my-marketplace
 crunes plugin install my-marketplace@greeter
-crunes use greeter:greet World
+crunes run greeter:greet World
 ```
 
 `./my-marketplace` is a local directory containing a `.crunes-plugin/marketplace.json` registry that points at `./plugins/greeter`.

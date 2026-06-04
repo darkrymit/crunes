@@ -11,15 +11,15 @@ Uses `fs.exists` to guard against re-initialization, `json.write` to create stru
 Run these from a new empty directory (not inside this example):
 
 ```bash
-crunes use scaffold:init --name my-project
-crunes use scaffold:add-workflow --name ci
+crunes run scaffold:init --name my-project
+crunes run scaffold:add-workflow --name ci
 ```
 
 Or run from within the example directory to see the guard behavior:
 
 ```bash
-crunes use init --name my-project    # reports "already initialized"
-crunes use add-workflow --name ci    # creates .github/workflows/ci.yml
+crunes run init --name my-project    # reports "already initialized"
+crunes run add-workflow --name ci    # creates .github/workflows/ci.yml
 ```
 
 ## What to expect

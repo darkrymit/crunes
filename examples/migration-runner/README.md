@@ -9,9 +9,9 @@ Uses `sqlite.run` to execute multi-statement SQL files in a single call, `cache.
 ## How to run
 
 ```bash
-crunes use migrate    # run pending migrations
-crunes use status     # show applied vs pending
-crunes use migrate    # run again — all skipped (idempotent)
+crunes run migrate    # run pending migrations
+crunes run status     # show applied vs pending
+crunes run migrate    # run again — all skipped (idempotent)
 ```
 
 ## What to expect

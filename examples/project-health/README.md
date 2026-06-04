@@ -9,9 +9,9 @@ Uses `json.read` and `json.modify` for structured JSON mutation, `yaml.read` to 
 ## How to run
 
 ```bash
-crunes use check
-crunes use fix-version --version 1.2.0
-crunes use check
+crunes run check
+crunes run fix-version --version 1.2.0
+crunes run check
 ```
 
 - `check` — reports package name, version, scripts, and workflow triggers

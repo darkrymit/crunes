@@ -9,7 +9,7 @@ A minimal rune with no arguments, no permissions, and no side effects. The entry
 ## How to run
 
 ```bash
-crunes use hello
+crunes run hello
 ```
 
 ## What to expect

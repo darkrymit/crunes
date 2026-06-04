@@ -9,9 +9,9 @@ Uses `fs.append` to grow a log file without overwriting it, `cache.has` to write
 ## How to run
 
 ```bash
-crunes use add "deployed v1.2.3"
-crunes use add "rolled back v1.2.2"
-crunes use export
+crunes run add "deployed v1.2.3"
+crunes run add "rolled back v1.2.2"
+crunes run export
 ```
 
 - `add <message>` — appends a timestamped line to `audit.log`
