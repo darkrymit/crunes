@@ -10,7 +10,7 @@ Before brainstorming, planning, or touching any code:
 
 1. **Identify the Workspace Target** — Determine if your changes affect the Core CLI (`crunes-cli/`), the Agentic Interface (`crunes-aci/`), the Plugin Marketplace (`crunes-plugins/`), or the Monorepo Root (`docs/proposals/`, `examples/`, `scratch/`).
 2. **Navigate (`cd`) to the Respective Package Directory** — Always work within the specific subdirectory for command execution and Git operations. Do not run commands from the root directory unless modifying root-tracked assets.
-3. **Read the Target Package's Self-Contained Instructions** — Check `crunes-cli/AGENTS.md`, `crunes-aci/AGENTS.md`, or `crunes-plugins/AGENTS.md` to load package-specific triggers, build commands, and isolated architectures.
+3. **Read the Target Package's Self-Contained Instructions** — Check `crunes-cli/AGENTS.md`, `crunes-aci/AGENTS.md`, or `crunes-plugins/AGENTS.md` to load package-specific triggers, build commands, and isolated architectures. **All file paths and commands in a sub-AGENTS.md are relative to the directory that file lives in**, not the monorepo root.
 4. **Then brainstorm, plan, and code** — in that order.
 
 ## Rules
