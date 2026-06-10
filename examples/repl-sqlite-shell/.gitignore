@@ -1,0 +1,4 @@
+state/*.sqlite
+state/*.sqlite-shm
+state/*.sqlite-wal
+.crunes/project.local.json

@@ -1,0 +1,35 @@
+{
+  "name": "repl-sqlite-shell",
+  "runes": {
+    "init": {
+      "name": "Init",
+      "description": "Create and seed the books database.",
+      "permissions": {
+        "run": {
+          "allow": [
+            "sqlite.read:./state::books",
+            "sqlite.write:./state::books"
+          ]
+        }
+      }
+    },
+    "sqlite-shell": {
+      "name": "SQLite Shell",
+      "description": "Interactive SQLite query shell. Also supports one-shot queries.",
+      "permissions": {
+        "run": {
+          "allow": [
+            "sqlite.read:./state::books",
+            "sqlite.write:./state::books"
+          ]
+        },
+        "runRepl": {
+          "allow": [
+            "sqlite.read:./state::books",
+            "sqlite.write:./state::books"
+          ]
+        }
+      }
+    }
+  }
+}
