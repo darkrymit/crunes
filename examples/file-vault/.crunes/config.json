@@ -23,6 +23,9 @@
             "fs.glob:./vault/**"
           ]
         }
+      },
+      "batch": {
+        "allow": ["*"]
       }
     },
     "decrypt": {

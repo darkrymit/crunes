@@ -27,6 +27,9 @@
             "cache.read:@local-project-cache/**"
           ]
         }
+      },
+      "batch": {
+        "allow": ["*"]
       }
     }
   }

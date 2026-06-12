@@ -25,6 +25,9 @@
             "sqlite.read:@local-project-sqlite/**"
           ]
         }
+      },
+      "batch": {
+        "allow": ["*"]
       }
     }
   }

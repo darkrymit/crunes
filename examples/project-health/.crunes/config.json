@@ -12,6 +12,9 @@
             "fs.read:./.github/workflows/**"
           ]
         }
+      },
+      "batch": {
+        "allow": ["*"]
       }
     },
     "fix-version": {
