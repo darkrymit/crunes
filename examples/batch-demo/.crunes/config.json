@@ -1,0 +1,42 @@
+{
+  "name": "batch-demo",
+  "runes": {
+    "status": {
+      "name": "Batch Demo — Status",
+      "description": "Read-only project overview. Always safe to batch.",
+      "permissions": {
+        "run": {
+          "allow": ["fs.read:package.json"]
+        }
+      },
+      "batch": {
+        "allow": ["*"]
+      }
+    },
+    "report": {
+      "name": "Batch Demo — Report",
+      "description": "Project report. 'read' subcommand is safe to batch; 'generate' writes a file and is not.",
+      "permissions": {
+        "run": {
+          "allow": [
+            "shell.run:git log *",
+            "fs.write:./report.md"
+          ]
+        }
+      },
+      "batch": {
+        "allow": ["read*"],
+        "deny": ["generate*"]
+      }
+    },
+    "deploy": {
+      "name": "Batch Demo — Deploy",
+      "description": "Simulated deployment. No batch block — default deny-all applies.",
+      "permissions": {
+        "run": {
+          "allow": []
+        }
+      }
+    }
+  }
+}
