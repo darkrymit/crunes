@@ -46,17 +46,17 @@ export function commandsRepl(b) {
     .command('exit',   'Disconnect and quit')
 }
 
+export async function disposeRepl() {
+  if (replDb) { await replDb.close(); replDb = null }
+}
+
 export async function inputRepl(input) {
   if (input.type === 'eof' || input.type === 'interrupt') {
-    await replDb.close()
-    replDb = null
     return { type: 'done', message: 'Disconnected.' }
   }
 
   if (input.type === 'command') {
     if (input.args.$command === 'exit') {
-      await replDb.close()
-      replDb = null
       return { type: 'done', message: 'Disconnected.' }
     }
     if (input.args.$command === 'tables') {
