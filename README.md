@@ -38,7 +38,7 @@ You can query it directly from the CLI:
 crunes run api endpoints authentication
 ```
 
-With a native integration (like our Agentic Coder Interface), your AI assistant can automatically discover runes and inject their live output directly into its context window. Simply write `$$api(endpoints,authentication)` or `$$api::api-endpoints` in your prompt and the hook resolves and injects the rune output before the model ever sees it.
+With a native integration (like our Agentic Coder Interface), your AI assistant can automatically discover runes and inject their live output directly into its context window. Simply write `$$api(endpoints,authentication)` or `$$api[-s api-endpoints]` in your prompt and the hook resolves and injects the rune output before the model ever sees it.
 
 ## Why Crunes?
 
@@ -55,7 +55,7 @@ Context-runes is split into modular packages so you only use what you need:
 
 | Repository | Description |
 |---|---|
-| [crunes-cli](https://github.com/darkrymit/crunes-cli) | Core CLI (`crunes`) — sandboxed JavaScript runtime providing `use`, `docs`, `job`, `cache`, `list`, `init`, `create`, `plugin`, `template`, `marketplace`. Works standalone in any environment. |
+| [crunes-cli](https://github.com/darkrymit/crunes-cli) | Core CLI (`crunes`) — sandboxed JavaScript runtime providing `run`, `run-repl`, `docs`, `job`, `list`, `init`, `create`, `bench`, `plugin`, `template`, `marketplace`. Works standalone in any environment. |
 | [crunes-aci](https://github.com/darkrymit/crunes-aci) | Agentic Coder Interface — native integrations and skills built on top of the CLI (Claude Code and generic CLI tools supported). |
 | [crunes-plugins](https://github.com/darkrymit/crunes-plugins) | Official first-party plugin marketplace — install with `crunes marketplace add darkrymit/crunes-plugins`. |
 
