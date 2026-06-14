@@ -1,4 +1,4 @@
-import { fs, section, md } from '@utils'
+import { fs, section, md, help } from '@utils'
 import { handleAdd } from '../scripts/add.js'
 import { handleList } from '../scripts/list.js'
 import { handleDone } from '../scripts/done.js'
@@ -47,10 +47,12 @@ export async function args(b) {
           tagList.positional('<id>', 'Task ID')
         })
     })
+    .option('--help', 'Show help')
     .build()
 }
 
 export async function run(args) {
+  if (args.help) return help.section()
   const cmd = args.$command ?? ''
   if (cmd === 'add')         return handleAdd(args, fs, section, md)
   if (cmd === 'list')        return handleList(args, fs, section, md)

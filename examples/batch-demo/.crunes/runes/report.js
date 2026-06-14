@@ -1,12 +1,15 @@
-import { shell, fs, section, md } from '@utils'
+import { shell, fs, section, md, help } from '@utils'
 
 export async function args(b) {
   return b
     .command('read', 'Show recent commits (batch-safe)')
     .command('generate', 'Write recent commits to report.md (not batch-safe)')
+    .option('--help', 'Show help')
+    .build()
 }
 
 export async function run(args) {
+  if (args.help) return help.section()
   const { stdout } = await shell.exec('git log --oneline -10 --no-decorate', { throw: false, trim: true })
   const lines = stdout ? stdout.split('\n').map(l => `- ${l}`) : ['- (no commits found)']
   const content = lines.join('\n')

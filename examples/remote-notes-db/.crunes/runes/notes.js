@@ -1,4 +1,4 @@
-import { env, db, section, md } from '@utils'
+import { env, db, section, md, help } from '@utils'
 
 export async function args(b) {
   return b
@@ -15,10 +15,12 @@ export async function args(b) {
       sub.option("--search <query>", "Search note content case-insensitively", "")
       sub.option("--tag <tag>", "Filter notes by native tag containment", "")
     })
+    .option("--help", "Show help")
     .build()
 }
 
 export async function run(args) {
+  if (args.help) return help.section()
   const host = await env.read('DB_HOST', 'localhost')
   const port = await env.read('DB_PORT', '5432')
   const user = await env.read('DB_USER', 'postgres')

@@ -1,13 +1,15 @@
-import { fs, archive, section } from '@utils'
+import { fs, archive, section, help } from '@utils'
 
 export async function args(b) {
   return b
     .option('--target-dir <dir_name_1>', 'Name of the source directory to pack', 'temp-src')
     .option('--backup-dir <dir_name_2>', 'Deep path of the backup destination directory', 'backups/deep/nested/archive_v1')
+    .option('--help', 'Show help')
     .build()
 }
 
 export async function run(args) {
+  if (args.help) return help.section()
   const targetDir = args['target-dir']
   const backupDir = args['backup-dir']
 

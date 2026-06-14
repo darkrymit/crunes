@@ -1,4 +1,4 @@
-import { vars, section } from '@utils'
+import { vars, section, help } from '@utils'
 
 export async function args(b) {
   // Read profile variable (defaulting to readonly for maximum safety)
@@ -24,10 +24,13 @@ export async function args(b) {
     })
   }
 
-  return b
+  b.option('--help', 'Show help')
+
+  return b.build()
 }
 
 export async function run(args) {
+  if (args.help) return help.section()
   // Intercept unregistered commands passed as positionals due to lenient parser
   if (!args.$command && args._.length > 0) {
     throw new Error(`Command "${args._[0]}" is invalid or not exposed for the active profile.`)

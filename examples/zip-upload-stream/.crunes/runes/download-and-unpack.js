@@ -1,8 +1,9 @@
-import { archive, codec, crypto, fs, section } from '@utils'
+import { archive, codec, crypto, fs, section, help } from '@utils'
 
-export const args = (b) => b.build()
+export const args = (b) => b.option('--help', 'Show help').build()
 
 export async function run(args) {
+  if (args.help) return help.section()
   // 1. Check if payload and secret exist
   const hasPayload = await fs.exists('packed_payload.b64')
   if (!hasPayload) {

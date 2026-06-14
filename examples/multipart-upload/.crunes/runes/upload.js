@@ -1,4 +1,4 @@
-import { fs, http, section, md } from '@utils'
+import { fs, http, section, md, help } from '@utils'
 
 export function args(builder) {
   return builder
@@ -6,9 +6,12 @@ export function args(builder) {
     .option('--field', 'Form field name for the file', 'file')
     .example('crunes run upload sample.txt', 'Upload sample.txt under the "file" field')
     .example('crunes run upload data.json --field payload', 'Upload with a custom field name')
+    .option('--help', 'Show help')
 }
 
-export async function run({ file, field }) {
+export async function run(args) {
+  if (args.help) return help.section()
+  const { file, field } = args
   const bytes = await fs.readAsBytes(file)
   if (!bytes) {
     return section.create('upload', {

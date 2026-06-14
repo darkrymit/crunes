@@ -1,12 +1,14 @@
-import { fs, cache, section, md } from '@utils'
+import { fs, cache, section, md, help } from '@utils'
 
 export async function args(b) {
   return b
     .positional('<message>', 'Message to append to the audit log')
+    .option('--help', 'Show help')
     .build()
 }
 
 export async function run(args) {
+  if (args.help) return help.section()
   const message = args._[0]
   const h = await cache.open('@local-project-cache', 'audit-log')
 

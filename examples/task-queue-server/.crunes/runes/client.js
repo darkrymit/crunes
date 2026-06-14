@@ -1,13 +1,15 @@
-import { http, ws, section, md } from '@utils'
+import { http, ws, section, md, help } from '@utils'
 
 export async function args(b) {
   return b
     .option('--jobs <n>', 'Number of jobs to submit', '3')
     .option('--port <p>', 'Worker port', '3700')
+    .option('--help', 'Show help')
     .build()
 }
 
 export async function run(args) {
+  if (args.help) return help.section()
   const jobCount = parseInt(args.jobs, 10)
   const port = parseInt(args.port, 10)
   const base = `http://127.0.0.1:${port}`

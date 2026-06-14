@@ -1,12 +1,14 @@
-import { fs, yaml, section, md } from '@utils'
+import { fs, yaml, section, md, help } from '@utils'
 
 export async function args(b) {
   return b
     .option('--name <workflow-name>', 'Name of the workflow (used as filename)')
+    .option('--help', 'Show help')
     .build()
 }
 
 export async function run(args) {
+  if (args.help) return help.section()
   const { name } = args
   const path = `.github/workflows/${name}.yml`
 

@@ -1,8 +1,11 @@
-import { fs, section } from '@utils'
+import { fs, section, help } from '@utils'
 
-export const args = (b) => b.build()
+export const args = (b) => b
+  .option('--help', 'Show help')
+  .build()
 
 export async function run(args) {
+  if (args.help) return help.section()
   const readStream = fs.readStreamAsBytes('large_data.bin')
   const writeStream = fs.writeStream('processed_data.txt')
 

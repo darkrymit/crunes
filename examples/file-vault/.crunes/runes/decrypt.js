@@ -1,13 +1,15 @@
-import { fs, crypto, codec, section, md } from '@utils'
+import { fs, crypto, codec, section, md, help } from '@utils'
 
 export async function args(b) {
   return b
     .option('--file <basename>', 'Filename as stored (e.g. secrets.txt)')
     .option('--password <text>', 'Decryption password')
+    .option('--help', 'Show help')
     .build()
 }
 
 export async function run(args) {
+  if (args.help) return help.section()
   const { file, password } = args
 
   const key = codec.fromUtf8(password.padEnd(32, '0').slice(0, 32))

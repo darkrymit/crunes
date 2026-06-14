@@ -1,13 +1,15 @@
-import { fs, crypto, codec, section, md } from '@utils'
+import { fs, crypto, codec, section, md, help } from '@utils'
 
 export async function args(b) {
   return b
     .option('--file <path>', 'Path to the file to encrypt')
     .option('--password <text>', 'Encryption password (padded to 32 bytes)')
+    .option('--help', 'Show help')
     .build()
 }
 
 export async function run(args) {
+  if (args.help) return help.section()
   const { file, password } = args
 
   // Demo-only key derivation: pad/truncate password to 32 bytes

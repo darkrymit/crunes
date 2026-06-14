@@ -1,12 +1,14 @@
-import { ws, section, md } from '@utils'
+import { ws, section, md, help } from '@utils'
 
 export async function args(b) {
   return b
     .positional('[url]', 'WebSocket URL (default: ws://localhost:3099)')
+    .option('--help', 'Show help')
     .build()
 }
 
 export async function run(args) {
+  if (args.help) return help.section()
   const url = args._[0] ?? 'ws://localhost:3099'
   const socket = ws.client(url)
   const replies = []

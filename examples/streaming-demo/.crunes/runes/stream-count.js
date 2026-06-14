@@ -1,12 +1,14 @@
-import { shell, section } from '@utils'
+import { shell, section, help } from '@utils'
 
 export async function args(b) {
   return b
     .positional('[limit]', 'Stop after this many ticks (default: 5)')
+    .option('--help', 'Show help')
     .build()
 }
 
 export async function run(args) {
+  if (args.help) return help.section()
   const limit = args._[0] ? parseInt(args._[0]) : 5
   const controller = new AbortController()
   const session = shell.spawn('node counter.js', { signal: controller.signal })

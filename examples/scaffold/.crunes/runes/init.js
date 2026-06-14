@@ -1,12 +1,14 @@
-import { fs, json, section, md } from '@utils'
+import { fs, json, section, md, help } from '@utils'
 
 export async function args(b) {
   return b
     .option('--name <project-name>', 'Name for the new project')
+    .option('--help', 'Show help')
     .build()
 }
 
 export async function run(args) {
+  if (args.help) return help.section()
   const { name } = args
 
   if (await fs.exists('.crunes/config.json')) {

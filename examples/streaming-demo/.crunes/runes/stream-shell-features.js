@@ -1,10 +1,13 @@
-import { shell, section } from '@utils'
+import { shell, section, help } from '@utils'
 
 export async function args(b) {
-  return b.build()
+  return b
+    .option('--help', 'Show help')
+    .build()
 }
 
 export async function run(args) {
+  if (args.help) return help.section()
   const steps = []
 
   // 1. Showcase: shell.exec with stdin as a ReadableStream

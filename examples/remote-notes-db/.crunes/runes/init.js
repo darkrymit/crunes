@@ -1,13 +1,15 @@
-import { fs, shell, env, db, time, section, md } from '@utils'
+import { fs, shell, env, db, time, section, md, help } from '@utils'
 
 export async function args(b) {
   return b
     .option("--no-env", "Disable automatic .env creation", false)
     .option("--no-docker", "Disable automatic docker compose startup", false)
+    .option("--help", "Show help")
     .build()
 }
 
 export async function run(args) {
+  if (args.help) return help.section()
   const steps = []
 
   // 1. Setup environment file

@@ -1,12 +1,14 @@
-import { json, section, md } from '@utils'
+import { json, section, md, help } from '@utils'
 
 export async function args(b) {
   return b
     .option('--version <semver>', 'New version string (e.g. 1.2.3)')
+    .option('--help', 'Show help')
     .build()
 }
 
 export async function run(args) {
+  if (args.help) return help.section()
   const { version } = args
   if (!/^\d+\.\d+\.\d+/.test(version)) {
     return section.create('error', {

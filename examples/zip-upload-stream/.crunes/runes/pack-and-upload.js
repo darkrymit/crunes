@@ -1,8 +1,9 @@
-import { archive, codec, crypto, fs, section } from '@utils'
+import { archive, codec, crypto, fs, section, help } from '@utils'
 
-export const args = (b) => b.build()
+export const args = (b) => b.option('--help', 'Show help').build()
 
 export async function run(args) {
+  if (args.help) return help.section()
   // 1. Scaffolding mock directory and files
   console.log('Creating mock source directory temp_upload_source/ with files...')
   await fs.mkdir('temp_upload_source')

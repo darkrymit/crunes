@@ -1,4 +1,4 @@
-import { sqlite, section, md } from '@utils'
+import { sqlite, section, md, help } from '@utils'
 
 let replDb = null
 
@@ -8,10 +8,12 @@ export async function args(b) {
     .positional('<query>', 'SQL query to execute')
     .example('crunes run sqlite-shell "SELECT * FROM books"', 'List all books')
     .example("crunes run sqlite-shell \"SELECT * FROM books WHERE genre = 'Sci-Fi'\"", 'Filter by genre')
+    .option('--help', 'Show help')
     .build()
 }
 
 export async function run(args) {
+  if (args.help) return help.section()
   const db = await sqlite.open(args.db, 'books')
   let result
   try {
@@ -27,10 +29,12 @@ export async function argsRepl(b) {
     .option('--db <path>', 'Path to the SQLite database directory', './state')
     .example('crunes run-repl sqlite-shell', 'Start an interactive SQLite shell')
     .example('crunes run-repl sqlite-shell --db ./other', 'Open a different database directory')
+    .option('--help', 'Show help')
     .build()
 }
 
 export async function runRepl(args) {
+  if (args.help) return help.section()
   replDb = await sqlite.open(args.db, 'books')
   return 'sqlite> '
 }

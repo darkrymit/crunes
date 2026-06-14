@@ -1,10 +1,12 @@
-import {crypto, fs, section} from '@utils';
+import {crypto, fs, section, help} from '@utils';
 
 export const args = (b) => b
   .option('--size <value>', 'Size in MB to generate', 1024)
+  .option('--help', 'Show help')
   .build()
 
 export async function run(args) {
+  if (args.help) return help.section()
   const totalChunks = args.size
   const chunkSize = 1024 * 1024 // 1MB chunk
 

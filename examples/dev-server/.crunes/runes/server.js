@@ -1,4 +1,4 @@
-import { rune, cache, section, md, time } from '@utils'
+import { rune, cache, section, md, time, help } from '@utils'
 
 let activeId = 'default'
 
@@ -50,10 +50,12 @@ export async function args(b) {
     .example('crunes run server start --id myapp --port 3001', 'Start named server on port 3001')
     .example('crunes run server reload --id myapp', 'Reload named server')
     .example('crunes run server list', 'List all running servers')
+    .option('--help', 'Show help')
     .build()
 }
 
 export async function run(args) {
+  if (args.help) return help.section()
   const action = args._[0]
   const id = args.id
   const port = args.port
@@ -82,10 +84,12 @@ export async function argsRepl(b) {
     .option('--id <name>', 'Initial active server instance', 'default')
     .example('crunes run-repl server', 'Start interactive manager')
     .example('crunes run-repl server --id myapp', 'Start manager targeting myapp')
+    .option('--help', 'Show help')
     .build()
 }
 
 export async function runRepl(args) {
+  if (args.help) return help.section()
   activeId = args.id
   return prompt()
 }

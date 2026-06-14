@@ -1,10 +1,12 @@
-import { http, section } from '@utils'
+import { http, section, help } from '@utils'
 
 export const args = (b) => b
   .positional('[url]', 'URL to stream from (default: httpbin.org/stream/3)')
+  .option('--help', 'Show help')
   .build()
 
 export async function run(args) {
+  if (args.help) return help.section()
   const url = args._[0] ?? 'https://httpbin.org/stream/3'
   const res = await http.fetch(url)
 

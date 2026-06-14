@@ -1,12 +1,14 @@
-import { shell, fs, section, md } from '@utils'
+import { shell, fs, section, md, help } from '@utils'
 
 export async function args(b) {
   return b
     .option('--since <ref>', 'Git ref (tag or commit hash) to generate log from')
+    .option('--help', 'Show help')
     .build()
 }
 
 export async function run(args) {
+  if (args.help) return help.section()
   const { since } = args
   const { stdout: output } = await shell.exec(`git log ${since}..HEAD --oneline`, { trim: true })
 
