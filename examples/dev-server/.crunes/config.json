@@ -1,0 +1,50 @@
+{
+  "name": "dev-server",
+  "runes": {
+    "server": {
+      "name": "Dev Server — Manager",
+      "description": "Manages named dev-server instances. Start, stop, reload, restart, status, list. Also available as an interactive REPL session.",
+      "permissions": {
+        "run": {
+          "allow": [
+            "rune.job.start:server-worker",
+            "rune.runRepl:server-worker",
+            "rune.job.write",
+            "rune.job.kill",
+            "rune.job.exists",
+            "rune.job.read",
+            "cache.read:@local-project-cache::dev-server-registry",
+            "cache.write:@local-project-cache::dev-server-registry"
+          ]
+        },
+        "runRepl": {
+          "allow": [
+            "rune.job.start:server-worker",
+            "rune.runRepl:server-worker",
+            "rune.job.write",
+            "rune.job.kill",
+            "rune.job.exists",
+            "rune.job.read",
+            "cache.read:@local-project-cache::dev-server-registry",
+            "cache.write:@local-project-cache::dev-server-registry"
+          ]
+        }
+      }
+    },
+    "server-worker": {
+      "name": "Dev Server — Worker",
+      "description": "Long-running worker rune. Starts http-server.js as a shell job, forwards commands, and polls for status updates. Started by 'server' — not intended for direct use.",
+      "permissions": {
+        "runRepl": {
+          "allow": [
+            "shell.job.start:node .crunes/**",
+            "shell.job.write",
+            "shell.job.kill",
+            "shell.job.read",
+            "fs.read:.crunes/scripts/http-server.js"
+          ]
+        }
+      }
+    }
+  }
+}
