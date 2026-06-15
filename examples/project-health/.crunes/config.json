@@ -8,7 +8,7 @@
         "run": {
           "allow": [
             "fs.read:./package.json",
-            "fs.glob:./.github/workflows/**",
+            "fs.glob:./.github/workflows::*.yml",
             "fs.read:./.github/workflows/**"
           ]
         }

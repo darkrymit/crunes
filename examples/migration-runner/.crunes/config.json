@@ -8,7 +8,7 @@
         "run": {
           "allow": [
             "fs.read:./migrations/**",
-            "fs.glob:./migrations/**",
+            "fs.glob:./migrations::*.sql",
             "sqlite.read:@local-sqlite/**",
             "sqlite.write:@local-sqlite/**",
             "cache.read:@local-cache/**",
@@ -23,7 +23,7 @@
       "permissions": {
         "run": {
           "allow": [
-            "fs.glob:./migrations/**",
+            "fs.glob:./migrations::*.sql",
             "cache.read:@local-cache/**"
           ]
         }

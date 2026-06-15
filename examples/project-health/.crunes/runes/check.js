@@ -2,7 +2,7 @@ import { json, yaml, fs, section, md } from '@utils'
 
 export async function run() {
   const pkg = await json.read('package.json')
-  const workflows = await fs.glob('.github/workflows/*.yml')
+  const workflows = await fs.glob('*.yml', { cwd: '.github/workflows' })
 
   const scriptLines = Object.entries(pkg.scripts ?? {}).map(
     ([k, v]) => `  - ${md.code(k)}: ${v}`
@@ -10,10 +10,9 @@ export async function run() {
 
   const workflowSections = await Promise.all(
     workflows.map(async (f) => {
-      const wf = await yaml.read(f)
-      const name = f.split('/').pop().split('\\').pop()
+      const wf = await yaml.read(`.github/workflows/${f}`)
       const triggers = Object.keys(wf.on ?? {}).join(', ')
-      return `  - ${md.code(name)}: triggers on ${md.bold(triggers)}`
+      return `  - ${md.code(f)}: triggers on ${md.bold(triggers)}`
     })
   )
 

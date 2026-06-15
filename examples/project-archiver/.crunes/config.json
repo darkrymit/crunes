@@ -9,7 +9,7 @@
           "allow": [
             "fs.read:./**",
             "fs.write:./**",
-            "fs.glob:./**"
+            "fs.glob:./**::*"
           ]
         }
       }

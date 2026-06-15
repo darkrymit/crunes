@@ -1,7 +1,7 @@
 import { fs, section, md } from '@utils'
 
 export async function run() {
-  const files = await fs.glob('vault/*.enc')
+  const files = await fs.glob('*.enc', { cwd: 'vault' })
 
   if (files.length === 0) {
     return section.create('vault', {
@@ -12,9 +12,8 @@ export async function run() {
 
   const rows = await Promise.all(
     files.map(async (f) => {
-      const stat = await fs.stat(f)
-      const name = f.split('/').pop().split('\\').pop()
-      return `- ${md.code(name)} (${stat.size} bytes)`
+      const stat = await fs.stat(`vault/${f}`)
+      return `- ${md.code(f)} (${stat.size} bytes)`
     })
   )
 

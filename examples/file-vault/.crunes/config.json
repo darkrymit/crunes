@@ -20,7 +20,7 @@
         "run": {
           "allow": [
             "fs.read:./vault/**",
-            "fs.glob:./vault/**"
+            "fs.glob:./vault::*.enc"
           ]
         }
       },
