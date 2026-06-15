@@ -82,13 +82,13 @@ export async function run(args) {
 export async function argsRepl(b) {
   return b
     .option('--id <name>', 'Initial active server instance', 'default')
-    .example('crunes run-repl server', 'Start interactive manager')
-    .example('crunes run-repl server --id myapp', 'Start manager targeting myapp')
+    .example('crunes repl server', 'Start interactive manager')
+    .example('crunes repl server --id myapp', 'Start manager targeting myapp')
     .option('--help', 'Show help')
     .build()
 }
 
-export async function runRepl(args) {
+export async function repl(args) {
   if (args.help) return help.section()
   activeId = args.id
   return prompt()

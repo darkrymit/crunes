@@ -8,7 +8,7 @@
         "run": {
           "allow": [
             "rune.job.start:server-worker",
-            "rune.runRepl:server-worker",
+            "rune.repl:server-worker",
             "rune.job.write",
             "rune.job.kill",
             "rune.job.exists",
@@ -17,10 +17,10 @@
             "cache.write:@local-project-cache::dev-server-registry"
           ]
         },
-        "runRepl": {
+        "repl": {
           "allow": [
             "rune.job.start:server-worker",
-            "rune.runRepl:server-worker",
+            "rune.repl:server-worker",
             "rune.job.write",
             "rune.job.kill",
             "rune.job.exists",
@@ -35,7 +35,7 @@
       "name": "Dev Server — Worker",
       "description": "Long-running worker rune. Starts http-server.js as a shell job, forwards commands, and polls for status updates. Started by 'server' — not intended for direct use.",
       "permissions": {
-        "runRepl": {
+        "repl": {
           "allow": [
             "shell.job.start:node .crunes/**",
             "shell.job.write",

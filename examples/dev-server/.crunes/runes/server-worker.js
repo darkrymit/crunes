@@ -8,12 +8,12 @@ let lastStatus = null
 export async function argsRepl(b) {
   return b
     .option('--port <n>', 'Port for the HTTP server', '3000')
-    .example('crunes run-repl server-worker --port 3001', 'Start worker on port 3001')
+    .example('crunes repl server-worker --port 3001', 'Start worker on port 3001')
     .option('--help', 'Show help')
     .build()
 }
 
-export async function runRepl(args) {
+export async function repl(args) {
   if (args.help) return help.section()
   const job = await shell.job.start('node .crunes/scripts/http-server.js', {
     repl: true,

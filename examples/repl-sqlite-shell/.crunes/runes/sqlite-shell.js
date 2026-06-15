@@ -27,13 +27,13 @@ export async function run(args) {
 export async function argsRepl(b) {
   return b
     .option('--db <path>', 'Path to the SQLite database directory', './state')
-    .example('crunes run-repl sqlite-shell', 'Start an interactive SQLite shell')
-    .example('crunes run-repl sqlite-shell --db ./other', 'Open a different database directory')
+    .example('crunes repl sqlite-shell', 'Start an interactive SQLite shell')
+    .example('crunes repl sqlite-shell --db ./other', 'Open a different database directory')
     .option('--help', 'Show help')
     .build()
 }
 
-export async function runRepl(args) {
+export async function repl(args) {
   if (args.help) return help.section()
   replDb = await sqlite.open(args.db, 'books')
   return 'sqlite> '

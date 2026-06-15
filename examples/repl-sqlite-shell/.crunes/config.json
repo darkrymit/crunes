@@ -23,7 +23,7 @@
             "sqlite.write:./state::books"
           ]
         },
-        "runRepl": {
+        "repl": {
           "allow": [
             "sqlite.read:./state::books",
             "sqlite.write:./state::books"
