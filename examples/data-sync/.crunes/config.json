@@ -8,10 +8,10 @@
         "run": {
           "allow": [
             "http.fetch:GET::https://jsonplaceholder.typicode.com/**",
-            "cache.read:@local-project-cache/**",
-            "cache.write:@local-project-cache/**",
-            "sqlite.read:@local-project-sqlite/**",
-            "sqlite.write:@local-project-sqlite/**"
+            "cache.read:@local-cache/**",
+            "cache.write:@local-cache/**",
+            "sqlite.read:@local-sqlite/**",
+            "sqlite.write:@local-sqlite/**"
           ]
         }
       }
@@ -22,7 +22,7 @@
       "permissions": {
         "run": {
           "allow": [
-            "sqlite.read:@local-project-sqlite/**"
+            "sqlite.read:@local-sqlite/**"
           ]
         }
       },

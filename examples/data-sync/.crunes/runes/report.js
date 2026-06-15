@@ -1,7 +1,7 @@
 import { sqlite, section, md } from '@utils'
 
 export async function run() {
-  const db = await sqlite.open('@local-project-sqlite', 'posts')
+  const db = await sqlite.open('@local-sqlite', 'posts')
   const total = await db.get('SELECT COUNT(*) AS count FROM posts')
 
   if (!total || total.count === 0) {

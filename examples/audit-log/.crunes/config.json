@@ -8,8 +8,8 @@
         "run": {
           "allow": [
             "fs.write:./audit.log",
-            "cache.read:@local-project-cache/**",
-            "cache.write:@local-project-cache/**"
+            "cache.read:@local-cache/**",
+            "cache.write:@local-cache/**"
           ]
         }
       }

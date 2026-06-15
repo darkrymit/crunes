@@ -9,10 +9,10 @@
           "allow": [
             "fs.read:./migrations/**",
             "fs.glob:./migrations/**",
-            "sqlite.read:@local-project-sqlite/**",
-            "sqlite.write:@local-project-sqlite/**",
-            "cache.read:@local-project-cache/**",
-            "cache.write:@local-project-cache/**"
+            "sqlite.read:@local-sqlite/**",
+            "sqlite.write:@local-sqlite/**",
+            "cache.read:@local-cache/**",
+            "cache.write:@local-cache/**"
           ]
         }
       }
@@ -24,7 +24,7 @@
         "run": {
           "allow": [
             "fs.glob:./migrations/**",
-            "cache.read:@local-project-cache/**"
+            "cache.read:@local-cache/**"
           ]
         }
       },

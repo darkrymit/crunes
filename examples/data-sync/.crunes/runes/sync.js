@@ -1,7 +1,7 @@
 import { http, cache, sqlite, section, md } from '@utils'
 
 export async function run() {
-  const h = await cache.open('@local-project-cache', 'data-sync')
+  const h = await cache.open('@local-cache', 'data-sync')
 
   if (await h.has('last-fetch')) {
     return section.create('sync', {
@@ -13,7 +13,7 @@ export async function run() {
   const res = await http.fetch('https://jsonplaceholder.typicode.com/posts')
   const posts = await res.json()
 
-  const db = await sqlite.open('@local-project-sqlite', 'posts')
+  const db = await sqlite.open('@local-sqlite', 'posts')
   await db.run(`
     CREATE TABLE IF NOT EXISTS posts (
       id INTEGER PRIMARY KEY,

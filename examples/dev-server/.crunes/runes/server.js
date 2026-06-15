@@ -7,7 +7,7 @@ let activeId = 'default'
 // ---------------------------------------------------------------------------
 
 async function openRegistry() {
-  return cache.open('@local-project-cache', 'dev-server-registry')
+  return cache.open('@local-cache', 'dev-server-registry')
 }
 
 async function readRegistry() {

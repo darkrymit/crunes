@@ -13,8 +13,8 @@
             "rune.job.kill",
             "rune.job.exists",
             "rune.job.read",
-            "cache.read:@local-project-cache::dev-server-registry",
-            "cache.write:@local-project-cache::dev-server-registry"
+            "cache.read:@local-cache::dev-server-registry",
+            "cache.write:@local-cache::dev-server-registry"
           ]
         },
         "repl": {
@@ -25,8 +25,8 @@
             "rune.job.kill",
             "rune.job.exists",
             "rune.job.read",
-            "cache.read:@local-project-cache::dev-server-registry",
-            "cache.write:@local-project-cache::dev-server-registry"
+            "cache.read:@local-cache::dev-server-registry",
+            "cache.write:@local-cache::dev-server-registry"
           ]
         }
       }

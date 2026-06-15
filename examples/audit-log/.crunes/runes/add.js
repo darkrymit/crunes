@@ -10,7 +10,7 @@ export async function args(b) {
 export async function run(args) {
   if (args.help) return help.section()
   const message = args._[0]
-  const h = await cache.open('@local-project-cache', 'audit-log')
+  const h = await cache.open('@local-cache', 'audit-log')
 
   if (!(await h.has('initialized'))) {
     await fs.append('audit.log', `# Audit Log — initialized ${new Date().toISOString()}\n`)
