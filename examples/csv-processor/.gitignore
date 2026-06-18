@@ -1,0 +1,7 @@
+# Generated output files
+summary.csv
+filtered.csv
+
+.vscode/
+.idea/
+*.iml

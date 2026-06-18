@@ -1,0 +1,32 @@
+{
+  "name": "csv-processor",
+  "runes": {
+    "report": {
+      "name": "CSV Processor — Report",
+      "description": "Reads a product CSV, computes line totals, and writes an enriched summary CSV.",
+      "permissions": {
+        "run": {
+          "allow": ["fs.read:data.csv", "fs.write:summary.csv"]
+        }
+      }
+    },
+    "filter": {
+      "name": "CSV Processor — Filter",
+      "description": "Streams a large CSV and writes only rows above a price threshold to a new file.",
+      "permissions": {
+        "run": {
+          "allow": ["fs.read:data.csv", "fs.write:filtered.csv"]
+        }
+      }
+    },
+    "parse": {
+      "name": "CSV Processor — Parse",
+      "description": "Demonstrates in-memory CSV parsing and stringification.",
+      "permissions": {
+        "run": {
+          "allow": []
+        }
+      }
+    }
+  }
+}
