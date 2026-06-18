@@ -12,7 +12,7 @@ export function args(builder) {
 export async function run(args) {
   if (args.help) return help.section()
   const { file, field } = args
-  const bytes = await fs.readAsBytes(file)
+  const bytes = await fs.readBytes(file)
   if (!bytes) {
     return section.create('upload', {
       type: 'markdown',

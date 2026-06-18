@@ -10,7 +10,7 @@ export async function run(args) {
   const totalChunks = args.size
   const chunkSize = 1024 * 1024 // 1MB chunk
 
-  const stream = fs.writeStreamAsBytes('large_data.bin')
+  const stream = fs.writeBytesStream('large_data.bin')
   const writer = stream.getWriter()
 
   for (let i = 0; i < totalChunks; i++) {

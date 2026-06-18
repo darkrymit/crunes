@@ -28,7 +28,7 @@ export async function run(args) {
     .pipeThrough(codec.base64EncoderStream())
     .pipeThrough(new TextEncoderStream())
   
-  await filePipeline.pipeTo(fs.writeStreamAsBytes('packed_payload.b64'))
+  await filePipeline.pipeTo(fs.writeBytesStream('packed_payload.b64'))
   const stats = await fs.stat('packed_payload.b64')
   console.log(`Successfully wrote packed_payload.b64 (${stats.size} bytes)`)
 

@@ -15,11 +15,11 @@ export async function run(args) {
   const key = codec.fromUtf8(password.padEnd(32, '0').slice(0, 32))
   const iv = codec.fromUtf8('crunes-vault-iv!')
 
-  const ciphertext = await fs.readAsBytes(`vault/${file}.enc`)
+  const ciphertext = await fs.readBytes(`vault/${file}.enc`)
   const plaintext = await crypto.decrypt('aes-256-cbc', key, iv, ciphertext)
 
   const dest = `decrypted/${file}`
-  await fs.writeAsBytes(dest, plaintext)
+  await fs.writeBytes(dest, plaintext)
 
   return section.create('decrypted', {
     type: 'markdown',

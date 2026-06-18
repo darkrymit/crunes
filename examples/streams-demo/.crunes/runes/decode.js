@@ -6,7 +6,7 @@ export const args = (b) => b
 
 export async function run(args) {
   if (args.help) return help.section()
-  const readStream = fs.readStreamAsBytes('large_data.bin')
+  const readStream = fs.readBytesStream('large_data.bin')
   const writeStream = fs.writeStream('processed_data.txt')
 
   await readStream.pipeThrough(new TextDecoderStream()).pipeTo(writeStream)

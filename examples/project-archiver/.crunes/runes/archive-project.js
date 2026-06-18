@@ -31,7 +31,7 @@ export async function run(args) {
   const extractDest = `${backupDir}/extracted`
   console.log(`[archive-project:log] extracting "${archivePath}" to deep destination "${extractDest}"...`)
   
-  const readStream = fs.readStreamAsBytes(archivePath)
+  const readStream = fs.readBytesStream(archivePath)
   const unzipStream = archive.unzipStream(extractDest)
 
   // Pipe and wait for full extraction promise synchronization

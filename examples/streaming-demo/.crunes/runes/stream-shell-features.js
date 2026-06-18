@@ -33,15 +33,13 @@ export async function run(args) {
     output: execResult.stdout
   })
 
-  // 2. Showcase: shell.exec returning raw Uint8Array (binary: true)
-  console.log('--- Step 2: Running shell.exec in binary mode ---')
-  const { stdout: binaryResult } = await shell.exec('node binary.js', {
-    binary: true
-  })
+  // 2. Showcase: shell.execBinary returning raw Uint8Array
+  console.log('--- Step 2: Running shell.execBinary ---')
+  const { stdout: binaryResult } = await shell.execBinary('node binary.js')
 
   steps.push({
-    title: '2. `shell.exec` in Binary Mode',
-    description: 'Passed `{ binary: true }` to `shell.exec` to get direct, uncorrupted raw byte array output instead of a string.',
+    title: '2. `shell.execBinary`',
+    description: 'Used `shell.execBinary` to get direct, uncorrupted raw byte array output instead of a string.',
     isBinary: binaryResult instanceof Uint8Array,
     length: binaryResult.length,
     hex: Array.from(binaryResult).map(b => b.toString(16).padStart(2, '0')).join(' ')
@@ -49,9 +47,7 @@ export async function run(args) {
 
   // 3. Showcase: shell.spawn with Web Streams (getReader)
   console.log('--- Step 3: Running interactive session with standard Web Streams ---')
-  const session = shell.spawn('node counter.js', {
-    binary: false
-  })
+  const session = shell.spawn('node counter.js')
 
   const reader = session.stdout.getReader()
   session.open()

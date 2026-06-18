@@ -17,12 +17,12 @@ export async function run(args) {
   // Demo-only fixed IV: never reuse a fixed IV in production
   const iv = codec.fromUtf8('crunes-vault-iv!')
 
-  const bytes = await fs.readAsBytes(file)
+  const bytes = await fs.readBytes(file)
   const ciphertext = await crypto.encrypt('aes-256-cbc', key, iv, bytes)
 
   const basename = file.split('/').pop().split('\\').pop()
   const dest = `vault/${basename}.enc`
-  await fs.writeAsBytes(dest, ciphertext)
+  await fs.writeBytes(dest, ciphertext)
 
   return section.create('encrypted', {
     type: 'markdown',
