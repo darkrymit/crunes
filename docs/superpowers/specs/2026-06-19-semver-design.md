@@ -32,12 +32,14 @@ declare namespace semver {
   type ReleaseType = 'major' | 'minor' | 'patch' | 'premajor' | 'preminor' | 'prepatch' | 'prerelease'
 
   interface SemVer {
+    raw: string                               // original input string (includes build metadata)
     major: number
     minor: number
     patch: number
     prerelease: ReadonlyArray<string | number>
     build: ReadonlyArray<string>
-    version: string
+    version: string                           // canonical form without build metadata
+    format(): string                          // same as version
   }
 
   /** Parses a version string. Returns null if invalid. */
