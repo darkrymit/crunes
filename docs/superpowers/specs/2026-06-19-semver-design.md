@@ -43,9 +43,6 @@ declare namespace semver {
   /** Parses a version string. Returns null if invalid. */
   function parse(version: string): SemVer | null
 
-  /** Returns the cleaned version string, or null if invalid. */
-  function valid(version: string): string | null
-
   /** Compares two versions. Returns -1, 0, or 1. */
   function compare(a: string, b: string): -1 | 0 | 1
 
@@ -92,7 +89,6 @@ import semverLib from 'semver'
 // ...inside globalThis.utils = { ... }
 semver: {
   parse:         (v)       => semverLib.parse(v),
-  valid:         (v)       => semverLib.valid(v),
   compare:       (a, b)    => semverLib.compare(a, b),
   gt:            (a, b)    => semverLib.gt(a, b),
   lt:            (a, b)    => semverLib.lt(a, b),
@@ -121,7 +117,6 @@ Thin wrappers for testability — mirrors the bootstrap wiring exactly:
 import semverLib from 'semver'
 
 export const parse         = (v)          => semverLib.parse(v)
-export const valid         = (v)          => semverLib.valid(v)
 export const compare       = (a, b)       => semverLib.compare(a, b)
 export const gt            = (a, b)       => semverLib.gt(a, b)
 export const lt            = (a, b)       => semverLib.lt(a, b)
@@ -144,7 +139,6 @@ export const rsort         = (vs)         => semverLib.rsort([...vs])
 `test/rune/api/semver.test.js` — imports from `src/rune/api/semver.js`:
 
 - `parse` — valid version returns object with correct major/minor/patch/prerelease; invalid returns null
-- `valid` — cleans `v1.2.3` → `1.2.3`; invalid returns null
 - `compare` — ordering of 1.0.0, 1.0.1, 2.0.0
 - `gt` / `lt` / `gte` / `lte` / `eq` / `neq` — spot checks
 - `satisfies` — `^1.0.0`, `>=1.2 <2`, pre-release exclusion
