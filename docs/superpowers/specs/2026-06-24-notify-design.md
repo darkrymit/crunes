@@ -21,7 +21,7 @@ Three files touched:
 
 No new npm dependencies. All backends use Node's `child_process.execFile` (already available host-side).
 
-Permission token: `notify` — single all-or-nothing token, consistent with how broad capabilities like `shell` work.
+Permission token: `notify.send` — one token per action, consistent with `fs.read`, `fs.write`, `shell.run`.
 
 ---
 
@@ -125,19 +125,19 @@ String escaping: title and message are escaped before insertion into shell scrip
 
 ## Permission
 
-Token: `notify`
+Token: `notify.send`
 
 ```json
 {
   "permissions": {
     "run": {
-      "allow": ["notify"]
+      "allow": ["notify.send"]
     }
   }
 }
 ```
 
-Checked in the host bridge before dispatching. If not allowed, throws `PermissionError: 'notify' — add 'notify' to allow list.`
+Checked in the host bridge before dispatching. If not allowed, throws `PermissionError: 'notify.send' — add 'notify.send' to allow list.`
 
 ---
 
