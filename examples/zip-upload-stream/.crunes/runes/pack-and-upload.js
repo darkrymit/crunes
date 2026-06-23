@@ -1,4 +1,4 @@
-import { archive, codec, crypto, fs, section, help } from '@utils'
+import { archive, codec, crypt, fs, section, help } from '@utils'
 
 export const args = (b) => b.option('--help', 'Show help').build()
 
@@ -12,8 +12,8 @@ export async function run(args) {
   
   // 2. Generate symmetric keys and save for decryption
   console.log('Generating symmetric keys (AES-256-GCM)...')
-  const key = crypto.randomBytes(32)
-  const iv = crypto.randomBytes(12)
+  const key = crypt.randomBytes(32)
+  const iv = crypt.randomBytes(12)
   await fs.write('secret.json', JSON.stringify({
     key: codec.toHex(key),
     iv: codec.toHex(iv)
@@ -24,7 +24,7 @@ export async function run(args) {
   console.log('Streaming: Zipping temp_upload_source/ -> Encrypting (AES-256-GCM) -> Base64 -> writing packed_payload.b64...')
   
   const filePipeline = archive.zipStream('temp_upload_source')
-    .pipeThrough(crypto.encryptStream('aes-256-gcm', key, iv))
+    .pipeThrough(crypt.encryptStream('aes-256-gcm', key, iv))
     .pipeThrough(codec.base64EncoderStream())
     .pipeThrough(new TextEncoderStream())
   
@@ -36,7 +36,7 @@ export async function run(args) {
   console.log('Streaming: Zipping temp_upload_source/ -> Encrypting (AES-256-GCM) -> Base64 -> POSTing directly to httpbin.org...')
   
   const uploadPipeline = archive.zipStream('temp_upload_source')
-    .pipeThrough(crypto.encryptStream('aes-256-gcm', key, iv))
+    .pipeThrough(crypt.encryptStream('aes-256-gcm', key, iv))
     .pipeThrough(codec.base64EncoderStream())
     .pipeThrough(new TextEncoderStream())
     

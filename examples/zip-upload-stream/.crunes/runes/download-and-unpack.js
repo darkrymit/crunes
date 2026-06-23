@@ -1,4 +1,4 @@
-import { archive, codec, crypto, fs, section, help } from '@utils'
+import { archive, codec, crypt, fs, section, help } from '@utils'
 
 export const args = (b) => b.option('--help', 'Show help').build()
 
@@ -25,7 +25,7 @@ export async function run(args) {
   
   const pipeline = fs.readStream('packed_payload.b64')
     .pipeThrough(codec.base64DecoderStream())
-    .pipeThrough(crypto.decryptStream('aes-256-gcm', key, iv))
+    .pipeThrough(crypt.decryptStream('aes-256-gcm', key, iv))
     .pipeTo(archive.unzipStream('temp_extracted'))
     
   await pipeline

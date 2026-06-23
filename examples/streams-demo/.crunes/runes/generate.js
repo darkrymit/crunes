@@ -1,4 +1,4 @@
-import {crypto, fs, section, help} from '@utils';
+import {crypt, fs, section, help} from '@utils';
 
 export const args = (b) => b
   .option('--size <value>', 'Size in MB to generate', 1024)
@@ -14,7 +14,7 @@ export async function run(args) {
   const writer = stream.getWriter()
 
   for (let i = 0; i < totalChunks; i++) {
-    const chunk = crypto.randomBytes(chunkSize)
+    const chunk = crypt.randomBytes(chunkSize)
     await writer.write(chunk)
     if ((i + 1) % 100 === 0) {
       console.log(`Written ${i + 1} MB...`)

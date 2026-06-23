@@ -1,4 +1,4 @@
-import { fs, crypto, codec, section, md, help } from '@utils'
+import { fs, crypt, codec, section, md, help } from '@utils'
 
 export async function args(b) {
   return b
@@ -18,7 +18,7 @@ export async function run(args) {
   const iv = codec.fromUtf8('crunes-vault-iv!')
 
   const bytes = await fs.readBytes(file)
-  const ciphertext = await crypto.encrypt('aes-256-cbc', key, iv, bytes)
+  const ciphertext = await crypt.encrypt('aes-256-cbc', key, iv, bytes)
 
   const basename = file.split('/').pop().split('\\').pop()
   const dest = `vault/${basename}.enc`

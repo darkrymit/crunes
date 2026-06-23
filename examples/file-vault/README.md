@@ -4,7 +4,7 @@ Encrypt files into a local vault, list what's stored, and decrypt them back.
 
 ## What it demonstrates
 
-Uses `crypto.encrypt`/`decrypt` (AES-256-CBC) with `fs.readAsBytes`/`writeAsBytes` for binary file I/O, `codec.fromUtf8` for key derivation, and `fs.glob`/`fs.stat` to list vault contents.
+Uses `crypt.encrypt`/`decrypt` (AES-256-CBC) with `fs.readAsBytes`/`writeAsBytes` for binary file I/O, `codec.fromUtf8` for key derivation, and `fs.glob`/`fs.stat` to list vault contents.
 
 > **Note:** Key and IV derivation here is demo-only (password padded to 32 bytes, fixed IV). Do not use this approach in production.
 
