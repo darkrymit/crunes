@@ -1,4 +1,4 @@
-import { fs, cache, section, md, help } from '@utils'
+import { fs, cache, rune, section, md } from '@utils'
 
 export async function args(b) {
   return b
@@ -8,7 +8,7 @@ export async function args(b) {
 }
 
 export async function run(args) {
-  if (args.help) return help.section()
+  if (args.help) return rune.helpSection()
   const message = args._[0]
   const h = await cache.open('@local-cache', 'audit-log')
 

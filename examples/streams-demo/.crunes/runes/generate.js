@@ -1,4 +1,4 @@
-import {crypt, fs, section, help} from '@utils';
+import {crypt, fs, rune, section} from '@utils';
 
 export const args = (b) => b
   .option('--size <value>', 'Size in MB to generate', 1024)
@@ -6,7 +6,7 @@ export const args = (b) => b
   .build()
 
 export async function run(args) {
-  if (args.help) return help.section()
+  if (args.help) return rune.helpSection()
   const totalChunks = args.size
   const chunkSize = 1024 * 1024 // 1MB chunk
 

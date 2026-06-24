@@ -1,4 +1,4 @@
-import { shell, fs, section, md, help } from '@utils'
+import { shell, fs, rune, section, md } from '@utils'
 
 export async function args(b) {
   return b
@@ -8,7 +8,7 @@ export async function args(b) {
 }
 
 export async function run(args) {
-  if (args.help) return help.section()
+  if (args.help) return rune.helpSection()
   const { since } = args
   const { stdout: output } = await shell.exec(`git log ${since}..HEAD --oneline`, { trim: true })
 

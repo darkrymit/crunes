@@ -1,4 +1,4 @@
-import { fs, section, md, help } from '@utils'
+import { fs, rune, section, md } from '@utils'
 import { handleAdd } from '../scripts/add.js'
 import { handleList } from '../scripts/list.js'
 import { handleDone } from '../scripts/done.js'
@@ -52,7 +52,7 @@ export async function args(b) {
 }
 
 export async function run(args) {
-  if (args.help) return help.section()
+  if (args.help) return rune.helpSection()
   const cmd = args.$command ?? ''
   if (cmd === 'add')         return handleAdd(args, fs, section, md)
   if (cmd === 'list')        return handleList(args, fs, section, md)

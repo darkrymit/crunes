@@ -1,4 +1,4 @@
-import { rune, json, section, md, help } from '@utils'
+import { rune, json, section, md } from '@utils'
 
 const STATE_FILE = '.crunes/state/task-queue-server.json'
 
@@ -10,7 +10,7 @@ export async function args(b) {
 }
 
 export async function run(args) {
-  if (args.help) return help.section()
+  if (args.help) return rune.helpSection()
   const action = args._[0] ?? 'status'
 
   if (action === 'start') {

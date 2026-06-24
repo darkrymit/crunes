@@ -1,4 +1,4 @@
-import { fs, section, help } from '@utils'
+import { fs, rune, section } from '@utils'
 
 export const args = (b) => b
   .positional('<title>', 'Note title')
@@ -6,7 +6,7 @@ export const args = (b) => b
   .build()
 
 export async function run(args) {
-  if (args.help) return help.section()
+  if (args.help) return rune.helpSection()
   const title = args.title
   const date = new Date().toISOString()
   const entry = `\n## ${title}\n\n_${date}_\n\n<!-- Write your note here -->\n`

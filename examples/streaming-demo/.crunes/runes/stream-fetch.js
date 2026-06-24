@@ -1,4 +1,4 @@
-import { http, section, help } from '@utils'
+import { http, rune, section } from '@utils'
 
 export const args = (b) => b
   .positional('[url]', 'URL to stream from (default: httpbin.org/stream/3)')
@@ -6,7 +6,7 @@ export const args = (b) => b
   .build()
 
 export async function run(args) {
-  if (args.help) return help.section()
+  if (args.help) return rune.helpSection()
   const url = args._[0] ?? 'https://httpbin.org/stream/3'
   const res = await http.fetch(url)
 

@@ -1,4 +1,4 @@
-import { fs, crypt, codec, section, md, help } from '@utils'
+import { fs, crypt, codec, rune, section, md } from '@utils'
 
 export async function args(b) {
   return b
@@ -9,7 +9,7 @@ export async function args(b) {
 }
 
 export async function run(args) {
-  if (args.help) return help.section()
+  if (args.help) return rune.helpSection()
   const { file, password } = args
 
   const key = codec.fromUtf8(password.padEnd(32, '0').slice(0, 32))

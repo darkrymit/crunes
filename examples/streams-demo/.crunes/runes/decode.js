@@ -1,11 +1,11 @@
-import { fs, section, help } from '@utils'
+import { fs, rune, section } from '@utils'
 
 export const args = (b) => b
   .option('--help', 'Show help')
   .build()
 
 export async function run(args) {
-  if (args.help) return help.section()
+  if (args.help) return rune.helpSection()
   const readStream = fs.readBytesStream('large_data.bin')
   const writeStream = fs.writeStream('processed_data.txt')
 

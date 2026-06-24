@@ -1,4 +1,4 @@
-import { ws, section, md, help } from '@utils'
+import { ws, rune, section, md } from '@utils'
 
 export async function args(b) {
   return b
@@ -8,7 +8,7 @@ export async function args(b) {
 }
 
 export async function run(args) {
-  if (args.help) return help.section()
+  if (args.help) return rune.helpSection()
   const url = args._[0] ?? 'ws://localhost:3099'
   const socket = ws.client(url)
   const replies = []

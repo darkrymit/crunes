@@ -1,4 +1,4 @@
-import { shell, section, help } from '@utils'
+import { shell, rune, section } from '@utils'
 
 export async function args(b) {
   return b
@@ -8,7 +8,7 @@ export async function args(b) {
 }
 
 export async function run(args) {
-  if (args.help) return help.section()
+  if (args.help) return rune.helpSection()
   const limit = args._[0] ? parseInt(args._[0]) : 5
   const controller = new AbortController()
   const session = shell.spawn('node counter.js', { signal: controller.signal })

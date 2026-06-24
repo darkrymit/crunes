@@ -1,4 +1,4 @@
-import { json, section, md, help } from '@utils'
+import { json, rune, section, md } from '@utils'
 
 export async function args(b) {
   return b
@@ -8,7 +8,7 @@ export async function args(b) {
 }
 
 export async function run(args) {
-  if (args.help) return help.section()
+  if (args.help) return rune.helpSection()
   const { version } = args
   if (!/^\d+\.\d+\.\d+/.test(version)) {
     return section.create('error', {

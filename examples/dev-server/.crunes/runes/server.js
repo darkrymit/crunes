@@ -1,4 +1,4 @@
-import { rune, cache, section, md, time, help } from '@utils'
+import { rune, cache, section, md, time } from '@utils'
 
 let activeId = 'default'
 
@@ -55,7 +55,7 @@ export async function args(b) {
 }
 
 export async function run(args) {
-  if (args.help) return help.section()
+  if (args.help) return rune.helpSection()
   const action = args._[0]
   const id = args.id
   const port = args.port
@@ -89,7 +89,7 @@ export async function argsRepl(b) {
 }
 
 export async function repl(args) {
-  if (args.help) return help.section()
+  if (args.help) return rune.helpSection()
   activeId = args.id
   return prompt()
 }

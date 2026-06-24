@@ -1,4 +1,4 @@
-import { env, db, section, md, help } from '@utils'
+import { env, db, rune, section, md } from '@utils'
 
 export async function args(b) {
   return b
@@ -20,7 +20,7 @@ export async function args(b) {
 }
 
 export async function run(args) {
-  if (args.help) return help.section()
+  if (args.help) return rune.helpSection()
   const host = await env.read('DB_HOST', 'localhost')
   const port = await env.read('DB_PORT', '5432')
   const user = await env.read('DB_USER', 'postgres')

@@ -1,4 +1,4 @@
-import { shell, section, md, time, help } from '@utils'
+import { shell, rune, section, md, time } from '@utils'
 
 let shellJobId = null
 let pollOffset = 0
@@ -14,7 +14,7 @@ export async function argsRepl(b) {
 }
 
 export async function repl(args) {
-  if (args.help) return help.section()
+  if (args.help) return rune.helpSection()
   const job = await shell.job.start('node .crunes/scripts/http-server.js', {
     repl: true,
     env: { PORT: String(args.port) },

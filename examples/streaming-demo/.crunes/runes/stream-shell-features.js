@@ -1,4 +1,4 @@
-import { shell, section, help } from '@utils'
+import { shell, rune, section } from '@utils'
 
 export async function args(b) {
   return b
@@ -7,7 +7,7 @@ export async function args(b) {
 }
 
 export async function run(args) {
-  if (args.help) return help.section()
+  if (args.help) return rune.helpSection()
   const steps = []
 
   // 1. Showcase: shell.exec with stdin as a ReadableStream

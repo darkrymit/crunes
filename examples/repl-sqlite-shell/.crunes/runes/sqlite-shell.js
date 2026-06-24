@@ -1,4 +1,4 @@
-import { sqlite, section, md, help } from '@utils'
+import { sqlite, rune, section, md } from '@utils'
 
 let replDb = null
 
@@ -13,7 +13,7 @@ export async function args(b) {
 }
 
 export async function run(args) {
-  if (args.help) return help.section()
+  if (args.help) return rune.helpSection()
   const db = await sqlite.open(args.db, 'books')
   let result
   try {
@@ -34,7 +34,7 @@ export async function argsRepl(b) {
 }
 
 export async function repl(args) {
-  if (args.help) return help.section()
+  if (args.help) return rune.helpSection()
   replDb = await sqlite.open(args.db, 'books')
   return 'sqlite> '
 }

@@ -1,4 +1,4 @@
-import { fs, archive, section, help } from '@utils'
+import { fs, archive, rune, section } from '@utils'
 
 export async function args(b) {
   return b
@@ -9,7 +9,7 @@ export async function args(b) {
 }
 
 export async function run(args) {
-  if (args.help) return help.section()
+  if (args.help) return rune.helpSection()
   const targetDir = args['target-dir']
   const backupDir = args['backup-dir']
 

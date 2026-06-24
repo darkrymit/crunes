@@ -1,4 +1,4 @@
-import { fs, http, section, md, help } from '@utils'
+import { fs, http, rune, section, md } from '@utils'
 
 export function args(builder) {
   return builder
@@ -10,7 +10,7 @@ export function args(builder) {
 }
 
 export async function run(args) {
-  if (args.help) return help.section()
+  if (args.help) return rune.helpSection()
   const { file, field } = args
   const bytes = await fs.readBytes(file)
   if (!bytes) {

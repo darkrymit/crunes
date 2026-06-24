@@ -1,4 +1,4 @@
-import { http, ws, section, md, help } from '@utils'
+import { http, ws, rune, section, md } from '@utils'
 
 export async function args(b) {
   return b
@@ -9,7 +9,7 @@ export async function args(b) {
 }
 
 export async function run(args) {
-  if (args.help) return help.section()
+  if (args.help) return rune.helpSection()
   const jobCount = parseInt(args.jobs, 10)
   const port = parseInt(args.port, 10)
   const base = `http://127.0.0.1:${port}`
