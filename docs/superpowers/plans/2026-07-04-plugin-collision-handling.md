@@ -854,7 +854,7 @@ In `crunes-cli/src/docs/intro-compiler.js`, replace lines 313-330:
 with:
 
 ```javascript
-  lines.push('To grant a **plugin** rune extra permissions or vars from the project side (plugin runes have no `runes.<key>` entry of their own), add an entry keyed by the fully-qualified `"marketplace@plugin:runeKey"` string — **this must always be the full form, never the bare plugin name**, since two enabled plugins could share a bare name and a bare-form key can never resolve to anything (`crunes doctor`/config validation rejects a bare-form key outright):')
+  lines.push('To grant a **plugin** rune extra permissions or vars from the project side (plugin runes have no `runes.<key>` entry of their own), add an entry keyed by the fully-qualified `"marketplace@plugin:runeKey"` string — **this must always be the full form, never the bare plugin name**, since two enabled plugins could share a bare name and a bare-form key can never resolve to anything (config loading rejects a bare-form key outright).')
   lines.push('```json')
   lines.push('{')
   lines.push('  "plugins": ["my-market@my-plugin"],')
