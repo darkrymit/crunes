@@ -63,7 +63,7 @@ describe('resolvePluginKeyScoped', () => {
 
   it('throws ambiguous with full keys when 2+ scoped matches are enabled', () => {
     expect(() => resolvePluginKeyScoped('git', registry, ['my-org@git', 'crunes-plugins@git']))
-      .toThrow('Ambiguous plugin "git". Use the full key: my-org@git, crunes-plugins@git')
+      .toThrow('Ambiguous plugin "git". Use the full key: crunes-plugins@git, my-org@git')
   })
 
   it('throws a "not enabled" error naming the real candidate when 0 scoped matches exist but 1+ global matches do', () => {
