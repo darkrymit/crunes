@@ -20,7 +20,7 @@ export async function args(b) {
 }
 
 export async function run(args) {
-  if (args.help) return rune.helpSection()
+  if (args.help) return rune.helpSection(args.$command)
   const host = await env.read('DB_HOST', 'localhost')
   const port = await env.read('DB_PORT', '5432')
   const user = await env.read('DB_USER', 'postgres')

@@ -30,7 +30,7 @@ export async function args(b) {
 }
 
 export async function run(args) {
-  if (args.help) return rune.helpSection()
+  if (args.help) return rune.helpSection(args.$command)
   // Intercept unregistered commands passed as positionals due to lenient parser
   if (!args.$command && args._.length > 0) {
     throw new Error(`Command "${args._[0]}" is invalid or not exposed for the active profile.`)

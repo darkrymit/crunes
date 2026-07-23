@@ -52,7 +52,7 @@ export async function args(b) {
 }
 
 export async function run(args) {
-  if (args.help) return rune.helpSection()
+  if (args.help) return rune.helpSection(args.$command)
   const cmd = args.$command ?? ''
   if (cmd === 'add')         return handleAdd(args, fs, section, md)
   if (cmd === 'list')        return handleList(args, fs, section, md)

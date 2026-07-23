@@ -9,7 +9,7 @@ export async function args(b) {
 }
 
 export async function run(args) {
-  if (args.help) return rune.helpSection()
+  if (args.help) return rune.helpSection(args.$command)
   const { stdout } = await shell.exec('git log --oneline -10 --no-decorate', { throw: false, trim: true })
   const lines = stdout ? stdout.split('\n').map(l => `- ${l}`) : ['- (no commits found)']
   const content = lines.join('\n')

@@ -55,7 +55,7 @@ export async function args(b) {
 }
 
 export async function run(args) {
-  if (args.help) return rune.helpSection()
+  if (args.help) return rune.helpSection(args.$command)
   const action = args._[0]
   const id = args.id
   const port = args.port

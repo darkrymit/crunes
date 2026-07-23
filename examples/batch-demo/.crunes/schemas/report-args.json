@@ -1,0 +1,33 @@
+{
+  "runeKey": "report",
+  "hash": "bc72318d31ac44961c000e3cdab63ab87d6ee86050ac6dd7a9aa747935ae72a4:44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a",
+  "cachedAt": "2026-07-23T23:39:44.523Z",
+  "schema": {
+    "options": [
+      {
+        "flags": "--help",
+        "description": "Show help"
+      }
+    ],
+    "positionals": [],
+    "examples": [],
+    "commands": [
+      {
+        "name": "read",
+        "description": "Show recent commits (batch-safe)",
+        "options": [],
+        "positionals": [],
+        "examples": [],
+        "commands": []
+      },
+      {
+        "name": "generate",
+        "description": "Write recent commits to report.md (not batch-safe)",
+        "options": [],
+        "positionals": [],
+        "examples": [],
+        "commands": []
+      }
+    ]
+  }
+}
