@@ -8,7 +8,7 @@
 
 Before brainstorming, planning, or touching any code:
 
-1. **Identify the Workspace Target** — Determine if your changes affect the Core CLI (`crunes-cli/`), the Agent Skills (`crunes-skills/`), the Plugin Marketplace (`crunes-plugins/`), or the Monorepo Root (`docs/proposals/`, `examples/`, `scratch/`).
+1. **Identify the Workspace Target** — Determine if your changes affect the Core CLI (`crunes-cli/`), the Agent Skills (`crunes-skills/`), the Plugin Marketplace (`crunes-plugins/`), or the Monorepo Root (`docs/kb/`, `examples/`, `scratch/`).
 2. **Navigate (`cd`) to the Respective Package Directory** — Always work within the specific subdirectory for command execution and Git operations. Do not run commands from the root directory unless modifying root-tracked assets.
 3. **Read the Target Package's Self-Contained Instructions** — Check `crunes-cli/AGENTS.md`, `crunes-skills/AGENTS.md`, or `crunes-plugins/AGENTS.md` to load package-specific triggers, build commands, and isolated architectures. **All file paths and commands in a sub-AGENTS.md are relative to the directory that file lives in**, not the monorepo root.
 4. **Then brainstorm, plan, and code** — in that order.
@@ -18,7 +18,7 @@ Before brainstorming, planning, or touching any code:
 - **SUB-REPOS ARE INDEPENDENT GIT REPOSITORIES** — `crunes-cli/`, `crunes-skills/`, and `crunes-plugins/` are separate Git repositories that are gitignored in the root. **ALL git commands (status, add, commit, diff, log, worktrees, branches) must be executed inside the respective subdirectory!** Never run git commands in the root unless modifying root-specific files.
 - **STRICT PACKAGE COMMAND ISOLATION** — Never run `npm install`, `npm test`, or build scripts from the root directory. Always `cd` into the target package first.
 - **USE EXAMPLES FOR RUNES REFERENCE** — The `examples/` directory contains complete, working examples of runes. Refer to them to understand how various `utils` APIs (fs, json, shell, cache, sqlite, archive, fetch) are used in practice.
-- **REALIZE PROPOSALS ARE IN THE ROOT** — Feature designs, proposals, and RFCs live in `docs/proposals/` (`active/`, `outdated/`, `rework/`). Always consult them before making core design changes.
+- **KNOWLEDGE LIVES IN BUNDLES, ONE PER REPOSITORY** — `docs/kb/main/` in the root is the umbrella bundle (`crunes-main`): the model, the shared vocabulary, cross-repo contracts and project-wide decisions. `crunes-cli/docs/kb/main/` and `crunes-plugins/docs/kb/main/` hold what is true only of their own code. Read them with `crunes -p run kb list` / `kb read <ref>`, and consult them before making core design changes. The layout standard every bundle obeys is `docs/kb/main/specs/knowledge-base.md` — read it before adding a document, because it says which category a note belongs in. **The proposals tree is gone**; superseded proposals are archived outside the repo in `toolkit/archive/`.
 - **SCRATCH DIRECTORY FOR MANUAL TESTING** — The `scratch/` directory is gitignored and exists for quick local manual testing of new features or runes.
 
 ## Coding Principles
@@ -40,6 +40,6 @@ Transform vague tasks into verifiable goals before starting: "fix the bug" → "
 - **`crunes-cli/`** — Core CLI npm package. Node.js, ESM, Commander, sandboxed VM execution.
 - **`crunes-skills/`** — Agent skills for the crunes CLI. Markdown only, installable via `npx skills` and the Claude plugin marketplace.
 - **`crunes-plugins/`** — Official first-party plugin marketplace. Registered as a marketplace source.
-- **`docs/proposals/`** — Obsidian-structured markdown feature proposals and specs.
+- **`docs/kb/main/`** — The `crunes-main` umbrella knowledge bundle: ecosystem model, shared vocabulary, cross-repo decisions, and the knowledge base layout standard itself.
 - **`examples/`** — Static example runes showcasing different aspects of the runner APIs.
 - **`scratch/`** — Local sandbox directories for manual scratch testing of plugins or CLI behaviors.
