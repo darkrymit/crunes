@@ -4,7 +4,7 @@ New session. The AI runs `find . -type f` *again*. Your `CLAUDE.md` has a file t
 
 **crunes** fixes this. It lets you define **runes**—small, easy, manageable project-local CLI tools for both human developers and AI assistants to gather dynamic knowledge or execute safe, structured actions on demand.
 
-Query them from the CLI, pipe them into scripts, or let a native integration inject them automatically into your AI tool. No stale snapshots. No repeated bash commands. No bloated config files.
+Query them from the CLI, pipe them into scripts, or let your AI assistant call them the same way you do. No stale snapshots. No repeated bash commands. No bloated config files.
 
 ## How It Works
 
@@ -55,7 +55,7 @@ Context-runes is split into modular packages so you only use what you need:
 
 | Repository | Description |
 |---|---|
-| [crunes-cli](https://github.com/darkrymit/crunes-cli) | Core CLI (`crunes`) — sandboxed JavaScript runtime providing `run`, `run-repl`, `docs`, `job`, `list`, `init`, `create`, `bench`, `plugin`, `template`, `marketplace`. Works standalone in any environment. |
+| [crunes-cli](https://github.com/darkrymit/crunes-cli) | Core CLI (`crunes`) — sandboxed JavaScript runtime providing `run`, `repl`, `docs`, `job`, `list`, `init`, `create`, `bench`, `plugin`, `template`, `marketplace`. Works standalone in any environment. |
 | [crunes-skills](https://github.com/darkrymit/crunes-skills) | Agent skills — teach Claude Code, Codex, and other agents to discover, run, and write runes. Install with `npx skills add darkrymit/crunes-skills`. |
 | [crunes-plugins](https://github.com/darkrymit/crunes-plugins) | Official first-party plugin marketplace — install with `crunes marketplace add darkrymit/crunes-plugins`. |
 
