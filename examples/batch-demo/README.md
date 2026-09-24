@@ -41,4 +41,4 @@ invocation (everything after the rune key). Deny wins over allow.
 - `deny: ['generate*']` — block `generate`, `generate --out=foo`, etc.
 - No `batch` block — default deny-all
 
-See `docs/proposals/active/` for the full batch permissions spec.
+Run `crunes docs rune <key>` to see whether a rune permits batching and which segments it allows.
