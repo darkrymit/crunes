@@ -1,0 +1,28 @@
+{
+  "runes": {
+    "crunes-plugins@kb:kb": {
+      "vars": {
+        "roots": [
+          "docs/kb/main",
+          "crunes-cli/docs/kb/main",
+          "crunes-plugins/docs/kb/main"
+        ]
+      },
+      "permissions": {
+        "run": {
+          "allow": [
+            "fs.glob:docs/kb/main/**/*.md",
+            "fs.read:docs/kb/main/**",
+            "fs.glob:crunes-cli/docs/kb/main/**/*.md",
+            "fs.read:crunes-cli/docs/kb/main/**",
+            "fs.glob:crunes-plugins/docs/kb/main/**/*.md",
+            "fs.read:crunes-plugins/docs/kb/main/**"
+          ]
+        }
+      }
+    }
+  },
+  "plugins": {
+    "crunes-plugins@kb": true
+  }
+}
