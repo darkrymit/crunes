@@ -16,8 +16,9 @@ Every document names the main-bundle documents it would change. When a proposal 
 
 ## Specifications
 
-* [Script rune contract](/specs/script-rune-contract.md) - The MVP0 contract between crunes and a Node, Python or bash script registered as a rune — how the runtime is chosen, how the interpreter is found, what the script receives and what crunes does with what it returns.
+* [Rune configuration v2](/specs/rune-config-v2.md) - The proposed shape of a rune entry — one block per lifecycle crunes executes in its own context, each naming its handler with command, with nothing resolved by convention — and the migration from the path-and-permissions entry.
+* [Script rune contract](/specs/script-rune-contract.md) - The MVP0 contract between crunes and a Node, Python or bash script registered as a rune — how the interpreter is found, what the script receives and what crunes does with what it returns.
 
 ## Decisions
 
-* [Shape of a rune entry](/decisions/rune-entry-shape.md) - Open: three ways a rune entry in configuration could name its file and runtime once runes are no longer JavaScript only, and what each costs now and when lifecycle slots arrive.
+* [Shape of a rune entry](/decisions/rune-entry-shape.md) - Lifecycle blocks replace path, each naming its handler with a single command field resolved like a shell resolves one, and nothing is resolved by convention — chosen over keeping path or adding a runtime field.

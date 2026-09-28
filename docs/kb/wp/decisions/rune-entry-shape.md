@@ -1,72 +1,39 @@
 ---
 type: decision
 title: Shape of a rune entry
-description: Open: three ways a rune entry in configuration could name its file and runtime once runes are no longer JavaScript only, and what each costs now and when lifecycle slots arrive.
-tags: [decision, config, rune, runtime, proposal, open]
+description: Lifecycle blocks replace path, each naming its handler with a single command field resolved like a shell resolves one, and nothing is resolved by convention — chosen over keeping path or adding a runtime field.
+tags: [decision, config, rune, runtime, lifecycle, proposal]
 ---
 
 # Shape of a rune entry
 
-**Status: open.** Part of [Runes in any language](/vision/multi-runtime-runes.md). The [script rune contract](/specs/script-rune-contract.md) holds whichever shape is chosen.
+**Status: chosen, not implemented.** Part of [Runes in any language](/vision/multi-runtime-runes.md). The resulting contract is [Rune configuration v2](/specs/rune-config-v2.md).
 
 ## Context
 
-A rune entry today is keyed by the rune's name and may carry `path`, `description`, `permissions`, `vars` and `batch`. **`path` is already optional**: an entry without one resolves to `.crunes/runes/<key>.js` (`resolveRuneFilePath` in the CLI's rune resolver). The configuration layers and their precedence are described in [Rune](kb:crunes-main/concepts/rune.md) and are not affected by this decision.
+A rune entry today is keyed by the rune's name and may carry `path`, `name`, `description`, `permissions`, `vars`, `batch` and `plugin`. `path` is optional: an entry without one resolves to `.crunes/runes/<key>.js`. Grants are scoped by mode — `permissions.run` covers `args`, `run` and `dispose`; `permissions.repl` covers the REPL functions — and `crunes repl` works for any rune whose module exports them. See [Rune](kb:crunes-main/concepts/rune.md).
 
-Two things break that entry once a rune can be a Node, Python or bash script. The runtime has to come from somewhere, and the fallback path no longer knows what extension to look for. A third pressure is further out: lifecycle slots — an `args` schema served separately from `run`, a `dispose` handler — will eventually want to be named in the entry, and the shape chosen now decides whether that is an addition or a second migration.
+Once a rune can be a Node, Python or bash script, the runtime has to come from somewhere, and the fallback no longer knows which extension to look for. Lifecycle handlers that are not the run handler — a schema built in the isolate in front of a bash script — need somewhere to be named, and grants need to sit with the code they constrain.
 
-## Option 1 — `path`, runtime from the extension
+## Options considered
 
-```jsonc
-"coverage": { "path": ".crunes/runes/coverage.py" },
-"api":      { "path": ".crunes/runes/api.rune.js" },
-"odd":      { "path": "tools/report", "runtime": "python" }   // extensionless: explicit override
-```
+**1. Keep `path`, take the runtime from the extension.** The smallest break: only the `.js` → `.rune.js` rename. `path` would become the default handler for every lifecycle, with slot keys overriding it later. It keeps grants scoped by mode, so a script rune with a separately-built schema needs grants that belong to neither mode.
 
-The entry keeps today's shape. The runtime is read from the file name as the contract's table gives it, and `runtime` overrides it for a file whose name says nothing. Without `path`, crunes looks for `.crunes/runes/<key>` under each known extension and refuses when more than one exists.
+**2. Add an explicit `runtime` field.** Breaks nothing — an entry without `runtime` stays an isolate rune. But `.js` then means sandboxed or native depending on a field forever, so a file name stops telling a reviewer whether code is sandboxed, and every script entry states what it is twice.
 
-* **Breaks:** only the `.js` → `.rune.js` rename.
-* **When slots arrive:** `path` is defined as the rune's default handler for every lifecycle, and a slot key overrides one lifecycle. An isolate rune whose one module exports `args`, `run` and `dispose` stays a single `path`, which is exactly what it is.
-* **Costs:** the runtime is implicit in a file name; the fallback probes several names instead of one.
+**3. Lifecycle blocks replace `path`.** The largest break: the rename, `path` → a block, and grants moving into blocks. The entry then has its final shape, and a grant is always written beside the code it constrains.
 
-## Option 2 — an explicit `runtime` field
+## Decision
 
-```jsonc
-"coverage": { "runtime": "python", "path": ".crunes/runes/coverage.py" },
-"types":    { "runtime": "node" },                // → .crunes/runes/types.js
-"api":      { "path": ".crunes/runes/api.js" }    // no runtime: isolate, as today
-```
+**Option 3**, with four refinements reached while designing it:
 
-An entry without `runtime` is an isolate rune, so nothing existing changes and no file is renamed. The fallback path is exact, because the runtime names its extension.
+* **One field names every handler.** `command`, resolved as a shell resolves one — a path is a file, a bare name is a program on `PATH` — rather than separate fields for a file and a program. The name follows the `command` and fixed-arguments convention of MCP server configuration, VS Code tasks and Kubernetes. The fixed arguments are `argv` rather than that convention's `args`, because `args` is already the name of a lifecycle block in the same entry.
+* **A block per lifecycle crunes executes in its own context.** Schema builders — `args`, `argsRepl`, `commandsRepl` — each run in an isolate of their own and share no state with anything, so each is a block. `dispose` shares the run context and the REPL functions share the session isolate, so they belong to the `run` and `repl` blocks.
+* **Nothing is resolved by convention.** The fallback path and the implicit REPL are removed. A default between blocks is allowed only where it reads an export from a file the entry already names.
+* **The isolate entry file is named `*.rune.js`**, so a file name says whether its code is sandboxed.
 
-* **Breaks:** nothing.
-* **When slots arrive:** as in option 1 — `path` is the default handler, slots override it — but each slot handler in another runtime needs its own runtime named beside it.
-* **Costs:** `.js` means isolate or Node depending on a field, permanently, so the file name no longer tells a reviewer whether code is sandboxed. A `.py` entry that forgets the field fails as an isolate load error rather than as a missing runtime, and needs a guard of its own. Every script entry states twice what it is.
+## Consequences
 
-## Option 3 — lifecycle slots replace `path`
-
-```jsonc
-"coverage": { "run": ".crunes/runes/coverage.py" },
-"api":      { "run": ".crunes/runes/api.rune.js" }
-// later: "args": { ...schema } | "<file>", "dispose": "<file>"
-```
-
-`path` is removed and each lifecycle names its handler. MVP0 supports `run` only; the runtime comes from the extension as in option 1.
-
-* **Breaks:** the rename and the key change, in every entry, in one release.
-* **When slots arrive:** nothing further to migrate — the entry already has the final shape.
-* **Costs:** it designs the entry around lifecycles MVP0 does not have. An isolate rune reads oddly — `run` names a module that also provides `args` and `dispose` — and needs a rule that its exports fill the unnamed slots.
-
-## Comparison
-
-| | 1 — `path` + extension | 2 — `runtime` field | 3 — slots |
-|---|---|---|---|
-| Breaking in MVP0 | rename | none | rename and key |
-| Sandboxed code visible from the file name | yes | no | yes |
-| Fallback path | probes each extension | exact | probes each extension |
-| Migration when slots arrive | none — slots are added | none — slots are added | none |
-| Designs ahead of MVP0 | no | no | yes |
-
-## Leaning
-
-**Option 1.** It is the smallest change that keeps the file name honest about trust, and it does not force a second migration: defining `path` as the default handler makes slots an addition, and it describes the isolate rune — one module, several lifecycles — more truthfully than option 3 does. Option 2 is the choice if the rename proves too costly for existing users; option 3 buys nothing option 1 does not, at the price of a larger break.
+* Every existing entry and every plugin manifest is rewritten in one release. The old shape is refused with the rewrite printed rather than reinterpreted, `crunes doctor` lists what needs rewriting, and plugin manifests move to `"format": "2"`.
+* Installed plugins keep their consent: consented permissions are stored as a flat list per rune, so only where grants are collected from changes.
+* The fallback's removal is deliberate. It was the source of a rune resolving to a file nobody named, and an explicit `run` makes every runnable thing visible in the configuration a reviewer reads.

@@ -27,7 +27,7 @@ The position this proposal takes is that **what crunes owns is the rune, not the
 
 A rune today has lifecycles — `args`, `run`, `dispose`, and the REPL family — declared as exports of one module. The longer-term shape is that each lifecycle is a slot with a data contract, and a slot can be served by static data or by a handler in any runtime: a static argument schema in front of a Python `run`, a dynamic schema built in the isolate in front of a bash script. The contract each slot owes is defined by data, not by a language.
 
-None of that is in the first cut. The [script rune contract](/specs/script-rune-contract.md) covers `run` only, and it is shaped so that every slot added later is additive: a script written against it keeps working unchanged.
+The first cut takes one step toward it. [Rune configuration v2](/specs/rune-config-v2.md) gives every lifecycle crunes executes in its own context a block of its own, and the [script rune contract](/specs/script-rune-contract.md) lets a script serve `run` behind a schema built in the isolate. Every other slot stays isolate-only, and the contract is shaped so that each one opened to scripts later is additive: a script written against it keeps working unchanged.
 
 ## What it refuses
 
