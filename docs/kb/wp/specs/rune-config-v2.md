@@ -78,11 +78,13 @@ A block may omit `command` only where another block names the module it belongs 
 | `commandsRepl` | `repl.command` | `repl`'s |
 | `repl` | — the block must name its `command` | — |
 
+`argsRepl` and `commandsRepl` describe a REPL session, so either one without a `repl` block is a configuration error.
+
 The grant defaults reproduce today's behaviour, in which `args` is built under the run grants and `argsRepl` and `commandsRepl` under the REPL grants.
 
 ## 6. Constraints in MVP0
 
-* **`run`** accepts any `command`. `permissions` and `argv` are both allowed; `permissions` only when `command` is an isolate module, because grants on anything else would read as a sandbox that is not there.
+* **`run`** accepts any `command`, and `argv` with any of them. `permissions` is allowed only when `command` is an isolate module, because grants on anything else would read as a sandbox that is not there.
 * **`args`, `argsRepl`, `commandsRepl` and `repl`** accept isolate modules only. A separate schema module contributes only its schema export: exporting `run` or `repl` from it is a configuration error.
 * **Plugin runes** accept isolate modules only, in every block.
 * **An override entry** keyed `marketplace@plugin:rune` carries `vars` and `permissions` inside blocks, never a `command`: it grants, it does not replace.
