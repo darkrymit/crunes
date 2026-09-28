@@ -19,6 +19,14 @@ Every document names the main-bundle documents it would change. When a proposal 
 * [Rune configuration v2](/specs/rune-config-v2.md) - The proposed shape of a rune entry — one block per lifecycle crunes executes in its own context, each naming its handler with command, with nothing resolved by convention — and the migration from the path-and-permissions entry.
 * [Script rune contract](/specs/script-rune-contract.md) - The MVP0 contract between crunes and a Node, Python or bash script registered as a rune — how the interpreter is found, what the script receives and what crunes does with what it returns.
 
+## Flows
+
+* [crunes run under configuration v2](/flows/run.md) - The proposed path of one crunes run invocation from key to output once the run block may name a script — where the entry's blocks are read, where the schema is built and validated, and where the path splits between the isolate and a native process.
+
 ## Decisions
 
 * [Shape of a rune entry](/decisions/rune-entry-shape.md) - Lifecycle blocks replace path, each naming its handler with a single command field resolved like a shell resolves one, and nothing is resolved by convention — chosen over keeping path or adding a runtime field.
+
+## Glossary
+
+* [Terms](/glossary/terms.md) - The vocabulary the work proposals introduce or change — modes, lifecycles, blocks, handlers and the two kinds of rune — each linking to the document that owns it, and marking where a word means something different in crunes-main.
