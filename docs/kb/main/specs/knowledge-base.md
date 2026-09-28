@@ -43,10 +43,17 @@ A bundle activates the categories it needs and no others. An empty directory is 
 | `crunes` (umbrella) | `docs/kb/main/` | `crunes-main` |
 | `crunes-cli` | `docs/kb/main/` | `crunes-cli-main` |
 | `crunes-plugins` | `docs/kb/main/` | `crunes-plugins-main` |
+| `crunes` (umbrella), work proposals | `docs/kb/wp/` | `crunes-wp` |
 
 A bare `main` would collide the moment a second bundle was mounted beside the first, and every cross-bundle link in the project is written against the identifier rather than the path. The directory answers *where do I put this*; the identifier answers *which bundle is meant*.
 
-### 1.2 The directory index
+### 1.2 The work-proposals bundle
+
+**A design that is not yet true of any repository lives in `crunes-wp`**, a second bundle in the umbrella at `docs/kb/wp/`. It obeys this standard like any other bundle. What sets it apart is that nothing in it describes shipped behaviour: where it and a `main` bundle disagree, the `main` bundle describes what exists.
+
+A document there names the documents it would change, in whichever bundle holds them. When its proposal is accepted, the content is written into the bundle that owns it — by section 6, as if it had never been a proposal — and the document leaves `crunes-wp`. A proposal is never accepted by moving its file.
+
+### 1.3 The directory index
 
 **A category directory holding documents carries an `index.md` listing them**, in the same bullet form as the root index. It carries no YAML front matter, because it is a table of contents rather than a document about anything.
 

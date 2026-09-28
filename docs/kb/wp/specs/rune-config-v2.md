@@ -29,6 +29,8 @@ This replaces two fallbacks that exist today: an entry without `path` resolving 
 
 `completeInputRepl` stays in the session because completion routinely depends on session state.
 
+**"Lifecycle" here means one export**, such as `args` or `argsRepl`. In `crunes-main` the word currently means the *mode* — `run` for a single call, `repl` for a session — and grants are scoped by mode. This bundle calls those two **modes**: the run mode holds the `args` and `run` blocks, the REPL mode holds `argsRepl`, `commandsRepl` and `repl`. Accepting this proposal renames the term in `crunes-main`, not only its uses.
+
 ### 2.1 Fields
 
 | Block | Fields |
@@ -63,6 +65,8 @@ A file's runtime comes from its name:
 
 How the interpreter for a script is found is part of the [script rune contract](/specs/script-rune-contract.md).
 
+**Only a path is resolved against its layer.** Today every `path` is made absolute against the directory of the layer that declared it, before layers merge, so that a partial override in a higher layer keeps the file the lower layer meant. `command` keeps that rule for files and never applies it to a bare name: `git` declared in the global layer is still the `git` on `PATH`, not a file under the store.
+
 ## 4. `argv`
 
 Arguments always placed before the caller's own, on `run` only. `{ "command": "git", "argv": ["log", "--oneline"] }` invoked as `crunes run log -n 5` executes `git log --oneline -n 5`. An argument's default value when the caller omits it belongs to the argument schema, not here.
@@ -93,6 +97,8 @@ The grant defaults reproduce today's behaviour, in which `args` is built under t
 
 Entries merge per block and key by key, so a local entry that sets only `vars` or `run.permissions` keeps the `run.command` of the layer that defined the rune. `permissions` inside a block is replaced whole by a higher layer, as the lifecycle-scoped block is today. `vars` still merges key by key.
 
+The same replacement governs a plugin rune: a project that declares `permissions` in a block of a `marketplace@plugin:rune` entry replaces the plugin's grants for that block, and only that block.
+
 ## 8. Examples
 
 ```jsonc
@@ -108,15 +114,15 @@ Entries merge per block and key by key, so a local entry that sets only `vars` o
     "description": "Deploy to an environment",
     "args": {
       "command": ".crunes/runes/deploy.args.rune.js",
-      "permissions": { "allow": ["fs.glob:deploy/envs/*::*"] }
+      "permissions": { "allow": ["fs.glob:deploy/envs/*"] }
     },
     "run": { "command": "scripts/deploy.sh", "argv": ["--region", "eu"] }
   },
 
   "db": {
     "description": "Query the local database",
-    "run":  { "command": ".crunes/runes/db.rune.js", "permissions": { "allow": ["sqlite.open:data/app.db"] } },
-    "repl": { "command": ".crunes/runes/db.rune.js", "permissions": { "allow": ["sqlite.open:data/app.db"] } }
+    "run":  { "command": ".crunes/runes/db.rune.js", "permissions": { "allow": ["sqlite.read:@local-sqlite::app"] } },
+    "repl": { "command": ".crunes/runes/db.rune.js", "permissions": { "allow": ["sqlite.read:@local-sqlite::app"] } }
   }
 }
 ```
@@ -137,3 +143,12 @@ The old shape is refused, not reinterpreted. Each refusal prints the entry rewri
 `crunes doctor` reports every entry in every layer that needs one of these rewrites. A plugin manifest moves to `"format": "2"` with the same rewrites.
 
 **Installed plugins need no new consent.** The permissions a user consented to are stored as a flat list per rune, not by lifecycle, so moving grants into blocks changes where they are collected from and not what was agreed to.
+
+## Open questions
+
+Each needs a decision before implementation; none is settled above.
+
+* **Whether a default grant follows the declared or the effective grants.** `args` without its own `permissions` takes `run`'s. When a project override replaces `run.permissions` for a plugin rune, it is not stated whether the `args` default follows the plugin's declaration or the project's replacement.
+* **Templates.** `config.templates` entries share the rune entry's shape today, `path` included, and `crunes template apply` writes a rune entry from one. Neither is described here.
+* **The `name` field.** It survives at the top level unchanged, but whether it still earns a place beside `description` was never discussed.
+* **The shape of the migration report.** Refusing the old shape with the rewrite printed is decided; whether `crunes doctor` prints the rewritten entries as patchable JSON or only names what to change is not.
