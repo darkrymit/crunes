@@ -39,11 +39,15 @@ The first cut takes one step toward it. [Rune configuration v2](/specs/rune-conf
 
 **It is still not a general task runner.** Crunes gains nothing over `just` or `mise` by running scripts. What earns a rune its entry is what crunes adds around it — discovery, documentation, a single invocation surface for people, agents and CI.
 
-## Where it collides with crunes-main
+## Wrapping a command
 
-[Context runes](kb:crunes-main/vision/context-runes.md) says that *a rune that only wraps a shell command it could have called directly has earned nothing*, and that what justifies a rune is reading project state and shaping it. [Rune configuration v2](/specs/rune-config-v2.md) lets a `run` block name a program on `PATH` with fixed arguments — `git log --oneline` under a name — which is exactly a rune that wraps a command.
+[Context runes](kb:crunes-main/vision/context-runes.md) says that *a rune that only wraps a shell command it could have called directly has earned nothing*, and that what justifies a rune is reading project state and shaping it. [Rune configuration v2](/specs/rune-config-v2.md) lets a `run` block name a program on `PATH` with fixed arguments — which, taken alone, is exactly a rune that wraps a command.
 
-The two positions are not reconciled here, and accepting this proposal has to reconcile them. One reading keeps the main vision and treats such an entry as tolerated rather than encouraged: legitimate because it puts the command in the one list an agent reads, but not what a rune is for. The other amends the main vision, so that being discoverable and documented is itself enough to earn an entry. Which one holds decides how the skills teach runes, so it is not a wording choice.
+**The principle stands, and it is the reason such an entry earns its place.** A rune over a command is justified by what crunes adds on top of it: an argument schema that reshapes a program's full, sprawling command line into the few options a task actually needs, documentation that `crunes docs rune` renders from that schema, and fixed arguments that settle everything the caller should not have to choose. What reaches an agent is a thin surface built for the task rather than the whole program. The shaping the main vision asks for is applied to the command's interface instead of to project state.
+
+An entry that names a program and adds nothing to it is still the rune that earned nothing, and the skills should teach it as such.
+
+**This depends on work MVP0 does not yet do.** Today a schema validates and documents the options it declares, but options it does not declare still pass through to the handler. A surface is only thin if what is not on it cannot reach the program, and a reshaped option only works if crunes can rewrite it into the program's own. Both are recorded as open questions in the [script rune contract](/specs/script-rune-contract.md).
 
 ## What accepting it changes
 
@@ -55,7 +59,7 @@ Written out so that nothing is left describing the old model. Documents are name
 * *Permission* — grants move from mode-scoped blocks into configuration blocks.
 * *Plugin* — manifests move to format 2, and plugin runes stay isolate-only.
 * *Terms* — "Lifecycle" changes meaning, and the terms in this bundle's [glossary](/glossary/terms.md) are added.
-* *Context runes* — the collision above.
+* *Context runes* — "not a general task runner" gains the reading above: a rune over a command earns its entry by reshaping the command's interface.
 * *Knowledge base layout* — nothing, once it admits a work-proposals bundle.
 
 **`crunes-cli-main`**

@@ -69,7 +69,7 @@ How the interpreter for a script is found is part of the [script rune contract](
 
 ## 4. `argv`
 
-Arguments always placed before the caller's own, on `run` only. `{ "command": "git", "argv": ["log", "--oneline"] }` invoked as `crunes run log -n 5` executes `git log --oneline -n 5`. An argument's default value when the caller omits it belongs to the argument schema, not here.
+Arguments always placed before the caller's own, on `run` only. `{ "command": "git", "argv": ["log", "--oneline"] }` invoked as `crunes run log -n 5` executes `git log --oneline -n 5`. An argument's default value when the caller omits it belongs to the argument schema, not here. A rune that names a program and adds nothing to it re-exposes the program unchanged, which the vision's reading of [wrapping a command](/vision/multi-runtime-runes.md) does not count as earning an entry.
 
 ## 5. Defaults between blocks
 

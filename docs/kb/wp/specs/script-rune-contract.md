@@ -91,11 +91,13 @@ These hold from MVP0 onward, so that every later addition is additive:
 
 ## 10. Not in MVP0
 
-`dispose` for scripts, and a per-invocation state directory for it. Argument schemas written statically in configuration or printed by a script, which need the schema format published as a contract first. REPL lifecycles for scripts. Mapping parsed arguments onto a program's `argv`. Structured section output from scripts. Script runes in plugins. Declared interpreter versions. A `--lang` option on `crunes create`.
+`dispose` for scripts, and a per-invocation state directory for it. Argument schemas written statically in configuration or printed by a script, which need the schema format published as a contract first. REPL lifecycles for scripts. Mapping parsed arguments onto a program's `argv` — the step that lets a rune expose an option under a name the program does not use, and so the one the vision's reading of a rune over a command most depends on. Structured section output from scripts. Script runes in plugins. Declared interpreter versions. A `--lang` option on `crunes create`.
 
 ## Open questions
 
 Each of these needs a decision before implementation; none is settled by anything above.
+
+* **Whether undeclared arguments reach the handler.** Crunes's argument parser does not reject an option the schema does not declare: it is parsed and passed on with the rest. Section 9 promises raw arguments are always passed. That is right for a script whose schema only documents it, and wrong for a rune whose schema is meant to be the whole surface of a program — see [Wrapping a command](/vision/multi-runtime-runes.md). Whether an entry can ask for undeclared arguments to be refused, and whether that changes what section 9 promises, is open.
 
 * **Streaming or buffering standard output.** A string returned from an isolate arrives when `run` finishes. Holding a script's output until exit matches that exactly, but a long script then shows nothing until it ends. Streaming it as written matches what a person expects from a script, but it is an output shape isolate runes do not have.
 * **A timeout for scripts.** Isolate evaluation runs under a timeout; a build or a test suite routinely outlasts one. The choice is between no default timeout, the isolate's, or one the entry declares.
