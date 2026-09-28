@@ -4,6 +4,7 @@
       "vars": {
         "roots": [
           "docs/kb/main",
+          "docs/kb/wp",
           "crunes-cli/docs/kb/main",
           "crunes-plugins/docs/kb/main"
         ]
@@ -13,6 +14,8 @@
           "allow": [
             "fs.glob:docs/kb/main/**/*.md",
             "fs.read:docs/kb/main/**",
+            "fs.glob:docs/kb/wp/**/*.md",
+            "fs.read:docs/kb/wp/**",
             "fs.glob:crunes-cli/docs/kb/main/**/*.md",
             "fs.read:crunes-cli/docs/kb/main/**",
             "fs.glob:crunes-plugins/docs/kb/main/**/*.md",
