@@ -1,7 +1,7 @@
 ---
 okf_version: 0.2
 kb_version: 0.1
-kb: crunes-main
+kb: crunes
 ---
 
 # Crunes knowledge base
@@ -10,8 +10,8 @@ What is true of the crunes ecosystem rather than of any one repository: the mode
 
 This is four git repositories, three of them mounted inside this one as ignored directories. Knowledge about a repository's own code lives with that code:
 
-* The CLI, the sandbox and the permission engine — [`crunes-cli-main`](kb:crunes-cli-main/index.md).
-* The first-party marketplace and its plugins — [`crunes-plugins-main`](kb:crunes-plugins-main/index.md).
+* The CLI, the sandbox and the permission engine — [`crunes-cli`](kb:crunes-cli/index.md).
+* The first-party marketplace and its plugins — [`crunes-plugins`](kb:crunes-plugins/index.md).
 * `crunes-skills` has no bundle; everything true of it is [one decision](/decisions/skills-state-no-api.md).
 * Designs not yet true of any repository — [`crunes-wp`](kb:crunes-wp/index.md).
 
