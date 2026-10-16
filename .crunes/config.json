@@ -9,8 +9,8 @@
           "crunes-plugins/docs/kb/main"
         ]
       },
-      "permissions": {
-        "run": {
+      "run": {
+        "permissions": {
           "allow": [
             "fs.glob:docs/kb/main/**/*.md",
             "fs.read:docs/kb/main/**",

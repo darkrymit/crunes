@@ -4,8 +4,9 @@
     "archive-project": {
       "name": "Project Archiver & Sync Tool",
       "description": "Demonstrates high-performance sandboxed directory archiving, deep directory scaffolding, zip streams, and alphanumeric CLI option parsing.",
-      "permissions": {
-        "run": {
+      "run": {
+        "command": ".crunes/runes/archive-project.rune.js",
+        "permissions": {
           "allow": [
             "fs.read:./**",
             "fs.write:./**",

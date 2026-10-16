@@ -4,13 +4,16 @@
     "hello": {
       "name": "Hello World",
       "description": "Returns a greeting section.",
-      "permissions": {
-        "run": {
+      "batch": {
+        "allow": [
+          "*"
+        ]
+      },
+      "run": {
+        "command": ".crunes/runes/hello.rune.js",
+        "permissions": {
           "allow": []
         }
-      },
-      "batch": {
-        "allow": ["*"]
       }
     }
   }

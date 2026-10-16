@@ -1,11 +1,12 @@
 {
-  "format": "1",
+  "format": "2",
   "runes": {
     "add": {
       "name": "Notes — Add",
       "description": "Appends a timestamped note to the project notes file.",
-      "permissions": {
-        "run": {
+      "run": {
+        "command": "runes/add.rune.js",
+        "permissions": {
           "allow": [
             "fs.write:./notes.md"
           ]
@@ -15,8 +16,9 @@
     "list": {
       "name": "Notes — List",
       "description": "Reads and displays all notes from the project notes file.",
-      "permissions": {
-        "run": {
+      "run": {
+        "command": "runes/list.rune.js",
+        "permissions": {
           "allow": [
             "fs.read:./notes.md"
           ]

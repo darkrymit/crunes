@@ -4,8 +4,9 @@
     "init": {
       "name": "Init",
       "description": "Create tasks.json if it does not exist.",
-      "permissions": {
-        "run": {
+      "run": {
+        "command": ".crunes/runes/init.rune.js",
+        "permissions": {
           "allow": [
             "fs.read:./tasks.json",
             "fs.write:./tasks.json"
@@ -16,8 +17,9 @@
     "task": {
       "name": "Task Manager",
       "description": "Per-project task tracker with nested tag management.",
-      "permissions": {
-        "run": {
+      "run": {
+        "command": ".crunes/runes/task.rune.js",
+        "permissions": {
           "allow": [
             "fs.read:./tasks.json",
             "fs.write:./tasks.json"
