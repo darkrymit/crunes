@@ -4,36 +4,47 @@
     "status": {
       "name": "Batch Demo — Status",
       "description": "Read-only project overview. Always safe to batch.",
-      "permissions": {
-        "run": {
-          "allow": ["fs.read:package.json"]
-        }
-      },
       "batch": {
-        "allow": ["*"]
+        "allow": [
+          "*"
+        ]
+      },
+      "run": {
+        "command": ".crunes/runes/status.rune.js",
+        "permissions": {
+          "allow": [
+            "fs.read:package.json"
+          ]
+        }
       }
     },
     "report": {
       "name": "Batch Demo — Report",
       "description": "Project report. 'read' subcommand is safe to batch; 'generate' writes a file and is not.",
-      "permissions": {
-        "run": {
+      "batch": {
+        "allow": [
+          "read*"
+        ],
+        "deny": [
+          "generate*"
+        ]
+      },
+      "run": {
+        "command": ".crunes/runes/report.rune.js",
+        "permissions": {
           "allow": [
             "shell.run:git log *",
             "fs.write:./report.md"
           ]
         }
-      },
-      "batch": {
-        "allow": ["read*"],
-        "deny": ["generate*"]
       }
     },
     "deploy": {
       "name": "Batch Demo — Deploy",
       "description": "Simulated deployment. No batch block — default deny-all applies.",
-      "permissions": {
-        "run": {
+      "run": {
+        "command": ".crunes/runes/deploy.rune.js",
+        "permissions": {
           "allow": []
         }
       }

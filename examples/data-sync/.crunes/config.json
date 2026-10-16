@@ -4,8 +4,9 @@
     "sync": {
       "name": "Data Sync — Sync",
       "description": "Fetches remote posts, caches the fetch timestamp, and inserts new rows into SQLite.",
-      "permissions": {
-        "run": {
+      "run": {
+        "command": ".crunes/runes/sync.rune.js",
+        "permissions": {
           "allow": [
             "http.fetch:GET::https://jsonplaceholder.typicode.com/**",
             "cache.read:@local-cache/**",
@@ -19,15 +20,18 @@
     "report": {
       "name": "Data Sync — Report",
       "description": "Queries and displays the most recent stored posts.",
-      "permissions": {
-        "run": {
+      "batch": {
+        "allow": [
+          "*"
+        ]
+      },
+      "run": {
+        "command": ".crunes/runes/report.rune.js",
+        "permissions": {
           "allow": [
             "sqlite.read:@local-sqlite/**"
           ]
         }
-      },
-      "batch": {
-        "allow": ["*"]
       }
     }
   }

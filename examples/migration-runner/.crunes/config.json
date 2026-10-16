@@ -4,8 +4,9 @@
     "migrate": {
       "name": "Migration Runner — Migrate",
       "description": "Runs pending SQL migrations and marks them as applied.",
-      "permissions": {
-        "run": {
+      "run": {
+        "command": ".crunes/runes/migrate.rune.js",
+        "permissions": {
           "allow": [
             "fs.read:./migrations/**",
             "fs.glob:./migrations::*.sql",
@@ -20,16 +21,19 @@
     "status": {
       "name": "Migration Runner — Status",
       "description": "Shows which migrations have been applied and which are pending.",
-      "permissions": {
-        "run": {
+      "batch": {
+        "allow": [
+          "*"
+        ]
+      },
+      "run": {
+        "command": ".crunes/runes/status.rune.js",
+        "permissions": {
           "allow": [
             "fs.glob:./migrations::*.sql",
             "cache.read:@local-cache/**"
           ]
         }
-      },
-      "batch": {
-        "allow": ["*"]
       }
     }
   }

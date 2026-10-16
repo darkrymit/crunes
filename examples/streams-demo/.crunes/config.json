@@ -3,17 +3,26 @@
   "runes": {
     "generate": {
       "name": "Generate Large File",
-      "permissions": {
-        "run": {
-          "allow": ["fs.read:large_data.bin", "fs.write:large_data.bin"]
+      "run": {
+        "command": ".crunes/runes/generate.rune.js",
+        "permissions": {
+          "allow": [
+            "fs.read:large_data.bin",
+            "fs.write:large_data.bin"
+          ]
         }
       }
     },
     "decode": {
       "name": "Decode Large File",
-      "permissions": {
-        "run": {
-          "allow": ["fs.read:large_data.bin", "fs.read:processed_data.txt", "fs.write:processed_data.txt"]
+      "run": {
+        "command": ".crunes/runes/decode.rune.js",
+        "permissions": {
+          "allow": [
+            "fs.read:large_data.bin",
+            "fs.read:processed_data.txt",
+            "fs.write:processed_data.txt"
+          ]
         }
       }
     }

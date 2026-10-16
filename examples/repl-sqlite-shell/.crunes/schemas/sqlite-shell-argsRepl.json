@@ -1,0 +1,30 @@
+{
+  "runeKey": "sqlite-shell",
+  "hash": "df3f14ec497c43113730ba8b9da3da3d63e990d8c07fb90bc79c491515dd265f:44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a",
+  "cachedAt": "2026-10-16T18:46:26.157Z",
+  "schema": {
+    "options": [
+      {
+        "flags": "--db <path>",
+        "description": "Path to the SQLite database directory",
+        "def": "./state"
+      },
+      {
+        "flags": "--help",
+        "description": "Show help"
+      }
+    ],
+    "positionals": [],
+    "examples": [
+      {
+        "usage": "crunes repl sqlite-shell",
+        "description": "Start an interactive SQLite shell"
+      },
+      {
+        "usage": "crunes repl sqlite-shell --db ./other",
+        "description": "Open a different database directory"
+      }
+    ],
+    "commands": []
+  }
+}

@@ -1,11 +1,12 @@
 {
-  "format": "1",
+  "format": "2",
   "runes": {
     "greet": {
       "name": "Greeter",
       "description": "Returns a personalised greeting.",
-      "permissions": {
-        "run": {
+      "run": {
+        "command": "runes/greet.rune.js",
+        "permissions": {
           "allow": []
         }
       }
