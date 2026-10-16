@@ -95,6 +95,12 @@ These hold from MVP0 onward, so that every later addition is additive:
 
 `dispose` for scripts, and a per-invocation state directory for it. Argument schemas written statically in configuration or printed by a script, which need the schema format published as a contract first. REPL lifecycles for scripts. Mapping parsed arguments onto a program's `argv` — the step that lets a rune expose an option under a name the program does not use, and so the one the vision's reading of a rune over a command most depends on. Structured section output from scripts. Script runes in plugins. Declared interpreter versions. A `--lang` option on `crunes create`.
 
+## Prerequisites
+
+Existing behaviour that must change before MVP0 ships.
+
+* **A returned string renders as `undefined` in text mode.** In `crunes` 0.9, a rune whose `run` returns a plain string prints a section headed `undefined` with an empty body in text mode, although `--format jsonl` carries the string intact. Section 4 makes script output follow the same path, so this has to be fixed before script runes ship, or every script rune's output is lost in text mode.
+
 ## Open questions
 
 Each of these needs a decision before implementation; none is settled by anything above.
@@ -112,4 +118,3 @@ Accepted as needed, not scheduled for MVP0.
 
 * **Argument validation.** Enforcing what a schema declares — required positionals, value kinds, allowed values — before the handler runs. The builder has no way to declare allowed values today, so this is new schema surface as well as new behaviour.
 * **Refusing undeclared arguments.** Section 9 promises raw arguments are always passed. That is right for a script whose schema only documents it, and wrong for a rune whose schema is meant to be the whole surface of a program — see [Wrapping a command](/vision/multi-runtime-runes.md). An entry will need a way to ask for undeclared arguments to be refused, and section 9 will need to say what it then promises.
-* **A returned string renders as `undefined` in text mode.** In `crunes` 0.9, a rune whose `run` returns a plain string prints a section headed `undefined` with an empty body in text mode, although `--format jsonl` carries the string intact. Section 4 makes script output follow the same path, so this has to be fixed before script runes ship, or every script rune's output is lost in text mode.
