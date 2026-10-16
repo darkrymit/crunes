@@ -13,6 +13,7 @@ This is four git repositories, three of them mounted inside this one as ignored 
 * The CLI, the sandbox and the permission engine — [`crunes-cli-main`](kb:crunes-cli-main/index.md).
 * The first-party marketplace and its plugins — [`crunes-plugins-main`](kb:crunes-plugins-main/index.md).
 * `crunes-skills` has no bundle; everything true of it is [one decision](/decisions/skills-state-no-api.md).
+* Designs not yet true of any repository — [`crunes-wp`](kb:crunes-wp/index.md).
 
 A document here earns its place by being true of more than one of them. Where to put a new note is [the layout spec](/specs/knowledge-base.md), section 6.
 
