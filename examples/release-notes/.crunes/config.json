@@ -4,8 +4,9 @@
     "generate": {
       "name": "Release Notes — Generate",
       "description": "Generates a changelog entry from git log and appends it to CHANGELOG.md.",
-      "permissions": {
-        "run": {
+      "run": {
+        "command": ".crunes/runes/generate.rune.js",
+        "permissions": {
           "allow": [
             "shell.run:git *",
             "fs.write:./CHANGELOG.md"

@@ -4,8 +4,9 @@
     "upload": {
       "name": "Multipart File Upload",
       "description": "Uploads a local file as a multipart/form-data POST and streams the response body.",
-      "permissions": {
-        "run": {
+      "run": {
+        "command": ".crunes/runes/upload.rune.js",
+        "permissions": {
           "allow": [
             "fs.read:./**",
             "http.fetch:POST::https://httpbin.org/post"

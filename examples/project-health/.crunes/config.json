@@ -4,24 +4,28 @@
     "check": {
       "name": "Project Health — Check",
       "description": "Reports package.json metadata and GitHub Actions workflow inventory.",
-      "permissions": {
-        "run": {
+      "batch": {
+        "allow": [
+          "*"
+        ]
+      },
+      "run": {
+        "command": ".crunes/runes/check.rune.js",
+        "permissions": {
           "allow": [
             "fs.read:./package.json",
             "fs.glob:./.github/workflows::*.yml",
             "fs.read:./.github/workflows/**"
           ]
         }
-      },
-      "batch": {
-        "allow": ["*"]
       }
     },
     "fix-version": {
       "name": "Project Health — Fix Version",
       "description": "Updates the version field in package.json.",
-      "permissions": {
-        "run": {
+      "run": {
+        "command": ".crunes/runes/fix-version.rune.js",
+        "permissions": {
           "allow": [
             "fs.read:./package.json",
             "fs.write:./package.json"

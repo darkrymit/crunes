@@ -4,26 +4,33 @@
     "stream-count": {
       "name": "Streaming Demo",
       "description": "Streams subprocess output progressively, emitting section updates until a tick limit.",
-      "permissions": {
-        "run": {
-          "allow": ["shell.run:node counter.js"]
+      "run": {
+        "command": ".crunes/runes/stream-count.rune.js",
+        "permissions": {
+          "allow": [
+            "shell.run:node counter.js"
+          ]
         }
       }
     },
     "stream-fetch": {
       "name": "Stream Fetch",
       "description": "Streams an HTTP response body chunk-by-chunk using res.body().getReader().",
-      "permissions": {
-        "run": {
-          "allow": ["http.fetch:GET::https://**"]
+      "run": {
+        "command": ".crunes/runes/stream-fetch.rune.js",
+        "permissions": {
+          "allow": [
+            "http.fetch:GET::https://**"
+          ]
         }
       }
     },
     "stream-shell-features": {
       "name": "Stream Shell Features",
       "description": "Demonstrates WHATWG Web standard streams, stdin stream piping, and binary mode in sandboxed shell executions.",
-      "permissions": {
-        "run": {
+      "run": {
+        "command": ".crunes/runes/stream-shell-features.rune.js",
+        "permissions": {
           "allow": [
             "shell.run:node pipe.js",
             "shell.run:node binary.js",
