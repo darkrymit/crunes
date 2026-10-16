@@ -127,7 +127,11 @@ The same replacement governs a plugin rune: a project that declares `permissions
 }
 ```
 
-## 9. Migrating from the current entry
+## 9. Registering an existing script
+
+`crunes add <key> <command>` writes a `run` block naming an existing file or program, with an optional `--description`. It creates no file and declares no grants — it is the one-line way to put a script a project already has into the list, where `crunes create` scaffolds a new isolate module.
+
+## 10. Migrating from the current entry
 
 The old shape is refused, not reinterpreted. Each refusal prints the entry rewritten.
 
@@ -142,6 +146,8 @@ The old shape is refused, not reinterpreted. Each refusal prints the entry rewri
 
 `crunes doctor` reports every entry in every layer that needs one of these rewrites. A plugin manifest moves to `"format": "2"` with the same rewrites.
 
+**There is no compatibility period.** Crunes's users are few and known, so migrating is a single sitting: the old shape is not read alongside the new one, and nothing warns before it refuses.
+
 **Installed plugins need no new consent.** The permissions a user consented to are stored as a flat list per rune, not by lifecycle, so moving grants into blocks changes where they are collected from and not what was agreed to.
 
 ## Open questions
@@ -151,4 +157,3 @@ Each needs a decision before implementation; none is settled above.
 * **Whether a default grant follows the declared or the effective grants.** `args` without its own `permissions` takes `run`'s. When a project override replaces `run.permissions` for a plugin rune, it is not stated whether the `args` default follows the plugin's declaration or the project's replacement.
 * **Templates.** `config.templates` entries share the rune entry's shape today, `path` included, and `crunes template apply` writes a rune entry from one. Neither is described here.
 * **The `name` field.** It survives at the top level unchanged, but whether it still earns a place beside `description` was never discussed.
-* **The shape of the migration report.** Refusing the old shape with the rewrite printed is decided; whether `crunes doctor` prints the rewritten entries as patchable JSON or only names what to change is not.

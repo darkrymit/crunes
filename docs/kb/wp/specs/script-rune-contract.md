@@ -20,12 +20,14 @@ The author names the file; crunes finds what runs it.
 * **bash** — the resolution `shell.exec` already uses, including `CRUNES_BASH` and Git Bash on Windows.
 * **A program, or a file with no known extension** — executed directly; there is no interpreter to find.
 
-When nothing is found, the error names every candidate tried and the variable that overrides the search. The resolved interpreter is cached per project, and `crunes doctor` reports it for every script rune.
+When nothing is found, the error names every candidate tried and the variable that overrides the search. The resolved interpreter is cached per project and shown wherever a rune is described: `crunes list` names each script rune's runtime, `crunes docs rune` names the interpreter that will run it, and `crunes doctor` reports it for every script rune — so a rune that runs differently on two machines says so where people already look.
 
 ## 2. Arguments
 
 * **Without an argument schema**, crunes does not parse the caller's arguments. Everything after the rune key is passed on unchanged, `--help` included.
-* **With a schema** from the rune's `args` block, crunes validates the call before anything is spawned: `--help` and invalid arguments are answered by crunes and never reach the script, and `crunes docs rune` documents the rune. The script then receives both the raw arguments and the parsed result.
+* **With a schema** from the rune's `args` block, crunes parses the call against it before anything is spawned and answers `--help` itself, so `crunes docs rune` documents the rune and `--help` never reaches the script. The script then receives both the raw arguments and the parsed result.
+
+**Parsing is not validation.** Crunes's argument parser enforces nothing today: a missing required positional, a value of the wrong kind and an option the schema does not declare all reach the handler. A schema describes and parses a rune's arguments; it does not guard them. Validation is backlog — see below.
 
 The process is invoked as the `command`, then the entry's `argv`, then the caller's arguments. `crunes run deploy staging --dry-run` against `{ "command": "scripts/deploy.sh", "argv": ["--region", "eu"] }` runs the script with `--region eu staging --dry-run`.
 
@@ -97,10 +99,16 @@ These hold from MVP0 onward, so that every later addition is additive:
 
 Each of these needs a decision before implementation; none is settled by anything above.
 
-* **Whether undeclared arguments reach the handler.** Crunes's argument parser does not reject an option the schema does not declare: it is parsed and passed on with the rest. Section 9 promises raw arguments are always passed. That is right for a script whose schema only documents it, and wrong for a rune whose schema is meant to be the whole surface of a program — see [Wrapping a command](/vision/multi-runtime-runes.md). Whether an entry can ask for undeclared arguments to be refused, and whether that changes what section 9 promises, is open.
 
 * **Streaming or buffering standard output.** A string returned from an isolate arrives when `run` finishes. Holding a script's output until exit matches that exactly, but a long script then shows nothing until it ends. Streaming it as written matches what a person expects from a script, but it is an output shape isolate runes do not have.
 * **A timeout for scripts.** Isolate evaluation runs under a timeout; a build or a test suite routinely outlasts one. The choice is between no default timeout, the isolate's, or one the entry declares.
 * **The exit status of a signal-killed script** — crunes's existing mapping to `1`, or the shell convention of 128 plus the signal number, which preserves which signal it was.
 * **How a script reads `vars`.** An isolate rune reads its configured `vars` through `@utils`. Nothing in this contract passes them to a script; a `CRUNES_VARS` JSON variable is the obvious shape, but it is not decided.
 * **Bash on a Windows machine without it.** A `.sh` rune fails there with the interpreter error. Whether MVP0 should name PowerShell or `cmd` runtimes, or leave Windows users to install Git Bash, is open.
+
+## Backlog
+
+Accepted as needed, not scheduled for MVP0.
+
+* **Argument validation.** Enforcing what a schema declares — required positionals, value kinds, allowed values — before the handler runs. The builder has no way to declare allowed values today, so this is new schema surface as well as new behaviour.
+* **Refusing undeclared arguments.** Section 9 promises raw arguments are always passed. That is right for a script whose schema only documents it, and wrong for a rune whose schema is meant to be the whole surface of a program — see [Wrapping a command](/vision/multi-runtime-runes.md). An entry will need a way to ask for undeclared arguments to be refused, and section 9 will need to say what it then promises.

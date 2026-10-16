@@ -47,7 +47,7 @@ The first cut takes one step toward it. [Rune configuration v2](/specs/rune-conf
 
 An entry that names a program and adds nothing to it is still the rune that earned nothing, and the skills should teach it as such.
 
-**This depends on work MVP0 does not yet do.** Today a schema validates and documents the options it declares, but options it does not declare still pass through to the handler. A surface is only thin if what is not on it cannot reach the program, and a reshaped option only works if crunes can rewrite it into the program's own. Both are recorded as open questions in the [script rune contract](/specs/script-rune-contract.md).
+**This depends on work MVP0 does not yet do.** Today a schema documents and parses the options it declares, but enforces none of them, and options it does not declare still pass through to the handler. A surface is only thin if what is not on it cannot reach the program, and a reshaped option only works if crunes can rewrite it into the program's own. Both are recorded as open questions in the [script rune contract](/specs/script-rune-contract.md).
 
 ## What accepting it changes
 

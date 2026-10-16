@@ -1,7 +1,7 @@
 ---
 type: flow
 title: crunes run under configuration v2
-description: The proposed path of one crunes run invocation from key to output once the run block may name a script — where the entry's blocks are read, where the schema is built and validated, and where the path splits between the isolate and a native process.
+description: The proposed path of one crunes run invocation from key to output once the run block may name a script — where the entry's blocks are read, where the schema is built and the call parsed, and where the path splits between the isolate and a native process.
 tags: [flow, run, proposal, mvp0]
 ---
 
@@ -21,8 +21,8 @@ flowchart TD
     program --> schema_source{schema source}
     schema_source -->|args block, or an isolate run module's export| build_schema[build the schema in its own isolate<br/>or read it from the cache]
     schema_source -->|none| pass_through[pass arguments through unparsed]
-    build_schema --> validate[validate the call<br/>answer --help and errors here]
-    validate --> dispatch{run runtime}
+    build_schema --> parse_call[parse the call against the schema<br/>answer --help here]
+    parse_call --> dispatch{run runtime}
     pass_through --> dispatch
     dispatch -->|isolate| isolate_run[today's isolate path]
     dispatch -->|native| find_interpreter[find the interpreter]
@@ -44,7 +44,7 @@ The resolved entry must have a `run` block. Nothing is looked up by convention: 
 
 The schema comes from the `args` block if there is one, or from the `args` export of an isolate `run` module if there is not. Either way it is built in an isolate of its own under the grants the configuration spec assigns, and cached unless the module opts out.
 
-With a schema, the call is validated here. `--help` and invalid arguments are answered by crunes; no script is spawned for them. Without one, arguments pass through unparsed, `--help` included.
+With a schema, the call is parsed against it here and `--help` is answered by crunes; no script is spawned for it. Parsing enforces nothing — see the [script rune contract](/specs/script-rune-contract.md). Without a schema, arguments pass through unparsed, `--help` included.
 
 ## 4. The path splits once
 
