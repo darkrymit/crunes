@@ -9,7 +9,7 @@ tags: [spec, rune, runtime, proposal, mvp0]
 
 **Proposal, MVP0.** Written from [Runes in any language](/vision/multi-runtime-runes.md). How an entry names its script, and which file names select which runtime, is [Rune configuration v2](/specs/rune-config-v2.md). The order in which the pieces below happen is [`crunes run` under configuration v2](/flows/run.md).
 
-**Prototype:** [darkrymit/crunes-cli#6](https://github.com/darkrymit/crunes-cli/pull/6) implements this contract as a draft, and is what the behaviour below was checked against on Linux.
+**Prototype:** [darkrymit/crunes-cli#6](https://github.com/darkrymit/crunes-cli/pull/6) implements this contract as a draft, and is what the behaviour below was checked against on Linux. [darkrymit/crunes-cli#10](https://github.com/darkrymit/crunes-cli/pull/10) (MVP0.1) builds on it with JSON argument schemas, validation, `CRUNES_VARS`, structured output and `crunes create --lang`; the sections below marked **MVP0.1** describe that branch.
 
 MVP0 is one feature: **a Node, Python or bash script, or a program on `PATH`, can serve a rune's `run` lifecycle**, optionally behind an argument schema built by an isolate module in the rune's `args` block. Every other lifecycle stays isolate-only.
 
@@ -29,7 +29,11 @@ When nothing is found, the error names every candidate tried and the variable th
 * **Without an argument schema**, crunes does not parse the caller's arguments. Everything after the rune key is passed on unchanged, `--help` included.
 * **With a schema** from the rune's `args` block, crunes parses the call against it before anything is spawned and answers `--help` itself, so `crunes docs rune` documents the rune and `--help` never reaches the script. This is new for script runes: an isolate rune today receives `help: true` among its arguments and renders its own help with `rune.helpSection`, which a script has no way to call. The script then receives both the raw arguments and the parsed result.
 
-**Parsing is not validation.** Crunes's argument parser enforces nothing today: a missing required positional, a value of the wrong kind and an option the schema does not declare all reach the handler. A schema describes and parses a rune's arguments; it does not guard them. Validation is backlog — see below.
+**Parsing is not validation** in MVP0: a missing required positional, a value of the wrong kind and an option the schema does not declare all reach the handler.
+
+**MVP0.1 validates what a schema declares, for script runes.** A `<name>` positional is required; an option may declare `required` and `default`; positionals and options may declare `choices`. Every problem is reported together, with the `--help` command to run, and nothing is spawned. Value kinds and undeclared options are still not checked.
+
+**MVP0.1 schemas need no JavaScript.** The `args` block may be the schema itself, written inline as JSON, or its `command` may name a `.json` file. The shape is the one an `args(builder)` module produces — `positionals`, `options`, `examples`, `commands` — and an unknown field is refused with its path, so a typo such as `defualt` fails at load rather than being ignored. Publishing this shape is what makes it a contract: it is the format a script printing its own schema would also use.
 
 The process is invoked as the `command`, then the entry's `argv`, then the caller's arguments. `crunes run deploy staging --dry-run` against `{ "command": "scripts/deploy.sh", "argv": ["--region", "eu"] }` runs the script with `--region eu staging --dry-run`.
 
@@ -46,6 +50,7 @@ The process is invoked as the `command`, then the entry's `argv`, then the calle
 | `CRUNES_RUNE_KEY` | The key the rune was invoked by |
 | `CRUNES_LIFECYCLE` | `run` |
 | `CRUNES_ARGS` | The parsed arguments as JSON — only when the rune has a schema |
+| `CRUNES_VARS` | The entry's `vars` as a JSON object, `{}` when it has none — **MVP0.1** |
 
   The caller's environment may already hold other `CRUNES_` variables — `CRUNES_BASH` or `CRUNES_NO_GLOBAL` set by the user, `CRUNES_NO_TIMEOUT` set by crunes on a process it spawns for `rune.exec`. They pass through unchanged and are not part of this contract.
 
@@ -58,6 +63,7 @@ What crunes does with a script's output depends on whether the invocation is dir
 
 * **Run alone, a script rune is not captured.** Its streams are the caller's and its exit code is crunes's exit code, unchanged. Crunes adds nothing to its output and takes nothing from it, so a script rune run alone behaves as its script does run by hand.
 * **In a batch, JSONL, a job or `bench`, it is captured.** Standard output becomes the rune's result, handled as a string returned from an isolate `run` is handled; standard error passes through as diagnostics; a non-zero exit code makes the rune failed, with the code in the failure message.
+* **MVP0.1: structured output is declared, never inferred.** With `"output": "sections"` in the `run` block, crunes reads standard output line by line. A line `{"section": {…}}` is a section, in the shape `--format jsonl` prints; a line `{"log": {"level", "message"}}` is a log line, written to standard error; any other line is plain text. Run alone, sections are rendered as markdown as they arrive, plain text prints in place, and `-s` filters sections. Framed, sections stream as section events and plain text is gathered into one `output` section after them. The exit code behaves as without the field.
 
 ## 5. Inside the rest of crunes
 
@@ -97,6 +103,8 @@ These hold from MVP0 onward, so that every later addition is additive:
 
 ## 10. Not in MVP0
 
+MVP0.1 builds three of these: argument schemas written statically in configuration (inline or a `.json` file), structured section output, and `crunes create --lang`. The rest stand.
+
 `dispose` for scripts, and a per-invocation state directory for it. Argument schemas written statically in configuration or printed by a script, which need the schema format published as a contract first. REPL lifecycles for scripts. Mapping parsed arguments onto a program's `argv` — the step that lets a rune expose an option under a name the program does not use, and so the one the vision's reading of a rune over a command most depends on. Structured section output from scripts. Script runes in plugins. Declared interpreter versions. A `--lang` option on `crunes create`.
 
 ## Prerequisites
@@ -112,12 +120,11 @@ Each of these needs a decision before implementation; none is settled by anythin
 * **Streaming captured output.** Run alone, a script streams because nothing captures it. Captured — in a batch, JSONL or a job — its standard output is held until it exits, as a string returned from an isolate `run` is. Whether captured output should instead arrive as it is written, the way `section.emit` streams an isolate rune's sections, is open. Standard error passes through as it is written in every mode, which is where a long script's progress conventionally goes.
 * **A timeout for scripts.** Isolate evaluation runs under a timeout; a build or a test suite routinely outlasts one. The choice is between no default timeout, the isolate's, or one the entry declares.
 * **The exit status of a signal-killed script** — the shell convention of 128 plus the signal number, which passing a code through unchanged suggests, or crunes's existing mapping to `1`. See [Invocation output](/specs/invocation-output.md).
-* **How a script reads `vars`.** An isolate rune reads its configured `vars` through `@utils`. Nothing in this contract passes them to a script; a `CRUNES_VARS` JSON variable is the obvious shape, but it is not decided.
 * **Bash on a Windows machine without it.** A `.sh` rune fails there with the interpreter error. Whether MVP0 should name PowerShell or `cmd` runtimes, or leave Windows users to install Git Bash, is open.
 
 ## Backlog
 
 Accepted as needed, not scheduled for MVP0.
 
-* **Argument validation.** Enforcing what a schema declares — required positionals, value kinds, allowed values — before the handler runs. The builder has no way to declare allowed values today, so this is new schema surface as well as new behaviour.
+* **Argument validation for value kinds, and for isolate runes.** MVP0.1 enforces required arguments and allowed values for script runes. Value kinds are not checked, and the `args(builder)` API has no way to declare `required` or `choices`, so a builder schema gets only required positionals.
 * **Refusing undeclared arguments.** Section 9 promises raw arguments are always passed. That is right for a script whose schema only documents it, and wrong for a rune whose schema is meant to be the whole surface of a program — see [Wrapping a command](/vision/multi-runtime-runes.md). An entry will need a way to ask for undeclared arguments to be refused, and section 9 will need to say what it then promises.

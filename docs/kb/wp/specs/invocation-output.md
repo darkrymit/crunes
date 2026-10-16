@@ -11,7 +11,7 @@ tags: [spec, output, run, script, proposal, mvp0]
 
 **Prototype:** [darkrymit/crunes-cli#6](https://github.com/darkrymit/crunes-cli/pull/6) implements the script rune half of this contract — direct and captured — as a draft. The isolate half, and diagnostics moving to standard error, are not built: they change every existing rune's output and come as their own change.
 
-**Framed output does not survive a reader that leaves early** today: piping `crunes run` into `head` crashes with an `EPIPE` stack trace ([darkrymit/crunes-cli#5](https://github.com/darkrymit/crunes-cli/issues/5)). A direct script rune is unaffected, because crunes writes nothing of its own to standard output.
+**Framed output does not survive a reader that leaves early** today: piping `crunes run` into `head` crashes with an `EPIPE` stack trace ([darkrymit/crunes-cli#5](https://github.com/darkrymit/crunes-cli/issues/5); fixed by [darkrymit/crunes-cli#9](https://github.com/darkrymit/crunes-cli/pull/9), which exits `0`). A direct script rune is unaffected, because crunes writes nothing of its own to standard output.
 
 ## 1. Two modes, chosen by crunes
 

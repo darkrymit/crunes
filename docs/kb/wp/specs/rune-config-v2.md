@@ -37,10 +37,12 @@ This replaces two fallbacks that exist today: an entry without `path` resolving 
 
 | Block | Fields |
 |---|---|
-| `run` | `command` (required), `argv`, `permissions` |
+| `run` | `command` (required), `argv`, `permissions`, `output` — **MVP0.1**, `text` (default) or `sections`, script handlers only |
 | `args`, `argsRepl`, `commandsRepl`, `repl` | `command`, `permissions` |
 
 A block may be written as a string, which is shorthand for `{ "command": <string> }`.
+
+**MVP0.1:** an `args` block in front of a script may instead be the argument schema itself, written inline, or name a `.json` schema file as its `command`. An inline schema is replaced whole by a higher layer rather than merged key by key. See [Script rune contract](/specs/script-rune-contract.md).
 
 ### 2.2 The top level
 
