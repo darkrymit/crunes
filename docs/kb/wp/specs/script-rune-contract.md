@@ -9,6 +9,8 @@ tags: [spec, rune, runtime, proposal, mvp0]
 
 **Proposal, MVP0.** Written from [Runes in any language](/vision/multi-runtime-runes.md). How an entry names its script, and which file names select which runtime, is [Rune configuration v2](/specs/rune-config-v2.md). The order in which the pieces below happen is [`crunes run` under configuration v2](/flows/run.md).
 
+**Prototype:** [darkrymit/crunes-cli#6](https://github.com/darkrymit/crunes-cli/pull/6) implements this contract as a draft, and is what the behaviour below was checked against on Linux.
+
 MVP0 is one feature: **a Node, Python or bash script, or a program on `PATH`, can serve a rune's `run` lifecycle**, optionally behind an argument schema built by an isolate module in the rune's `args` block. Every other lifecycle stays isolate-only.
 
 ## 1. Finding the interpreter
@@ -25,7 +27,7 @@ When nothing is found, the error names every candidate tried and the variable th
 ## 2. Arguments
 
 * **Without an argument schema**, crunes does not parse the caller's arguments. Everything after the rune key is passed on unchanged, `--help` included.
-* **With a schema** from the rune's `args` block, crunes parses the call against it before anything is spawned and answers `--help` itself, so `crunes docs rune` documents the rune and `--help` never reaches the script. The script then receives both the raw arguments and the parsed result.
+* **With a schema** from the rune's `args` block, crunes parses the call against it before anything is spawned and answers `--help` itself, so `crunes docs rune` documents the rune and `--help` never reaches the script. This is new for script runes: an isolate rune today receives `help: true` among its arguments and renders its own help with `rune.helpSection`, which a script has no way to call. The script then receives both the raw arguments and the parsed result.
 
 **Parsing is not validation.** Crunes's argument parser enforces nothing today: a missing required positional, a value of the wrong kind and an option the schema does not declare all reach the handler. A schema describes and parses a rune's arguments; it does not guard them. Validation is backlog — see below.
 
@@ -101,7 +103,7 @@ These hold from MVP0 onward, so that every later addition is additive:
 
 Existing behaviour that must change before MVP0 ships.
 
-* **A plain string result is mishandled** — it renders as an `undefined` section in text mode and fails section filters ([darkrymit/crunes-cli#1](https://github.com/darkrymit/crunes-cli/issues/1)). A captured script's output goes down the same path, so it has to be fixed first.
+* **A plain string result is mishandled** — it renders as an `undefined` section in text mode and fails section filters ([darkrymit/crunes-cli#1](https://github.com/darkrymit/crunes-cli/issues/1), fixed by [darkrymit/crunes-cli#3](https://github.com/darkrymit/crunes-cli/pull/3), which names a string result `output`). A captured script's output goes down the same path, so it has to be merged first.
 
 ## Open questions
 
