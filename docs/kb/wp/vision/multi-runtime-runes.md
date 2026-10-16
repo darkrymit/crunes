@@ -29,6 +29,14 @@ A rune today has lifecycles — `args`, `run`, `dispose`, and the REPL family �
 
 The first cut takes one step toward it. [Rune configuration v2](/specs/rune-config-v2.md) gives every lifecycle crunes executes in its own context a block of its own, and the [script rune contract](/specs/script-rune-contract.md) lets a script serve `run` behind a schema built in the isolate. Every other slot stays isolate-only, and the contract is shaped so that each one opened to scripts later is additive: a script written against it keeps working unchanged.
 
+## Direct when alone, framed when shared
+
+A rune run alone should reach its caller the way a command does. Today it cannot: every invocation is run as a batch of one, so a single rune's output is framed, its logs share standard output with its result, and its exit status can only say pass or fail. That shape is what a batch needs and what nothing else does.
+
+[Single invocations are direct](/decisions/direct-single-invocation.md) keeps the framing where several streams share one channel — batches, JSONL, jobs — and drops it everywhere else. For a script rune the result is that crunes disappears at run time: the script owns the terminal, pipes as it always did, prompts if it needs to, and returns its own exit code. Everything crunes contributes — the name in `crunes list`, the page in `crunes docs rune`, the parsed schema — happens before the script starts.
+
+It enriches the isolate side as much. A single isolate rune's output becomes plain markdown on standard output, with its diagnostics on standard error: the shape an agent reads cheapest and a pipeline expects. And because JSONL is untouched, a program that wants structure asks for it explicitly, instead of every caller paying for structure it never parses.
+
 ## What it refuses
 
 **It does not port `@utils` to other languages.** A shim per language is the same maintenance burden this proposal exists to escape, multiplied. The contract with a script is environment variables in and standard output back.
@@ -64,13 +72,14 @@ Written out so that nothing is left describing the old model. Documents are name
 
 **`crunes-cli-main`**
 
-* *crunes run* and *crunes repl* flows — the run path splits as in [the proposed flow](/flows/run.md); a REPL exists only when declared.
+* *crunes run* and *crunes repl* flows — the run path splits as in [the proposed flow](/flows/run.md), and a single invocation's output is direct as in [Invocation output](/specs/invocation-output.md); a REPL exists only when declared.
+* *shared* module — its account of the two section renderers changes, since a single invocation no longer uses the prefixed form.
 * *crunes template apply* flow, and the *template* module — both write rune entries, and templates share the entry's shape.
 * *rune*, *core*, *plugin* and *docs* modules — resolution, config loading and per-block merging, the manifest format, and how native runes are documented.
 * *The isolate boundary* pattern — it describes the only tier there is today; it becomes one of two.
 
 **`crunes-plugins`** — every plugin manifest is rewritten to format 2 and every plugin rune entry file renamed to `*.rune.js`.
 
-**`crunes-skills`** — all four skills describe runes as isolate JavaScript and grants by mode. Their governing rule — state no API surface — means the change is in what they teach, not in any list they carry.
+**`crunes-skills`** — all four skills describe runes as isolate JavaScript and grants by mode, and the main skill's advice on reading output assumes the framed form. Their governing rule — state no API surface — means the change is in what they teach, not in any list they carry.
 
 **`examples/`** — every example rune is renamed and every example configuration rewritten; a script rune example is added.

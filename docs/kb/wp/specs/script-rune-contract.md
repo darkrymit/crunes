@@ -47,20 +47,21 @@ The process is invoked as the `command`, then the entry's `argv`, then the calle
 
   The caller's environment may already hold other `CRUNES_` variables — `CRUNES_BASH` or `CRUNES_NO_GLOBAL` set by the user, `CRUNES_NO_TIMEOUT` set by crunes on a process it spawns for `rune.exec`. They pass through unchanged and are not part of this contract.
 
-* **Standard input** — inherited, so `cat data.csv | crunes run import` works.
+* **Standard streams** — in a single invocation, the caller's own: standard input, output and error are inherited, so `cat data.csv | crunes run import` works and a terminal stays a terminal. In a batch, JSONL, a job or `bench`, output is captured and standard input is closed. Which applies is [Invocation output](/specs/invocation-output.md).
 * **Interrupts** — the script stops when the invocation is interrupted. See section 6 for why forwarding is not simply "send the signal on".
 
 ## 4. What crunes does with the result
 
-* **Standard output is the rune's result**, handled exactly as a string returned from an isolate rune's `run` is handled: rendered as it is in text mode, carried as the rune's output in `--format jsonl`, and treated the same way by section filters. A script rune introduces no output shape an isolate rune cannot already produce.
-* **Standard error** streams through as it is written.
-* **The exit code** becomes crunes's exit code.
+What crunes does with a script's output depends on whether the invocation is direct or framed; [Invocation output](/specs/invocation-output.md) is the whole contract, and this is its summary for scripts.
+
+* **Run alone, a script rune is not captured.** Its streams are the caller's and its exit code is crunes's exit code, unchanged. Crunes adds nothing to its output and takes nothing from it, so a script rune run alone behaves as its script does run by hand.
+* **In a batch, JSONL, a job or `bench`, it is captured.** Standard output becomes the rune's result, handled as a string returned from an isolate `run` is handled; standard error passes through as diagnostics; a non-zero exit code makes the rune failed, with the code in the failure message.
 
 ## 5. Inside the rest of crunes
 
 A script rune is reached through the same resolution as any other rune, so the commands built on that resolution apply to it unchanged:
 
-* **`rune.exec` from another rune** spawns `crunes` as a child process and parses its JSONL output. The script's result arrives as that child's output, so an isolate rune can call a script rune — within its `rune.run:<key>` grant — without knowing what the script is written in.
+* **`rune.exec` from another rune** spawns `crunes` as a child process and parses its JSONL output — a framed invocation, so the script is captured. The script's result arrives as that child's output, so an isolate rune can call a script rune — within its `rune.run:<key>` grant — without knowing what the script is written in.
 * **Batch invocation** (`-b a + b`) resolves each segment separately, so script and isolate runes mix in one batch. `batch.allow` matches the rune's arguments as it does today.
 * **Background jobs** (`rune.job.start`) run the rune in a detached `crunes` process and read its logged output, so a script rune can run as a job. A job started with `repl: true` needs a `repl` block, which a script rune may only have as an isolate module.
 
@@ -70,7 +71,7 @@ These follow from existing behaviour and bind the implementation; they are not c
 
 * **A script rune is crunes's child process.** `crunes` 0.9 runs as a single process — the earlier re-spawn for `--no-node-snapshot` is no longer in the source, although `crunes-cli-main` still records it. Called through `rune.exec`, the script is a grandchild: the calling crunes, the child crunes, then the script.
 * **An interrupt from a terminal reaches the whole foreground process group**, so the script usually receives it directly. Forwarding it again from crunes delivers it twice; forwarding exists for interrupts that did not come from a terminal, such as a parent process signalling crunes.
-* **Crunes's exit status is pass or fail today.** It exits `1` when any rune in the invocation failed and `0` otherwise; no rune can pass its own status through. Section 4 needs a way for a single script's exit code to become crunes's — and a batch of several runes still has only one status to report, so a batch keeps pass-or-fail.
+* **Crunes's exit status is pass or fail today.** It exits `1` when any rune in the invocation failed and `0` otherwise, because every invocation is run as a batch. A direct single invocation is what lets a script's own code through; a batch of several runes still has one status to report, so it keeps pass or fail.
 * **A signal-killed child yields no exit code.** Whether that maps to `1` or to the shell convention of 128 plus the signal number is open — see below.
 
 ## 7. Trust
@@ -100,16 +101,15 @@ These hold from MVP0 onward, so that every later addition is additive:
 
 Existing behaviour that must change before MVP0 ships.
 
-* **A plain string result is mishandled** — it renders as an `undefined` section in text mode and fails section filters ([darkrymit/crunes-cli#1](https://github.com/darkrymit/crunes-cli/issues/1)). Section 4 sends script output down the same path, so it has to be fixed first.
+* **A plain string result is mishandled** — it renders as an `undefined` section in text mode and fails section filters ([darkrymit/crunes-cli#1](https://github.com/darkrymit/crunes-cli/issues/1)). A captured script's output goes down the same path, so it has to be fixed first.
 
 ## Open questions
 
 Each of these needs a decision before implementation; none is settled by anything above.
 
-
-* **Streaming or buffering standard output.** A string returned from an isolate `run` arrives when `run` finishes, and holding a script's output until exit matches that exactly — but a long script then shows nothing until it ends. An isolate rune can already stream, by emitting sections as it goes (`section.emit`), so a streamed script would not be introducing an output shape crunes lacks; what is open is whether plain standard output should behave like the returned string or like emitted sections. Standard error already streams, which is where a long script's progress conventionally goes.
+* **Streaming captured output.** Run alone, a script streams because nothing captures it. Captured — in a batch, JSONL or a job — its standard output is held until it exits, as a string returned from an isolate `run` is. Whether captured output should instead arrive as it is written, the way `section.emit` streams an isolate rune's sections, is open. Standard error passes through as it is written in every mode, which is where a long script's progress conventionally goes.
 * **A timeout for scripts.** Isolate evaluation runs under a timeout; a build or a test suite routinely outlasts one. The choice is between no default timeout, the isolate's, or one the entry declares.
-* **The exit status of a signal-killed script** — crunes's existing mapping to `1`, or the shell convention of 128 plus the signal number, which preserves which signal it was.
+* **The exit status of a signal-killed script** — the shell convention of 128 plus the signal number, which passing a code through unchanged suggests, or crunes's existing mapping to `1`. See [Invocation output](/specs/invocation-output.md).
 * **How a script reads `vars`.** An isolate rune reads its configured `vars` through `@utils`. Nothing in this contract passes them to a script; a `CRUNES_VARS` JSON variable is the obvious shape, but it is not decided.
 * **Bash on a Windows machine without it.** A `.sh` rune fails there with the interpreter error. Whether MVP0 should name PowerShell or `cmd` runtimes, or leave Windows users to install Git Bash, is open.
 

@@ -1,13 +1,13 @@
 ---
 type: flow
 title: crunes run under configuration v2
-description: The proposed path of one crunes run invocation from key to output once the run block may name a script — where the entry's blocks are read, where the schema is built and the call parsed, and where the path splits between the isolate and a native process.
+description: The proposed path of one crunes run invocation from key to output once the run block may name a script — where the entry's blocks are read, where the schema is built and the call parsed, where the path splits between the isolate and a native process, and where a single invocation goes direct while a framed one is captured.
 tags: [flow, run, proposal, mvp0]
 ---
 
 # `crunes run` under configuration v2
 
-**Proposal, MVP0.** The sequence implied by [Rune configuration v2](/specs/rune-config-v2.md) and the [script rune contract](/specs/script-rune-contract.md); where it and they disagree, they win. It changes the middle of today's path, described in [`crunes run`](kb:crunes-cli-main/flows/run.md) — flag parsing, batch splitting, key resolution and output rendering are untouched.
+**Proposal, MVP0.** The sequence implied by [Rune configuration v2](/specs/rune-config-v2.md) and the [script rune contract](/specs/script-rune-contract.md); where it and they disagree, they win. It changes the middle of today's path, described in [`crunes run`](kb:crunes-cli-main/flows/run.md) — flag parsing, batch splitting and key resolution are untouched; how output reaches the caller is [Invocation output](/specs/invocation-output.md).
 
 ```mermaid
 flowchart TD
@@ -26,10 +26,15 @@ flowchart TD
     pass_through --> dispatch
     dispatch -->|isolate| isolate_run[today's isolate path]
     dispatch -->|native| find_interpreter[find the interpreter]
-    find_interpreter --> spawn[spawn with command, argv, caller arguments<br/>and the CRUNES_ variables]
-    spawn --> collect[standard output is the result<br/>exit code is crunes's exit code]
-    isolate_run --> render([render as today])
-    collect --> render
+    find_interpreter --> invocation_mode{direct or framed?}
+    invocation_mode -->|direct| spawn_inherit[spawn with the caller's streams<br/>command, argv, caller arguments, CRUNES_ variables]
+    spawn_inherit --> pass_status([script's exit code is crunes's])
+    invocation_mode -->|framed| spawn_capture[spawn capturing output<br/>standard input closed in a batch]
+    spawn_capture --> captured_result[standard output is the result<br/>non-zero exit marks the rune failed]
+    isolate_run --> isolate_output{direct or framed?}
+    isolate_output -->|direct| print_markdown([sections as markdown on stdout<br/>logs on stderr])
+    isolate_output -->|framed| render_framed([framed as today<br/>logs on stderr in text format])
+    captured_result --> render_framed
 ```
 
 ## 1. The entry is read, not searched
@@ -46,12 +51,16 @@ The schema comes from the `args` block if there is one, or from the `args` expor
 
 With a schema, the call is parsed against it here and `--help` is answered by crunes; no script is spawned for it. Parsing enforces nothing — see the [script rune contract](/specs/script-rune-contract.md). Without a schema, arguments pass through unparsed, `--help` included.
 
-## 4. The path splits once
+## 4. The path splits twice
 
-An isolate `run` module continues down today's path unchanged: a fresh isolate, the utils bridge, `run`, then `dispose`.
+**By runtime.** An isolate `run` module continues down today's path: a fresh isolate, the utils bridge, `run`, then `dispose`. A native handler has its interpreter found — or none needed for a program — and is started from the project root with `command`, then `argv`, then the caller's arguments, and the environment the contract lists.
 
-A native handler has its interpreter found — or none needed for a program — and is spawned from the project root with `command`, then `argv`, then the caller's arguments, and the environment the contract lists.
+**By invocation.** A single rune in text format is direct; a batch, `--format jsonl`, a child started by `rune.exec` or a job, and `crunes bench` are framed. Crunes decides this from the invocation; the rune has no say. See [Single invocations are direct](/decisions/direct-single-invocation.md).
 
-## 5. The two paths rejoin at rendering
+## 5. Direct: nothing in between
 
-A script's standard output is its result, handled as a string returned from an isolate `run` is handled, and its exit code becomes crunes's. From there both paths reach the same renderer, which is why `--format jsonl`, `rune.exec`, batching and section filters need no knowledge of which path produced the result.
+A direct script is spawned with the caller's standard input, output and error, and crunes reads none of them. When it exits, its code is crunes's. A direct isolate rune prints its sections as markdown on standard output as it emits or returns them, and its `console` output goes to standard error.
+
+## 6. Framed: captured and labelled
+
+A framed script is captured: its standard output becomes its result, handled as a string returned from an isolate `run`, and a non-zero exit marks it failed. From there it reaches the same framed renderer as an isolate rune, which is why JSONL, `rune.exec`, batches and section filters need no knowledge of which runtime produced the result.
