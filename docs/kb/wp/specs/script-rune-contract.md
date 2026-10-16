@@ -52,7 +52,7 @@ The process is invoked as the `command`, then the entry's `argv`, then the calle
 
 ## 4. What crunes does with the result
 
-* **Standard output is the rune's result**, handled exactly as a string returned from an isolate rune's `run` is handled today: rendered as it is in text mode, carried as the rune's output in `--format jsonl`, and treated the same way by section filters. A script rune introduces no output shape an isolate rune cannot already produce.
+* **Standard output is the rune's result**, handled exactly as a string returned from an isolate rune's `run` is handled: rendered as it is in text mode, carried as the rune's output in `--format jsonl`, and treated the same way by section filters. A script rune introduces no output shape an isolate rune cannot already produce.
 * **Standard error** streams through as it is written.
 * **The exit code** becomes crunes's exit code.
 
@@ -100,7 +100,7 @@ These hold from MVP0 onward, so that every later addition is additive:
 Each of these needs a decision before implementation; none is settled by anything above.
 
 
-* **Streaming or buffering standard output.** A string returned from an isolate arrives when `run` finishes. Holding a script's output until exit matches that exactly, but a long script then shows nothing until it ends. Streaming it as written matches what a person expects from a script, but it is an output shape isolate runes do not have.
+* **Streaming or buffering standard output.** A string returned from an isolate `run` arrives when `run` finishes, and holding a script's output until exit matches that exactly — but a long script then shows nothing until it ends. An isolate rune can already stream, by emitting sections as it goes (`section.emit`), so a streamed script would not be introducing an output shape crunes lacks; what is open is whether plain standard output should behave like the returned string or like emitted sections. Standard error already streams, which is where a long script's progress conventionally goes.
 * **A timeout for scripts.** Isolate evaluation runs under a timeout; a build or a test suite routinely outlasts one. The choice is between no default timeout, the isolate's, or one the entry declares.
 * **The exit status of a signal-killed script** — crunes's existing mapping to `1`, or the shell convention of 128 plus the signal number, which preserves which signal it was.
 * **How a script reads `vars`.** An isolate rune reads its configured `vars` through `@utils`. Nothing in this contract passes them to a script; a `CRUNES_VARS` JSON variable is the obvious shape, but it is not decided.
@@ -112,3 +112,4 @@ Accepted as needed, not scheduled for MVP0.
 
 * **Argument validation.** Enforcing what a schema declares — required positionals, value kinds, allowed values — before the handler runs. The builder has no way to declare allowed values today, so this is new schema surface as well as new behaviour.
 * **Refusing undeclared arguments.** Section 9 promises raw arguments are always passed. That is right for a script whose schema only documents it, and wrong for a rune whose schema is meant to be the whole surface of a program — see [Wrapping a command](/vision/multi-runtime-runes.md). An entry will need a way to ask for undeclared arguments to be refused, and section 9 will need to say what it then promises.
+* **A returned string renders as `undefined` in text mode.** In `crunes` 0.9, a rune whose `run` returns a plain string prints a section headed `undefined` with an empty body in text mode, although `--format jsonl` carries the string intact. Section 4 makes script output follow the same path, so this has to be fixed before script runes ship, or every script rune's output is lost in text mode.
