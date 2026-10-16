@@ -100,7 +100,7 @@ These hold from MVP0 onward, so that every later addition is additive:
 
 Existing behaviour that must change before MVP0 ships.
 
-* **A returned string renders as `undefined` in text mode.** In `crunes` 0.9, a rune whose `run` returns a plain string prints a section headed `undefined` with an empty body in text mode, although `--format jsonl` carries the string intact. Section 4 makes script output follow the same path, so this has to be fixed before script runes ship, or every script rune's output is lost in text mode.
+* **A plain string result is mishandled** — it renders as an `undefined` section in text mode and fails section filters ([darkrymit/crunes-cli#1](https://github.com/darkrymit/crunes-cli/issues/1)). Section 4 sends script output down the same path, so it has to be fixed first.
 
 ## Open questions
 
