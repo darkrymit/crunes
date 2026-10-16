@@ -68,9 +68,10 @@ A script rune is reached through the same resolution as any other rune, so the c
 
 These follow from existing behaviour and bind the implementation; they are not choices.
 
-* **Crunes already runs as two processes.** On current Node versions it re-spawns itself and the parent only forwards the child's exit status (see [Every invocation shows as two processes](kb:crunes-cli-main/gotchas/double-process.md)). A script rune is therefore a third process.
+* **A script rune is crunes's child process.** `crunes` 0.9 runs as a single process — the earlier re-spawn for `--no-node-snapshot` is no longer in the source, although `crunes-cli-main` still records it. Called through `rune.exec`, the script is a grandchild: the calling crunes, the child crunes, then the script.
 * **An interrupt from a terminal reaches the whole foreground process group**, so the script usually receives it directly. Forwarding it again from crunes delivers it twice; forwarding exists for interrupts that did not come from a terminal, such as a parent process signalling crunes.
-* **A signal-killed child yields no exit code.** Crunes maps that to `1` for its own child today, so that an abnormal death is never read as success. Whether a signal-killed script follows the same mapping is open — see below.
+* **Crunes's exit status is pass or fail today.** It exits `1` when any rune in the invocation failed and `0` otherwise; no rune can pass its own status through. Section 4 needs a way for a single script's exit code to become crunes's — and a batch of several runes still has only one status to report, so a batch keeps pass-or-fail.
+* **A signal-killed child yields no exit code.** Whether that maps to `1` or to the shell convention of 128 plus the signal number is open — see below.
 
 ## 7. Trust
 
