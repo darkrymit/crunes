@@ -9,9 +9,9 @@ tags: [spec, output, run, script, proposal, mvp0]
 
 **Proposal, MVP0.** The contract that follows from [Single invocations are direct](/decisions/direct-single-invocation.md). It replaces the output half of [`crunes run`](kb:crunes-cli/flows/run.md) and is what the [script rune contract](/specs/script-rune-contract.md) relies on for everything a script produces.
 
-**Prototype:** [darkrymit/crunes-cli#6](https://github.com/darkrymit/crunes-cli/pull/6) implements the script rune half of this contract — direct and captured — as a draft. The isolate half, and diagnostics moving to standard error, are not built: they change every existing rune's output and come as their own change.
+**Built:** [darkrymit/crunes-cli#6](https://github.com/darkrymit/crunes-cli/pull/6) implements both halves: script runes direct and captured, a single isolate rune printing plain markdown, and log lines on standard error in every text mode.
 
-**Framed output does not survive a reader that leaves early** today: piping `crunes run` into `head` crashes with an `EPIPE` stack trace ([darkrymit/crunes-cli#5](https://github.com/darkrymit/crunes-cli/issues/5); fixed by [darkrymit/crunes-cli#9](https://github.com/darkrymit/crunes-cli/pull/9), which exits `0`). A direct script rune is unaffected, because crunes writes nothing of its own to standard output.
+**A reader that leaves early is not an error.** Piping `crunes run` into `head` crashed with an `EPIPE` stack trace ([darkrymit/crunes-cli#5](https://github.com/darkrymit/crunes-cli/issues/5)); since [darkrymit/crunes-cli#9](https://github.com/darkrymit/crunes-cli/pull/9) crunes exits `0` instead. A direct script rune is unaffected, because crunes writes nothing of its own to standard output.
 
 ## 1. Two modes, chosen by crunes
 
@@ -73,9 +73,12 @@ Framed mode keeps today's shape for everything a reader needs to tell apart, wit
 
 A consumer that wants output it can parse should ask for it: `--format jsonl` is stable in both single and batch invocations. Text output is for reading — by a person or an agent — and in direct mode it is whatever the rune printed.
 
+## Decided while building
+
+* **A signal-killed script** run alone reports 128 plus the signal number, the shell convention, so the caller sees what it would have seen running the script itself.
+* **Log lines in direct mode** go to standard error unlabelled, as a program's own diagnostics would; framed, they keep the `[instance:key:log:level]` label.
+
 ## Open questions
 
 * **The heading on a single-section rune.** Direct mode prints each section's name as a markdown heading. For a rune that returns exactly one section, the heading may be noise; omitting it in that case makes output depend on the number of sections.
 * **An exit status for isolate runes.** A script's code passes through; an isolate rune can only resolve or throw. Whether `run` gains a way to report a code — so an isolate rune over a check can return "found nothing" as distinct from failure — is open.
-* **The status of a signal-killed script** in direct mode: the shell convention of 128 plus the signal number, or `1`. Passing the code through unchanged suggests the shell convention.
-* **Log levels on standard error in direct mode** — unprefixed, or prefixed with the level so `console.error` remains distinguishable from `console.log`.

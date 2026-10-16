@@ -1,0 +1,7 @@
+{
+  "positionals": [{ "spec": "[dir]", "description": "Directory to scan" }],
+  "options": [
+    { "flags": "--min <n>", "description": "Only files with at least this many", "type": "integer", "default": 1 },
+    { "flags": "--format <kind>", "description": "Section content", "choices": ["table", "list"], "default": "table" }
+  ]
+}
