@@ -9,6 +9,8 @@ tags: [spec, config, rune, lifecycle, proposal, mvp0]
 
 **Proposal, MVP0.** The outcome of [Shape of a rune entry](/decisions/rune-entry-shape.md), written from [Runes in any language](/vision/multi-runtime-runes.md). It replaces the entry described in [Rune](kb:crunes-main/concepts/rune.md) and the lifecycle-scoped grants of [Permission](kb:crunes-main/concepts/permission.md).
 
+**Prototype:** [darkrymit/crunes-cli#6](https://github.com/darkrymit/crunes-cli/pull/6) implements the `run` and `args` blocks of this spec beside today's `path` entries, as a draft; the `argsRepl`, `commandsRepl` and `repl` blocks and the migration in section 10 are not built yet.
+
 ## 1. Principle: nothing is found that was not declared
 
 Every handler a rune has is named in its entry. There is no default file, no probing of extensions, and no lifecycle that exists because a module happens to export it. A rune without a `run` block does not run; a rune without a `repl` block has no REPL.
@@ -50,8 +52,10 @@ A block may be written as a string, which is shorthand for `{ "command": <string
 
 | Value | Resolved as |
 |---|---|
-| Contains `/` or `\`, begins with `.`, or is absolute | A file, relative to the directory of the configuration layer that declared it (for a plugin, the plugin root) |
-| A bare name | A program on `PATH`, executed directly with no shell |
+| Contains `/` or `\`, begins with `.`, is absolute, or names an isolate module (`*.rune.js`, `*.rune.mjs`) | A file, relative to the directory of the configuration layer that declared it (for a plugin, the plugin root) |
+| Any other bare name | A program on `PATH`, executed directly with no shell |
+
+**An isolate module is always a file**, because it can never be a program. Every other name follows the shell: `deploy.sh` on its own is a program looked up on `PATH`, and a script beside the config is written `./deploy.sh`.
 
 A file's runtime comes from its name:
 
@@ -90,6 +94,7 @@ The grant defaults reproduce today's behaviour, in which `args` is built under t
 
 * **`run`** accepts any `command`, and `argv` with any of them. `permissions` is allowed only when `command` is an isolate module, because grants on anything else would read as a sandbox that is not there.
 * **`args`, `argsRepl`, `commandsRepl` and `repl`** accept isolate modules only. A separate schema module contributes only its schema export: exporting `run` or `repl` from it is a configuration error.
+* **An `args` block stands only in front of a native `run` handler.** An isolate `run` module declares its schema with its own `args` export, so section 5's default is the only way it gets one in MVP0.
 * **Plugin runes** accept isolate modules only, in every block.
 * **An override entry** keyed `marketplace@plugin:rune` carries `vars` and `permissions` inside blocks, never a `command`: it grants, it does not replace.
 
@@ -98,6 +103,8 @@ The grant defaults reproduce today's behaviour, in which `args` is built under t
 Entries merge per block and key by key, so a local entry that sets only `vars` or `run.permissions` keeps the `run.command` of the layer that defined the rune. `permissions` inside a block is replaced whole by a higher layer, as the lifecycle-scoped block is today. `vars` still merges key by key.
 
 The same replacement governs a plugin rune: a project that declares `permissions` in a block of a `marketplace@plugin:rune` entry replaces the plugin's grants for that block, and only that block.
+
+**Validation runs twice for the same reason.** Each layer is checked as it is read, for what a single layer can get wrong on its own: a block's shape, an unknown field, `path` beside `run` in the same entry. The merged entry is then checked whole, for what only the combination can show — a `run` block whose command no layer declares, or grants one layer adds to a native command another declares.
 
 ## 8. Examples
 
