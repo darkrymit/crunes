@@ -11,7 +11,7 @@ The official [marketplace](/concepts/marketplace.md), and the plugins it publish
 
 The repository is its own marketplace source. `.crunes-plugin/marketplace.json` at the root lists each plugin by relative path, so adding the repository as a marketplace and installing from it are the same act against the same tree.
 
-**Its knowledge base is [`crunes-plugins-main`](kb:crunes-plugins-main/index.md)** — what a plugin manifest owes, how commands are scoped and enabled, and the traps in pairing grants to commands.
+**Its knowledge base is [`crunes-plugins`](kb:crunes-plugins/index.md)** — what a plugin manifest owes, how commands are scoped and enabled, and the traps in pairing grants to commands.
 
 ## What it publishes
 

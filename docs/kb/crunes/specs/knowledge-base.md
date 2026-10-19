@@ -1,98 +1,149 @@
 ---
 type: spec
 title: Knowledge base layout
-description: This project's layout standard for knowledge bundles — ten categories and how to choose between two that both fit, the front matter contract, which bundle a document belongs to across four repositories, the rule that an index bullet repeats its document's description, and how a bundle is registered with the kb plugin.
+description: "crunes's layout standard for knowledge bundles, OKF v0.2 stated whole with each rule marked by its source (OKF, KB, EXT): the bundle tree and the four bundles of this project, front matter and trust fields, categories with modules for src/ directories, links, one-level indexes, which bundle a document belongs to across four repositories, registering a bundle with the kb plugin, diagrams and numbers."
 tags: [knowledge-base, okf, spec]
+generated: { by: claude-code/claude-opus-5-5 }
 ---
 
 # Knowledge base layout
 
-The directory layout, metadata schema, cross-referencing model and categorization rules every knowledge bundle in this project obeys.
+The directory layout, metadata, cross-referencing and categorization every knowledge bundle in this project follows.
 
-**This is the whole standard, stated rather than diffed**, and nothing else has to be open to read it. It is adapted from the Boxwire project's bundle standard, which began as an application of OKF v0.2: where this document is silent, OKF v0.2 governs, and where the two differ this document is what the bundles here obey.
+**This is the whole standard, stated rather than diffed**, and nothing else has to be open to read it. It is this project's own reading of what a knowledge base should be, built from what two sources got right. OKF v0.2 means the specification published at `github.com/GoogleCloudPlatform/open-knowledge-format` (SPEC.md); third-party guides such as okf.md are not the source. Each rule is marked with where it comes from, and a rule drawing on two sources carries both marks (**OKF+KB.**):
 
-Two things make this project's copy differ from the one it came from, and both follow from what crunes is. The structural category is called `modules/`, because `src/<module>/` is what this codebase has always called its parts. And a bundle is not merely written but **registered**, because the reader is the `kb` plugin — crunes reads its own knowledge base through a rune it ships.
+* **OKF** — Google's Open Knowledge Format v0.2, restated here.
+* **KB** — the crunes knowledge-base layout and its `kb` tooling: bundle ids, cross-bundle links, a set of categories with rules for choosing between them, and index bullets that repeat descriptions.
+* **EXT** — this project's own addition or choice.
 
-## 1. Bundle directory layout
+**EXT.** Two things set this project's copy apart, and both follow from what crunes is. The structural category is `modules/`, because `src/<module>/` is what this codebase calls its parts. And a bundle is not merely written but **registered** (section 12), because the reader is the `kb` plugin: crunes reads its own knowledge base through a rune it ships.
 
-A knowledge base is a self-describing bundle under `docs/kb/<bundle-dir>/`, containing a root `index.md` and up to ten top-level category directories:
+How strictly a rule binds is in its wording: MUST, SHOULD and MAY, as OKF uses them. An OKF reader accepts a bundle that ignores every KB and EXT rule; this project's lint does not. Where this document is silent, OKF v0.2 governs.
+
+## 1. Bundle structure
+
+**OKF.** A bundle is a directory tree of markdown files, organized however suits the knowledge in it. Documents may sit at the bundle root or in subdirectories at any depth. Two filenames are reserved at every level and are never documents: `index.md` (section 8) and `log.md` (section 9). Every other `.md` file is a document.
 
 ```
-docs/kb/<bundle-dir>/
-├── index.md        # bundle root index — OKF metadata and a grouped table of contents
-├── vision/         # what the thing is meant to be, and why that shape
-├── guides/         # how a person gets from nothing to a working thing
-├── specs/          # formal contracts, protocols, schemas, wire formats
-├── modules/        # module architectures, responsibilities and boundaries
-├── flows/          # end-to-end execution paths and lifecycle sequences
-├── patterns/       # architectural idioms, design rules and system constraints
-├── concepts/       # deep explanations of domain entities and model primitives
-├── decisions/      # architecture decision records, with their trade-offs
-├── gotchas/        # traps, non-obvious failure modes and platform quirks
-└── glossary/       # vocabulary and quick terminology definitions
+<bundle>/
+  index.md          # optional: what this folder holds, for progressive disclosure
+  log.md            # optional: dated history of this scope
+  <document>.md     # a document at the root
+  <folder>/         # folders group documents
+    index.md
+    <document>.md
+    <folder>/
+      ...
 ```
 
-A bundle activates the categories it needs and no others. An empty directory is not created against future use.
+**KB.** A bundle lives at `docs/kb/<bundle-id>/`.
 
-### 1.1 Directory name and bundle identifier are not the same thing
+**EXT.** This project has four bundles. The directory is named for the identifier, except the proposals bundle:
 
-**The directory is `main`. The identifier is not.** Every repository here keeps its bundle at `docs/kb/main/`, so the path is the same wherever you are standing, and the identifier is qualified by the repository it describes:
-
-| Repository | Directory | `kb:` identifier |
+| Repository | Directory | `kb` identifier |
 |---|---|---|
-| `crunes` (umbrella) | `docs/kb/main/` | `crunes-main` |
-| `crunes-cli` | `docs/kb/main/` | `crunes-cli-main` |
-| `crunes-plugins` | `docs/kb/main/` | `crunes-plugins-main` |
+| `crunes` (umbrella) | `docs/kb/crunes/` | `crunes` |
 | `crunes` (umbrella), work proposals | `docs/kb/wp/` | `crunes-wp` |
+| `crunes-cli` | `docs/kb/crunes-cli/` | `crunes-cli` |
+| `crunes-plugins` | `docs/kb/crunes-plugins/` | `crunes-plugins` |
 
-A bare `main` would collide the moment a second bundle was mounted beside the first, and every cross-bundle link in the project is written against the identifier rather than the path. The directory answers *where do I put this*; the identifier answers *which bundle is meant*.
+Every cross-bundle link is written against the identifier rather than the path: the directory answers *where do I put this*; the identifier answers *which bundle is meant*.
 
-### 1.2 The work-proposals bundle
+**EXT.** **A design that is not yet true of any repository lives in `crunes-wp`**, a second bundle in the umbrella at `docs/kb/wp/`. It obeys this standard like any other bundle. What sets it apart is that nothing in it describes shipped behaviour: where it and another bundle disagree, the other bundle describes what exists.
 
-**A design that is not yet true of any repository lives in `crunes-wp`**, a second bundle in the umbrella at `docs/kb/wp/`. It obeys this standard like any other bundle. What sets it apart is that nothing in it describes shipped behaviour: where it and a `main` bundle disagree, the `main` bundle describes what exists.
+A document there names the documents it would change, in whichever bundle holds them. When its proposal is accepted, the content is written into the bundle that owns it — by section 7, as if it had never been a proposal — and the document leaves `crunes-wp`. A proposal is never accepted by moving its file.
 
-A document there names the documents it would change, in whichever bundle holds them. When its proposal is accepted, the content is written into the bundle that owns it — by section 6, as if it had never been a proposal — and the document leaves `crunes-wp`. A proposal is never accepted by moving its file.
+**OKF+KB.** Documents sit in folders named for their kind, using the common category names of section 4, the way OKF's own example keeps its metrics in `metrics/` and types each `Metric`.
 
-### 1.3 The directory index
+**EXT.** Category names are a shared vocabulary, not a fixed top level. A category folder MAY sit at any depth, and folders around it are topic folders with free names; either nests in the other as the bundle needs (`specs/`, `auth/specs/`, `specs/wire/`). Every folder carries an `index.md` (section 8); `log.md` is not used (section 9). A folder is created with its first document, never ahead of use.
 
-**A category directory holding documents carries an `index.md` listing them**, in the same bullet form as the root index. It carries no YAML front matter, because it is a table of contents rather than a document about anything.
+```
+docs/kb/<bundle-id>/
+├── index.md              # root: okf_version, kb, kb_version; one bullet per folder
+├── specs/                # a category folder at the top
+│   ├── index.md          # H1, one paragraph that is the folder's description, one level of bullets
+│   └── wire-format.md    # type: spec
+└── auth/                 # a topic folder, free name
+    ├── index.md
+    ├── specs/            # a category folder under a topic
+    │   ├── index.md
+    │   └── tokens.md     # type: spec
+    └── decisions/
+        ├── index.md
+        └── sessions.md   # type: decision
+```
 
-The root index links documents directly. A directory index is a second way in for a reader who opened the folder, not a level the root routes through.
+The categories a bundle uses are listed in its indexes, not drawn here.
 
-## 2. Front matter and metadata
+## 2. Documents
 
-### 2.1 Bundle root
+### 2.1 Front matter
 
-The root `index.md` of every bundle MUST declare:
+Every document begins with a YAML front matter block between two `---` lines.
 
 ```yaml
 ---
-okf_version: 0.2
-kb_version: 0.1
-kb: <bundle-identifier>
+type: <kind>                  # OKF: required
+title: <Human-readable title> # OKF: recommended
+description: <One sentence>   # OKF+KB: required here
+tags: [<tag1>, <tag2>]        # OKF: optional
+resource: <url or path>       # OKF: optional, the asset the document describes
+# status, sources, generated, verified: section 3
 ---
 ```
 
-### 2.2 Category documents
+**OKF.** `type` is the only key OKF requires, and its value is free: a reader treats an unknown type as a generic document. `resource` takes any form from section 6. A producer MAY add keys of its own; a reader keeps keys it does not know and never rejects a document for them.
 
-Every markdown document in a category folder MUST begin with valid YAML front matter:
+**OKF+KB.** A document's `type` SHOULD be the singular of the nearest category folder above it (`auth/specs/tokens.md` is a `spec`); a document under no category folder takes any short descriptive type.
+
+**EXT.** A module document carries `resource:`, pointing at the directory it describes (`src/<module>/`). A gotcha carries one where it names a specific file.
+
+**OKF+KB.** `description` is one sentence. OKF recommends it; here it MUST be present, because every index bullet naming the document repeats it exactly (section 8), so it is written once and read wherever the document is listed.
+
+### 2.2 Body
+
+**OKF.** The body is markdown with no required sections; headings, lists, tables and fenced code are preferred over free prose. `Schema` (an asset's fields) and `Examples` are conventional section names.
+
+**EXT.** The body SHOULD open with an H1 equal to `title`, so the title survives when a tool shows the body without its front matter. Sections are `##`, and OKF's conventional names are used at that level (`## Schema`, `## Examples`).
+
+## 3. Provenance, trust and lifecycle
+
+**OKF.** These fields are optional; a document without them is valid and reads as unverified.
 
 ```yaml
----
-type: <category>              # required: guide | vision | spec | module | flow |
-                              #           pattern | concept | decision | gotcha | glossary
-title: <Human-readable title> # required: matches the document's top-level heading
-description: <Summary>        # required: one sentence, and the text every index uses
-tags: [<tag1>, <tag2>]        # optional: topic and keyword tags
-resource: <repo-path>         # optional: relative path to source code
----
+status: stable                # draft | stable | deprecated; absent means stable
+sources:                      # what the document derives from
+  - id: <key>                 # needed when the body cites the source
+    resource: <url, path or scope>
+    title: <label>
+generated: { by: <actor> }    # who last changed the content meaningfully
+verified:                     # who confirmed it against its sources or resource, and when
+  - { by: <actor>, at: <datetime> }
 ```
 
-**`description` is a contract, not a convenience.** Every index bullet naming the document repeats it exactly — see section 7 — so it is written once and read wherever the document is listed.
+**OKF.** In each `sources` entry, `resource` is required: an absolute URL, a bundle path (`/specs/x.md`), a repository path, or a scope a reader cannot follow (`all sessions in October`). A claim cites a source with a markdown footnote whose label is the entry's `id` (`…sharded daily.[^schema]`); the label is the join key, so reordering the list never misattributes a claim. A source that is another document in a bundle carries its own `sources`, and a reader may follow that chain.
 
-**A module document carries `resource:`**, pointing at the directory it describes (`src/<module>/`). A gotcha carries one where it names a specific file.
+**OKF.** `generated.by` is required within `generated`. `verified` is a list of checks, each with `by` and `at`, where `at` is ISO 8601 with an explicit offset (`2026-10-19T14:00:00Z`); a single check may be written as one mapping, and a reader treats it as a one-item list. The two are independent: content can change without being checked again, and be checked again without changing.
 
-## 3. Category taxonomy
+**OKF.** A reader derives a trust tier from `verified`: none is unverified; checks only by actors without the `human:` prefix is machine-confirmed; any check by a `human:` actor is human-reviewed. A tier is a signal, not access control.
+
+**OKF.** An actor takes one of three forms: `<producer>/<version>` for an agent or tool, `human:<id>` for a person, `process:<id>` for an automated job. A producer MUST use `human:` for content a person wrote or confirmed.
+
+**EXT.** An agent SHOULD be named `<harness>/<model>` (`claude-code/claude-opus-5-5`), read from the session's own environment rather than recalled. A person SHOULD be named by their public handle, lowercase, never a real name (`human:jdoe`).
+
+**OKF.** `status` is `draft` (not yet reviewed, possibly incomplete), `stable` (ready) or `deprecated` (no longer current, kept for links and history).
+
+**OKF+EXT.** A deprecated document stays in place with its links and index bullet, and its body says what replaced it.
+
+**EXT.** Trust fields record what happened, never a reconstruction: `generated` and `verified` are written when a document is written, edited or checked, and history nobody recorded is left absent rather than guessed.
+
+**EXT.** Not used here: `generated.at` and `stale_after`, since version control dates every change and nothing here expires on a date; the per-source signals `author`, `last_modified`, `usage_count` and `usage_window`; and attested computations.
+
+## 4. Categories: common names for folders and types
+
+**KB.** The categories below are common names, each used for a folder and for the `type` of the documents in it, and each defined by the question it answers and a rule for telling it from its neighbors.
+
+**EXT.** This project uses `modules/` where the template has `subsystems/`, and its rows below say what each category holds here. They are a recommendation, not a fixed layout: a category folder sits wherever the bundle needs it (section 1). A bundle uses the categories it needs, and MAY add one with a row stating its primary question, scope and discrimination rule.
 
 | Category | Primary question | Definition and scope | Discrimination rule |
 | :--- | :--- | :--- | :--- |
@@ -106,26 +157,27 @@ resource: <repo-path>         # optional: relative path to source code
 | **`decisions/`** | *Why this approach over that one?* | Decision records capturing context, alternatives and trade-offs. | **vs. Pattern:** historical rationale; a pattern is the actionable rule. |
 | **`gotchas/`** | *What non-obvious trap will bite you?* | Edge cases, subtle bugs, tooling and platform quirks found during development. | **vs. Pattern:** a specific trap; a pattern is the practice that avoids traps. |
 | **`glossary/`** | *What does this term mean at a glance?* | Terminology and quick definitions linking to deeper documents. | **vs. Concept:** a quick definition and a link; a concept is the canonical guide. |
+| **`log/`** | *What changed, and when?* | **EXT**, optional, for a bundle read without its version control history: one document per dated entry, named `YYYY-MM-DD-<slug>.md`, its index newest first. | **vs. Decision:** a decision records a fork and what was traded away; a log entry records that something changed. **vs. Case:** a case is an episode that taught something; a log entry teaches nothing on its own. |
 
-### 3.1 Choosing when two categories both fit
+### 4.1 Choosing when two categories both fit
 
-The definitions above separate most documents on sight. Three questions settle the rest, and they are asked in this order.
+**KB.** The definitions above separate most documents on sight. Three questions settle the rest, and they are asked in this order.
 
 **Who owes it?** More than one implementation owes a contract, so it is a spec however it is written — a procedure binding several readers is still a contract, and writing it as steps is a choice about clarity rather than about category. One implementation owes its own order, so that is a flow.
 
-**Is its spine a sequence or a boundary?** A document whose shape is *this, then this, then this* is a flow, even where every stage lives in one module. A document whose shape is *this side owns that, and here is what crosses* is a module, even where it lists the stages in passing.
+**Is its spine a sequence or a boundary?** A document whose shape is *this, then this, then this* is a flow, even where every stage lives in one module. A document whose shape is *this side owns that, and here is what crosses* is a subsystem or module, even where it lists the stages in passing.
 
 **Is it rewritten as the design moves, or never again?** The whole position, kept current, is a vision. One fork at one moment, left standing as a record of what was traded away, is a decision.
 
-A document that answers two of these differently is two documents, and section 4 says how to tell that from a subsection.
+A document that answers two of these differently is two documents, and section 5 says how to tell that from a subsection.
 
 **A vision document precedes the categories derived from it.** Where a bundle has one, its specifications, concepts and decisions are written from it rather than transcribed from an implementation, and they say so.
 
-## 4. Granularity: when to create, when to fold
+## 5. Granularity: when to create, when to fold
 
-### 4.1 Create a standalone document
+### 5.1 Create a standalone document
 
-Create one if the topic meets any of:
+**KB.** Create one if the topic meets any of:
 
 * **First-class domain primitive** — independent identity, lifecycle or syntax.
 * **System-wide architecture or constraint** — governs multiple modules.
@@ -134,94 +186,119 @@ Create one if the topic meets any of:
 * **Discrete historical fork** — competing options with distinct trade-offs.
 * **Documented trap** — a non-obvious failure mode citing specific sources.
 
-### 4.2 Fold into an existing document
+### 5.2 Fold into an existing document
 
-Fold the content as a `##` subsection instead if it is:
+**KB.** Fold the content as a `##` subsection instead if it is:
 
 * **A sub-mechanism of one entity** — the rule applies to one parent only.
 * **A single pipeline stage** — an internal step of a larger pipeline.
 * **A field or parameter variation** — flags and options of a broader operation.
 * **Tightly-coupled state detail** — timers, thresholds and transitions of one module.
 
-### 4.3 Use the glossary
+### 5.3 Use the glossary
 
-Add a one-paragraph definition to `glossary/` if the term needs orientation rather than architectural rules of its own.
+**KB.** Add a one-paragraph definition to `glossary/` if the term needs orientation rather than architectural rules of its own.
 
-## 5. Cross-referencing and link resolution
+## 6. Links and paths
 
-Documents form a navigable graph through explicit links:
+**OKF.** A document links to another with a standard markdown link, either bundle-absolute (`[Title](/specs/document.md)`, resolved from the bundle root) or relative (`[Title](../specs/document.md)`). A link asserts a relationship; the surrounding prose says which. A reader tolerates a link whose target does not exist yet. A path-valued field (`resource`, `sources[].resource`) takes an absolute URL, a bundle-absolute path or a relative path. A `references/` folder conventionally mirrors outside material inside the bundle, for sources to point at.
+
+**OKF+EXT.** Links SHOULD be bundle-absolute, since they survive moving the linking document. A source file is named in `resource:` by its repository path.
+
+**EXT.** This project's lint reports a broken link as a fault, though an OKF reader would accept it: a producer holds itself to more than a reader may demand.
+
+**KB.** A link into another bundle uses `[Title](kb:<bundle-id>/category/document.md)`, where `<bundle-id>` is the target root index's `kb` key. An OKF reader sees an unknown link scheme and tolerates it as it tolerates a broken link.
+
+**EXT.** **A cross-bundle link is a string nothing checks.** The repositories are separate git repositories mounted as ignored directories, so no tool resolves a `kb:` URI across that boundary and nothing will notice when one rots. The convention that follows: **name bundles and documents, never paths into another repository**, because a name can be searched and a broken path only looks correct.
+
+**KB.** Documents form a navigable graph through these links:
 
 * **Glossary to concepts and specs** — a quick definition links to the full document.
-* **Flows to modules and specs** — a step links to whatever performs it.
+* **Flows to subsystems and specs** — a step links to whatever performs it.
 * **Decisions to patterns and specs** — a record links to what resulted from it.
 * **Specs to vision** — a derived contract links to the intent it came from.
 * **Guides to everything** — a guide is a path and links out at every step, so a reader who wants the whole rule leaves for it. Nothing links back to a guide: a document that needed one would be saying too little on its own.
 * **Gotchas to source files** — through `resource:` in front matter.
 
-Link syntax:
+## 7. Which bundle a document belongs to
 
-* **Within a bundle** — root-relative, `[Title](/category/document.md)`.
-* **Across bundles** — the `kb:` URI, `[Title](kb:<bundle-id>/category/document.md)`, a convention of this layout and the `kb` tooling rather than of OKF.
-* **Source code** — a repository-relative path in `resource:`.
-
-**A cross-bundle link is a string nothing checks.** The repositories are separate git repositories mounted as ignored directories, so no tool resolves a `kb:` URI across that boundary and nothing will notice when one rots. The convention that follows: **name bundles and documents, never paths into another repository**, because a name can be searched and a broken path only looks correct.
-
-## 6. Which bundle a document belongs to
-
-This project is four git repositories, three of which are mounted inside the first as ignored directories — see [the repository topology decision](/decisions/repo-topology.md). A repository that has something of its own to say carries its own bundle, and the question of what goes where is answered by section 3's discrimination rule rather than by convenience.
+**EXT.** This project is four git repositories, three of which are mounted inside the first as ignored directories — see [the repository topology decision](/decisions/repo-topology.md). A repository that has something of its own to say carries its own bundle, and the question of what goes where is answered by section 4's discrimination rule rather than by convenience.
 
 **The umbrella bundle holds what is true of the ecosystem.** The model, the vocabulary every repository uses, the contracts more than one repository implements, the decisions that bind the whole project — and one brief module page per repository, saying what that repository is for and why it exists apart.
 
 **A repository's bundle holds what is true of its code and nowhere else.** The order its passes run in, the shape of its command line, what its toolchain does to it, what a shape there costs. A note there earns its place by being unguessable from the source: if the code says it plainly, the code is the record.
 
-**The cut is the one section 3 already makes.** A spec states an external contract and is written from the vision, so it sits with the umbrella. A module states internal implementation, so it sits with the implementation. A document that is half of each is split, not filed under whichever half is larger.
+**The cut is the one section 4 already makes.** A spec states an external contract and is written from the vision, so it sits with the umbrella. A module states internal implementation, so it sits with the implementation. A document that is half of each is split, not filed under whichever half is larger.
 
 **A brief points and does not restate.** A module page in the umbrella links into the repository's bundle for the detail; the repository's bundle links back for the intent. Neither copy is checked against the other, which is exactly why neither may become a copy.
 
 **A repository with nothing of its own to say carries no bundle.** `crunes-skills` is four markdown files whose entire contract is that they state no API surface; that contract is one decision, and it lives in the umbrella. A bundle created there would hold a heading and a link.
 
-## 7. The index
+## 8. Indexes
 
-The root `index.md` groups every document under level-2 headings matching the active categories:
+**OKF.** An `index.md` MAY sit in any folder and lists what that folder holds, so a reader sees what is there before opening anything. It carries no front matter, except `okf_version` at the bundle root. Its body groups bullets under headings, each bullet a link, a dash and a short description.
+
+**EXT.** Every folder holding documents or subfolders SHOULD carry an `index.md`, and each index lists one level: its own documents, then one bullet per subfolder. A reader goes down the tree an index at a time rather than reading the whole bundle at once. An index opens with an H1 naming the folder and one paragraph saying what it holds; that paragraph is the folder's description. Bullets are grouped under `##` headings.
+
+**KB.** A document's bullet repeats its `description` byte for byte. **EXT.** A subfolder's bullet repeats that folder's index paragraph the same way. One fact lives in one place, so a description rewritten with its document cannot leave a stale summary behind in an index nobody thought to open. A bullet that has drifted is a fault, and it is machine-checkable.
+
+The root index declares the bundle:
 
 ```markdown
 ---
-okf_version: 0.2
-kb_version: 0.1
-kb: <bundle-identifier>
+okf_version: "0.2"
+kb: crunes
+kb_version: "0.2"
 ---
 
 # <Bundle title>
 
-<Brief overview of scope and purpose>
+<One paragraph on the bundle's scope and purpose.>
 
-## Concepts
+## Categories
 
-* [Document title](/concepts/document.md) - The document's description, repeated exactly.
+* [Specifications](/specs/) - The first paragraph of specs/index.md, repeated exactly.
+* [Vision](/vision/) - The first paragraph of vision/index.md, repeated exactly.
 
-## Specifications
+## Documents
 
-* [Document title](/specs/document.md) - The document's description, repeated exactly.
+* [Document title](/document.md) - A root document's description, repeated exactly.
 ```
 
-**A bullet's text is the target document's `description`, byte for byte.** One fact in one place: a description rewritten when its document changes cannot leave a stale summary behind in an index nobody thought to open. A bullet that has drifted is a fault, and it is machine-checkable.
+**OKF.** `okf_version` is the only front matter OKF permits in an index. **KB.** `kb` is the bundle id that `kb:` links name, and `kb_version` marks the index as a bundle root for the kb tooling. **EXT.** `kb_version` is also the version of this layout the bundle follows (section 11). A strict OKF check flags these two keys; an OKF reader still MUST NOT reject a bundle for unknown front matter keys.
 
-A directory index carries the same bullets for its own documents, under a single heading naming the category, and no front matter.
+## 9. History
 
-## 8. Registering a bundle
+**OKF.** `log.md` is reserved at every level for a dated change history.
 
-A bundle nobody registered is invisible rather than broken: the files are there, and `crunes run kb` does not know it exists. Registration is two edits in the project's `.crunes/config.json`, both on the `kb` plugin rune's fully-qualified entry:
+**EXT.** `log.md` is not used; version control is the history. A bundle that must carry its history inside itself, for a reader without the repository, uses the `log/` category (section 4).
+
+## 10. Conformance
+
+**OKF.** A bundle conforms to OKF v0.2 when every non-reserved `.md` file has parseable front matter, every front matter has a non-empty `type`, and every `index.md` and `log.md` follows its section. A reader never rejects a bundle for missing optional fields, unknown types or keys, broken links or missing indexes.
+
+**EXT.** A bundle here also follows every KB and EXT rule above, and this project's lint checks them: descriptions repeated in indexes, links resolving, the shape of trust fields, and each bundle extension's own rules. The lint holds the producer to this document; it never decides what an OKF reader accepts.
+
+## 11. Versioning
+
+**OKF.** `okf_version` names the OKF version a bundle targets. A minor version adds without breaking; a major version may rename or retire. A reader that does not know the declared version reads the bundle as best it can.
+
+**EXT.** `kb_version` is the version of this layout. It changes when a bundle written to the old layout would read wrongly under the new one. `0.1` is the layout before this restatement: every document linked from the root index, one level of category folders, and a reading of OKF that did not follow its text. `0.2` is this document.
+
+## 12. Registering a bundle
+
+**EXT.** A bundle nobody registered is invisible rather than broken: the files are there, and `crunes run kb` does not know it exists. Registration is two edits in the project's `.crunes/config.json`, both on the `kb` plugin rune's fully-qualified entry:
 
 ```json
 {
   "runes": {
     "crunes-plugins@kb:kb": {
-      "vars": { "roots": ["docs/kb/main"] },
+      "vars": { "roots": ["docs/kb/crunes"] },
       "permissions": {
         "run": {
           "allow": [
-            "fs.glob:docs/kb/main/**/*.md",
-            "fs.read:docs/kb/main/**"
+            "fs.glob:docs/kb/crunes/**/*.md",
+            "fs.read:docs/kb/crunes/**"
           ]
         }
       }
@@ -234,9 +311,9 @@ A bundle nobody registered is invisible rather than broken: the files are there,
 
 Roots are configured rather than discovered because a grant is matched against the pattern string the rune passes to `fs.glob`, not against the paths it resolves to: a pattern built at runtime from a directory the rune just found could never have been granted in advance.
 
-## 9. Diagrams
+## 13. Diagrams
 
-**A diagram is a fenced `mermaid` block**, and there is no second way to draw one. It renders where these documents are read and stays a diff a reader can follow, which an image does not.
+**EXT.** **A diagram is a fenced `mermaid` block**, and there is no second way to draw one. It renders where these documents are read and stays a diff a reader can follow, which an image does not.
 
 **A diagram illustrates and never states.** Every fact it draws is written in prose in the same document, because a reader who cannot render it must lose nothing. A diagram carrying a step, a limit or a rule that appears nowhere else is a fault.
 
@@ -246,9 +323,9 @@ Roots are configured rather than discovered because a grant is matched against t
 
 **Short, and not one letter.** `resolve_key`, `check_grant` and `spawn_isolate` carry the sequence on their own; a label repeating the whole node text crowds the source it was supposed to make readable. Where a step is a command, the command's name is already the shortest true id it could have.
 
-## 10. Numbers
+## 14. Numbers
 
-**A number in a document is either the argument or it is generated.** There is no third kind that survives contact with a change.
+**EXT.** **A number in a document is either the argument or it is generated.** There is no third kind that survives contact with a change.
 
 **The argument.** Where the number is the point — what a timeout is, how many config layers there are and therefore what overrides what — it stays, and the paragraph names what recomputes it. A reader who cannot check a figure has to believe it, and a figure nobody can check is the first one to go stale.
 

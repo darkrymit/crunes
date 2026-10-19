@@ -1,5 +1,9 @@
 # Concepts
 
+The primitives every crunes repository shares: runes, plugins, marketplaces, permissions and sections.
+
+## Documents
+
 * [Marketplace](/concepts/marketplace.md) - A named source publishing an index of installable plugins, cached locally for remote sources and read live for local ones, and never refreshed without being asked.
 * [Permission](/concepts/permission.md) - A capability a rune may exercise, written as a token and a pattern, granted per lifecycle in configuration and checked at every call rather than assumed.
 * [Plugin](/concepts/plugin.md) - A distributable bundle of runes and templates, installed once per machine from a marketplace and enabled per project with permissions the user consented to.

@@ -11,7 +11,7 @@ The runtime. It resolves a rune key, builds an isolate, injects the utils bridge
 
 Published to npm as `@darkrymit/crunes-cli`. It works standalone: no plugin, skill or marketplace is required for a project to define runes and run them.
 
-**Its knowledge base is [`crunes-cli-main`](kb:crunes-cli-main/index.md)** — module boundaries, execution flows, the sandbox and storage patterns, and the traps found while building it.
+**Its knowledge base is [`crunes-cli`](kb:crunes-cli/index.md)** — module boundaries, execution flows, the sandbox and storage patterns, and the traps found while building it.
 
 ## What it owns that nothing else does
 

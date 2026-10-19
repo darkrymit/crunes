@@ -31,7 +31,7 @@ So a repository's knowledge lives in that repository, travels with it, and is ed
 
 ## What it costs
 
-**A cross-bundle link is a string nothing resolves.** `kb:crunes-cli-main/modules/rune.md` is checked by no tool, because the tool would have to resolve a path into a repository that may not be cloned. Links rot silently. The mitigation is a convention, not a mechanism: name bundles and documents, never paths.
+**A cross-bundle link is a string nothing resolves.** `kb:crunes-cli/modules/rune.md` is checked by no tool, because the tool would have to resolve a path into a repository that may not be cloned. Links rot silently. The mitigation is a convention, not a mechanism: name bundles and documents, never paths.
 
 **The split has to be re-decided per document.** "Is this true of the ecosystem or of this code" is a judgement, and a document that is half of each has to be split rather than filed under the larger half. The spec's section 6 states the rule; it does not remove the judgement.
 
