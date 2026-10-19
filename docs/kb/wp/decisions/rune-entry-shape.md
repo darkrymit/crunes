@@ -11,7 +11,7 @@ tags: [decision, config, rune, runtime, lifecycle, proposal]
 
 ## Context
 
-A rune entry today is keyed by the rune's name and may carry `path`, `name`, `description`, `permissions`, `vars`, `batch` and `plugin`. `path` is optional: an entry without one resolves to `.crunes/runes/<key>.js`. Grants are scoped by mode — `permissions.run` covers `args`, `run` and `dispose`; `permissions.repl` covers the REPL functions — and `crunes repl` works for any rune whose module exports them. See [Rune](kb:crunes-main/concepts/rune.md).
+A rune entry today is keyed by the rune's name and may carry `path`, `name`, `description`, `permissions`, `vars`, `batch` and `plugin`. `path` is optional: an entry without one resolves to `.crunes/runes/<key>.js`. Grants are scoped by mode — `permissions.run` covers `args`, `run` and `dispose`; `permissions.repl` covers the REPL functions — and `crunes repl` works for any rune whose module exports them. See [Rune](kb:crunes/concepts/rune.md).
 
 Once a rune can be a Node, Python or bash script, the runtime has to come from somewhere, and the fallback no longer knows which extension to look for. Lifecycle handlers that are not the run handler — a schema built in the isolate in front of a bash script — need somewhere to be named, and grants need to sit with the code they constrain.
 

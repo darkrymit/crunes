@@ -7,7 +7,7 @@ tags: [spec, output, run, script, proposal, mvp0]
 
 # Invocation output
 
-**Proposal, MVP0.** The contract that follows from [Single invocations are direct](/decisions/direct-single-invocation.md). It replaces the output half of [`crunes run`](kb:crunes-cli-main/flows/run.md) and is what the [script rune contract](/specs/script-rune-contract.md) relies on for everything a script produces.
+**Proposal, MVP0.** The contract that follows from [Single invocations are direct](/decisions/direct-single-invocation.md). It replaces the output half of [`crunes run`](kb:crunes-cli/flows/run.md) and is what the [script rune contract](/specs/script-rune-contract.md) relies on for everything a script produces.
 
 ## 1. Two modes, chosen by crunes
 

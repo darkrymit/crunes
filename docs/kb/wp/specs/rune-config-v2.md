@@ -7,7 +7,7 @@ tags: [spec, config, rune, lifecycle, proposal, mvp0]
 
 # Rune configuration v2
 
-**Proposal, MVP0.** The outcome of [Shape of a rune entry](/decisions/rune-entry-shape.md), written from [Runes in any language](/vision/multi-runtime-runes.md). It replaces the entry described in [Rune](kb:crunes-main/concepts/rune.md) and the lifecycle-scoped grants of [Permission](kb:crunes-main/concepts/permission.md).
+**Proposal, MVP0.** The outcome of [Shape of a rune entry](/decisions/rune-entry-shape.md), written from [Runes in any language](/vision/multi-runtime-runes.md). It replaces the entry described in [Rune](kb:crunes/concepts/rune.md) and the lifecycle-scoped grants of [Permission](kb:crunes/concepts/permission.md).
 
 ## 1. Principle: nothing is found that was not declared
 
@@ -29,7 +29,7 @@ This replaces two fallbacks that exist today: an entry without `path` resolving 
 
 `completeInputRepl` stays in the session because completion routinely depends on session state.
 
-**"Lifecycle" here means one export**, such as `args` or `argsRepl`. In `crunes-main` the word currently means the *mode* — `run` for a single call, `repl` for a session — and grants are scoped by mode. This bundle calls those two **modes**: the run mode holds the `args` and `run` blocks, the REPL mode holds `argsRepl`, `commandsRepl` and `repl`. Accepting this proposal renames the term in `crunes-main`, not only its uses.
+**"Lifecycle" here means one export**, such as `args` or `argsRepl`. In `crunes` the word currently means the *mode* — `run` for a single call, `repl` for a session — and grants are scoped by mode. This bundle calls those two **modes**: the run mode holds the `args` and `run` blocks, the REPL mode holds `argsRepl`, `commandsRepl` and `repl`. Accepting this proposal renames the term in `crunes`, not only its uses.
 
 ### 2.1 Fields
 

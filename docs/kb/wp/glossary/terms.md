@@ -1,13 +1,13 @@
 ---
 type: glossary
 title: Terms
-description: The vocabulary the work proposals introduce or change — modes, lifecycles, blocks, handlers, the two kinds of rune and the two kinds of invocation — each linking to the document that owns it, and marking where a word means something different in crunes-main.
+description: The vocabulary the work proposals introduce or change — modes, lifecycles, blocks, handlers, the two kinds of rune and the two kinds of invocation — each linking to the document that owns it, and marking where a word means something different in crunes.
 tags: [glossary, proposal]
 ---
 
 # Terms
 
-Words that already mean something in [`crunes-main`](kb:crunes-main/glossary/terms.md) are marked where this bundle uses them differently. Until a proposal is accepted, the main bundle's meaning is the one that describes shipped behaviour.
+Words that already mean something in [`crunes`](kb:crunes/glossary/terms.md) are marked where this bundle uses them differently. Until a proposal is accepted, the main bundle's meaning is the one that describes shipped behaviour.
 
 **Isolate rune** — a rune whose `run` block names an isolate module. It runs in the V8 sandbox under enforced grants, as every rune does today. See [Runes in any language](/vision/multi-runtime-runes.md).
 
@@ -17,9 +17,9 @@ Words that already mean something in [`crunes-main`](kb:crunes-main/glossary/ter
 
 **Isolate module** — a JavaScript file named `*.rune.js` or `*.rune.mjs`. The suffix is what selects the isolate; a plain `.js` file is native Node. See [Rune configuration v2](/specs/rune-config-v2.md).
 
-**Mode** — `run` for a single call or `repl` for a session. *In `crunes-main` this is called a lifecycle*, and grants are scoped by it.
+**Mode** — `run` for a single call or `repl` for a session. *In `crunes` this is called a lifecycle*, and grants are scoped by it.
 
-**Lifecycle** — one export crunes calls: `args`, `run`, `dispose`, `argsRepl`, `commandsRepl`, `repl`, `bannerRepl`, `inputRepl`, `completeInputRepl`, `disposeRepl`. *In `crunes-main` the word means a mode.*
+**Lifecycle** — one export crunes calls: `args`, `run`, `dispose`, `argsRepl`, `commandsRepl`, `repl`, `bannerRepl`, `inputRepl`, `completeInputRepl`, `disposeRepl`. *In `crunes` the word means a mode.*
 
 **Block** — the unit of a rune entry that names a handler and its grants: `args`, `run`, `argsRepl`, `commandsRepl` or `repl`. One block per lifecycle crunes executes in its own context; lifecycles sharing state share a block. See [Rune configuration v2](/specs/rune-config-v2.md).
 

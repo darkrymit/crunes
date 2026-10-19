@@ -7,7 +7,7 @@ tags: [vision, rune, runtime, proposal]
 
 # Runes in any language
 
-**Proposal.** This amends [Context runes](kb:crunes-main/vision/context-runes.md) and [Rune](kb:crunes-main/concepts/rune.md); neither is changed until it is accepted.
+**Proposal.** This amends [Context runes](kb:crunes/vision/context-runes.md) and [Rune](kb:crunes/concepts/rune.md); neither is changed until it is accepted.
 
 Today a rune is a JavaScript module run in a V8 isolate, and everything it does goes through `@utils`. That is a good home for small, portable logic and for code written by a stranger. It is a poor home for the work a project most wants to expose: the compiler that already understands the code, the Python tooling a data team already has, the shell script that already runs the deploy check. A library that needs Node built-ins or a native addon cannot be loaded in the isolate at all, and a rune that shells out to a real toolchain has already left the sandbox through its grant.
 
@@ -19,7 +19,7 @@ The position this proposal takes is that **what crunes owns is the rune, not the
 
 **The ecosystems come back.** A Python rune imports whatever the project's virtualenv holds; a Node rune imports the TypeScript compiler. Crunes does not reimplement them behind `@utils`, and `@utils` stops having to grow to keep up.
 
-**Trust follows the runtime, and is said out loud.** An isolate rune keeps its enforced grants, and remains the only kind a plugin may ship. A script rune runs with the full access of the person who invoked it — the same trust a `package.json` script or a `Makefile` target already has — and crunes labels it as such rather than implying a sandbox it does not provide. This replaces "there is no privileged tier" in [Rune](kb:crunes-main/concepts/rune.md) with two tiers that are named.
+**Trust follows the runtime, and is said out loud.** An isolate rune keeps its enforced grants, and remains the only kind a plugin may ship. A script rune runs with the full access of the person who invoked it — the same trust a `package.json` script or a `Makefile` target already has — and crunes labels it as such rather than implying a sandbox it does not provide. This replaces "there is no privileged tier" in [Rune](kb:crunes/concepts/rune.md) with two tiers that are named.
 
 **Adoption starts from what exists.** A team registers the scripts it already has. Nothing has to be rewritten against a crunes API before it is useful.
 
@@ -49,7 +49,7 @@ It enriches the isolate side as much. A single isolate rune's output becomes pla
 
 ## Wrapping a command
 
-[Context runes](kb:crunes-main/vision/context-runes.md) says that *a rune that only wraps a shell command it could have called directly has earned nothing*, and that what justifies a rune is reading project state and shaping it. [Rune configuration v2](/specs/rune-config-v2.md) lets a `run` block name a program on `PATH` with fixed arguments — which, taken alone, is exactly a rune that wraps a command.
+[Context runes](kb:crunes/vision/context-runes.md) says that *a rune that only wraps a shell command it could have called directly has earned nothing*, and that what justifies a rune is reading project state and shaping it. [Rune configuration v2](/specs/rune-config-v2.md) lets a `run` block name a program on `PATH` with fixed arguments — which, taken alone, is exactly a rune that wraps a command.
 
 **The principle stands, and it is the reason such an entry earns its place.** A rune over a command is justified by what crunes adds on top of it: an argument schema that reshapes a program's full, sprawling command line into the few options a task actually needs, documentation that `crunes docs rune` renders from that schema, and fixed arguments that settle everything the caller should not have to choose. What reaches an agent is a thin surface built for the task rather than the whole program. The shaping the main vision asks for is applied to the command's interface instead of to project state.
 
@@ -61,7 +61,7 @@ An entry that names a program and adds nothing to it is still the rune that earn
 
 Written out so that nothing is left describing the old model. Documents are named, not linked by path, where they live in another repository.
 
-**`crunes-main`**
+**`crunes`**
 
 * *Rune* — a rune is no longer only a JavaScript module; the "two lifecycles" section and "there is no privileged tier" are both replaced.
 * *Permission* — grants move from mode-scoped blocks into configuration blocks.
@@ -70,7 +70,7 @@ Written out so that nothing is left describing the old model. Documents are name
 * *Context runes* — "not a general task runner" gains the reading above: a rune over a command earns its entry by reshaping the command's interface.
 * *Knowledge base layout* — nothing, once it admits a work-proposals bundle.
 
-**`crunes-cli-main`**
+**`crunes-cli`**
 
 * *crunes run* and *crunes repl* flows — the run path splits as in [the proposed flow](/flows/run.md), and a single invocation's output is direct as in [Invocation output](/specs/invocation-output.md); a REPL exists only when declared.
 * *shared* module — its account of the two section renderers changes, since a single invocation no longer uses the prefixed form.

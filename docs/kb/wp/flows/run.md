@@ -7,7 +7,7 @@ tags: [flow, run, proposal, mvp0]
 
 # `crunes run` under configuration v2
 
-**Proposal, MVP0.** The sequence implied by [Rune configuration v2](/specs/rune-config-v2.md) and the [script rune contract](/specs/script-rune-contract.md); where it and they disagree, they win. It changes the middle of today's path, described in [`crunes run`](kb:crunes-cli-main/flows/run.md) — flag parsing, batch splitting and key resolution are untouched; how output reaches the caller is [Invocation output](/specs/invocation-output.md).
+**Proposal, MVP0.** The sequence implied by [Rune configuration v2](/specs/rune-config-v2.md) and the [script rune contract](/specs/script-rune-contract.md); where it and they disagree, they win. It changes the middle of today's path, described in [`crunes run`](kb:crunes-cli/flows/run.md) — flag parsing, batch splitting and key resolution are untouched; how output reaches the caller is [Invocation output](/specs/invocation-output.md).
 
 ```mermaid
 flowchart TD

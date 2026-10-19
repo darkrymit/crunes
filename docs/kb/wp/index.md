@@ -1,34 +1,17 @@
 ---
-okf_version: 0.2
-kb_version: 0.1
+okf_version: "0.2"
 kb: crunes-wp
+kb_version: "0.2"
 ---
 
 # Crunes work proposals
 
-Designs that are being worked out and are not yet true of any repository. Nothing here describes shipped behaviour: where a document here and [`crunes-main`](kb:crunes-main/index.md) disagree, the main bundle describes what exists and this one describes what is proposed.
+Designs that are being worked out and are not yet true of any repository. Nothing here describes shipped behaviour: where a document here and [`crunes`](kb:crunes/index.md) disagree, the main bundle describes what exists and this one describes what is proposed.
 
-Every document names the main-bundle documents it would change. When a proposal is accepted, its content is written into the bundle that owns it — the umbrella for the model and contracts, [`crunes-cli-main`](kb:crunes-cli-main/index.md) for implementation — and the document leaves this bundle.
+## Categories
 
-## Vision
-
-* [Runes in any language](/vision/multi-runtime-runes.md) - A rune becomes a project-local mini-program written in whatever language suits it, with crunes owning discovery, invocation and documentation rather than the runtime the program runs in.
-
-## Specifications
-
-* [Rune configuration v2](/specs/rune-config-v2.md) - The proposed shape of a rune entry — one block per lifecycle crunes executes in its own context, each naming its handler with command, with nothing resolved by convention — and the migration from the path-and-permissions entry.
-* [Script rune contract](/specs/script-rune-contract.md) - The MVP0 contract between crunes and a Node, Python or bash script registered as a rune — how the interpreter is found, what the script receives and what crunes does with what it returns.
-* [Invocation output](/specs/invocation-output.md) - Where each stream of a crunes run invocation goes — standard output, standard error, standard input and the exit status — for isolate and script runes, in a direct single invocation and in the framed modes that batches, JSONL, jobs and bench use.
-
-## Flows
-
-* [crunes run under configuration v2](/flows/run.md) - The proposed path of one crunes run invocation from key to output once the run block may name a script — where the entry's blocks are read, where the schema is built and the call parsed, where the path splits between the isolate and a native process, and where a single invocation goes direct while a framed one is captured.
-
-## Decisions
-
-* [Shape of a rune entry](/decisions/rune-entry-shape.md) - Lifecycle blocks replace path, each naming its handler with a single command field resolved like a shell resolves one, and nothing is resolved by convention — chosen over keeping path or adding a runtime field.
-* [Single invocations are direct](/decisions/direct-single-invocation.md) - A single rune invoked in text mode reaches the caller directly — results on standard output, diagnostics on standard error, a script's own streams and exit code — and the framing that keeps several streams apart is kept for batches, JSONL and the paths that capture output.
-
-## Glossary
-
-* [Terms](/glossary/terms.md) - The vocabulary the work proposals introduce or change — modes, lifecycles, blocks, handlers, the two kinds of rune and the two kinds of invocation — each linking to the document that owns it, and marking where a word means something different in crunes-main.
+* [Vision](/vision/) - The intent behind the open proposals.
+* [Specifications](/specs/) - Contracts the open proposals would add or change.
+* [Flows](/flows/) - Execution paths as the open proposals would change them.
+* [Decisions](/decisions/) - Forks inside the open proposals, recorded while they are still open.
+* [Glossary](/glossary/) - Terms the open proposals introduce.
