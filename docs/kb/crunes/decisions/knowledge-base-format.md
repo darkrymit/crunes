@@ -17,7 +17,7 @@ What came before was `docs/knowledge-base/`, a three-category tree — modules, 
 
 A permission rule is a module note, an architecture principle and a gotcha at once, and with three categories it landed in whichever the author opened first. By the end, one module page was carrying a module's boundary, six decision records, a dozen traps and a rune-authoring tutorial. Finding the trap meant reading the tutorial.
 
-OKF's contribution is not the folder names. It is that **the categories are defined by a question each answers, with a written rule for choosing when two both fit.** A note has one right home and the standard says how to find it, which is the difference between a layout and a convention.
+OKF itself fixes no categories; the folder names are this layout's, and they are not its contribution either. The contribution is that **the categories are defined by a question each answers, with a written rule for choosing when two both fit.** A note has one right home and the standard says how to find it, which is the difference between a layout and a convention.
 
 The second contribution is the index contract: a bullet repeats its document's `description` byte for byte, so a summary cannot drift from the thing it summarises, and the drift is machine-checkable rather than a matter of noticing.
 

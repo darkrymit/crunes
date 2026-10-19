@@ -161,7 +161,7 @@ Documents form a navigable graph through explicit links:
 Link syntax:
 
 * **Within a bundle** — root-relative, `[Title](/category/document.md)`.
-* **Across bundles** — the OKF URI, `[Title](kb:<bundle-id>/category/document.md)`.
+* **Across bundles** — the `kb:` URI, `[Title](kb:<bundle-id>/category/document.md)`, a convention of this layout and the `kb` tooling rather than of OKF.
 * **Source code** — a repository-relative path in `resource:`.
 
 **A cross-bundle link is a string nothing checks.** The repositories are separate git repositories mounted as ignored directories, so no tool resolves a `kb:` URI across that boundary and nothing will notice when one rots. The convention that follows: **name bundles and documents, never paths into another repository**, because a name can be searched and a broken path only looks correct.
