@@ -18,15 +18,20 @@ cache.write:@local-cache::qdev-server
 
 Grants live in configuration — a project's `.crunes/config.json`, or a plugin's manifest — never in the rune. A rune cannot grant itself anything, and reading the rune tells you what it *attempts*, not what it *may*.
 
-## Granted per lifecycle, never flat
+## Granted per lifecycle block, never flat
 
-Grants nest under the lifecycle they apply to:
+Grants nest under the block they apply to:
 
 ```json
-{ "permissions": { "run": { "allow": ["fs.read:./src/**"] } } }
+{
+  "run": {
+    "command": "runes/example.rune.js",
+    "permissions": { "allow": ["fs.read:./src/**"] }
+  }
+}
 ```
 
-A flat `{ "allow": [...] }` is rejected at config load rather than ignored, because a grant with no lifecycle has no meaning and silently dropping it would leave a rune mysteriously unable to read anything. `run` and `repl` are separate blocks and neither inherits from the other.
+A flat `{ "allow": [...] }` or legacy `permissions.run` is rejected at config load. `run` and `repl` are separate blocks and neither inherits from the other. Script runes (`.sh`, `.py`, `.js`, programs on PATH) run natively outside the sandbox and do not accept permissions blocks.
 
 ## The matcher depends on what is being matched
 

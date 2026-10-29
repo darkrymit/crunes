@@ -1,19 +1,18 @@
 ---
 type: concept
 title: Rune
-description: A JavaScript module that declares a command line, runs in a sandbox with only the capabilities it was granted, and returns structured sections.
+description: A declared, discoverable command declared with a run block — either an isolate module (*.rune.js) or a native script (.sh, .py, .js, program) — that returns structured output.
 tags: [concept, rune]
 ---
 
 # Rune
 
-A rune is an ESM JavaScript module that the CLI resolves by key, loads into a fresh V8 isolate, and calls. It is the unit everything else in the project exists to serve.
+A rune is a named, described, discoverable command that belongs to a project workspace (or the global store). It is declared with a `run` block in configuration.
 
-A rune is three things at once, and all three are declared in the module itself:
+A rune belongs to one of two runtime tiers:
 
-* **A command line.** An `args` export receives a builder and declares options, positionals, subcommands and examples. The CLI parses the user's invocation against that schema before the rune runs, so a rune never parses `argv`.
-* **A capability request.** What the rune may read, write, run or reach is not in the module — it is in configuration, as patterns, granted by whoever installed it. See [permission](/concepts/permission.md).
-* **A function returning sections.** The `run` export receives the parsed arguments and returns [sections](/concepts/section.md), not text.
+* **Isolate runes (`*.rune.js`)** — evaluated in a fresh V8 isolate (`isolated-vm`), gated by granular permissions. All standard `@utils` APIs apply.
+* **Script runes (`.sh`, `.py`, `.js`, programs on PATH)** — executed natively by an interpreter or as a subprocess with caller access. An optional `args` block defines argument validation and JSON schemas without requiring JavaScript.
 
 ## Where a rune comes from
 
@@ -25,20 +24,21 @@ A rune is three things at once, and all three are declared in the module itself:
 
 A bare key resolves against the project first, then against enabled plugins. When two plugins expose the same bare key, resolution refuses rather than choosing, and names the qualified forms — silent shadowing would make it impossible to audit which code actually ran.
 
-## Two lifecycles
+## Two execution modes
 
-A rune runs in one of two modes, and they are separate permission surfaces rather than one.
+A rune runs in one of two modes:
 
-**`run` is one invocation.** The isolate is created, the module is evaluated, `run(args)` is called, sections are collected, the isolate is torn down. Nothing survives.
+**`run` is one invocation.** For isolate runes, the sandbox is created, `run(args)` runs, and the isolate is destroyed. For script runes, the script runs direct (with caller streams and exit code) or captured (in batches or JSONL). See [Invocation output](/specs/invocation-output.md).
 
-**`repl` is a session.** `crunes repl <key>` keeps the isolate alive across inputs, so module-level variables are session state and a connection opened once is reused. The rune exports `repl` to initialise and `inputRepl` to handle each input.
+**`repl` is an interactive session.** `crunes repl <key>` keeps the isolate alive across inputs, allowing session state and connections to survive. A rune has a REPL only when it declares a `repl` block.
 
-A `repl` block does not inherit from `run`. A rune that reads a file in both modes declares that grant twice, because the two modes are reached by different commands and a session is a materially larger thing to hand someone than a single call.
+## Two trust tiers
+
+* **Isolate runes** are untrusted by default and run strictly within permissions granted in `run.permissions` and `repl.permissions`.
+* **Script runes** run natively with the user's full permissions. A script rune in a plugin is refused until explicitly reviewed and trusted via `crunes plugin trust`.
 
 ## What a rune is not
 
-**Not a shell script with extra steps.** A rune that wraps one command it could have called directly has earned nothing. What justifies it is reading project state and shaping it — the gathering, the structuring, the parameterization.
+**Not a shell script with extra steps.** A rune wrapping a command justifies itself by adding discovery, argument validation, structured output, and documentation.
 
-**Not a long-running service.** A rune that must outlive its invocation starts a job, and the job is tracked by the CLI rather than by the rune. The isolate is not where a process lives.
-
-**Not trusted.** A project rune written by the person running it and a plugin rune written by a stranger go through the same isolate and the same permission checks. There is no privileged tier.
+**Not a long-running service.** A rune that must outlive its invocation starts a background job tracked by the CLI.

@@ -2,16 +2,14 @@
 type: vision
 title: Runes in any language
 description: A rune becomes a project-local mini-program written in whatever language suits it, with crunes owning discovery, invocation and documentation rather than the runtime the program runs in.
-tags: [vision, rune, runtime, proposal]
+tags: [vision, rune, runtime]
 ---
 
 # Runes in any language
 
-**Proposal.** This amends [Context runes](kb:crunes/vision/context-runes.md) and [Rune](kb:crunes/concepts/rune.md); neither is changed until it is accepted.
+Written to extend [Context runes](/vision/context-runes.md) and [Rune](/concepts/rune.md).
 
-Today a rune is a JavaScript module run in a V8 isolate, and everything it does goes through `@utils`. That is a good home for small, portable logic and for code written by a stranger. It is a poor home for the work a project most wants to expose: the compiler that already understands the code, the Python tooling a data team already has, the shell script that already runs the deploy check. A library that needs Node built-ins or a native addon cannot be loaded in the isolate at all, and a rune that shells out to a real toolchain has already left the sandbox through its grant.
-
-The position this proposal takes is that **what crunes owns is the rune, not the runtime.** A rune is a named, described, discoverable program that belongs to this repository. Crunes resolves its key, finds the interpreter it needs, invokes it the same way every time, and documents it through `crunes list` and `crunes docs rune`. What language the program is written in is the author's choice.
+Today a rune may be an isolate JavaScript module or a project script (Node, Python, bash, batch, program). What crunes owns is the rune — discovery, invocation, argument schema and documentation — rather than the runtime the program runs in.
 
 ## What follows from that
 
@@ -27,7 +25,7 @@ The position this proposal takes is that **what crunes owns is the rune, not the
 
 A rune today has lifecycles — `args`, `run`, `dispose`, and the REPL family — declared as exports of one module. The longer-term shape is that each lifecycle is a slot with a data contract, and a slot can be served by static data or by a handler in any runtime: a static argument schema in front of a Python `run`, a dynamic schema built in the isolate in front of a bash script. The contract each slot owes is defined by data, not by a language.
 
-The first cut takes one step toward it. [Rune configuration v2](/specs/rune-config-v2.md) gives every lifecycle crunes executes in its own context a block of its own, and the [script rune contract](/specs/script-rune-contract.md) lets a script serve `run` behind a schema built in the isolate. Every other slot stays isolate-only, and the contract is shaped so that each one opened to scripts later is additive: a script written against it keeps working unchanged.
+The first cut takes one step toward it. [Rune configuration](/specs/rune-config.md) gives every lifecycle crunes executes in its own context a block of its own, and the [script rune contract](/specs/script-rune-contract.md) lets a script serve `run` behind a schema built in the isolate. Every other slot stays isolate-only, and the contract is shaped so that each one opened to scripts later is additive: a script written against it keeps working unchanged.
 
 ## Direct when alone, framed when shared
 
@@ -49,7 +47,7 @@ It enriches the isolate side as much. A single isolate rune's output becomes pla
 
 ## Wrapping a command
 
-[Context runes](kb:crunes/vision/context-runes.md) says that *a rune that only wraps a shell command it could have called directly has earned nothing*, and that what justifies a rune is reading project state and shaping it. [Rune configuration v2](/specs/rune-config-v2.md) lets a `run` block name a program on `PATH` with fixed arguments — which, taken alone, is exactly a rune that wraps a command.
+[Context runes](kb:crunes/vision/context-runes.md) says that *a rune that only wraps a shell command it could have called directly has earned nothing*, and that what justifies a rune is reading project state and shaping it. [Rune configuration](/specs/rune-config.md) lets a `run` block name a program on `PATH` with fixed arguments — which, taken alone, is exactly a rune that wraps a command.
 
 **The principle stands, and it is the reason such an entry earns its place.** A rune over a command is justified by what crunes adds on top of it: an argument schema that reshapes a program's full, sprawling command line into the few options a task actually needs, documentation that `crunes docs rune` renders from that schema, and fixed arguments that settle everything the caller should not have to choose. What reaches an agent is a thin surface built for the task rather than the whole program. The shaping the main vision asks for is applied to the command's interface instead of to project state.
 

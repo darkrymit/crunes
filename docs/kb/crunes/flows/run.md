@@ -1,13 +1,13 @@
 ---
 type: flow
-title: crunes run under configuration v2
-description: The proposed path of one crunes run invocation from key to output once the run block may name a script — where the entry's blocks are read, where the schema is built and the call parsed, where the path splits between the isolate and a native process, and where a single invocation goes direct while a framed one is captured.
-tags: [flow, run, proposal, mvp0]
+title: crunes run
+description: The execution path of one crunes run invocation from key to output — where the entry's blocks are read, where the schema is built and the call parsed, where the path splits between the isolate and a native process, and where a single invocation goes direct while a framed one is captured.
+tags: [flow, run]
 ---
 
-# `crunes run` under configuration v2
+# `crunes run`
 
-**Proposal, MVP0.** The sequence implied by [Rune configuration v2](/specs/rune-config-v2.md) and the [script rune contract](/specs/script-rune-contract.md); where it and they disagree, they win. It changes the middle of today's path, described in [`crunes run`](kb:crunes-cli/flows/run.md) — flag parsing, batch splitting and key resolution are untouched; how output reaches the caller is [Invocation output](/specs/invocation-output.md).
+The sequence of a `crunes run` invocation across both isolate runes and script runes. Flag parsing, batch splitting and key resolution precede this path; how output reaches the caller is described in [Invocation output](/specs/invocation-output.md).
 
 ```mermaid
 flowchart TD

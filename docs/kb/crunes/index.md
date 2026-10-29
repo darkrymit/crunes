@@ -15,4 +15,5 @@ What is true of the crunes ecosystem rather than of any one repository: the mode
 * [Concepts](/concepts/) - The primitives every crunes repository shares: runes, plugins, marketplaces, permissions and sections.
 * [Modules](/modules/) - One page per crunes repository: what it is for and why it exists apart.
 * [Decisions](/decisions/) - Forks that bind the whole crunes project, each recorded once with what was traded away.
+* [Flows](/flows/) - Executable sequence flows through the Crunes CLI runtime and ecosystem.
 * [Glossary](/glossary/) - Quick definitions of the terms used across crunes, each linking to its full document.

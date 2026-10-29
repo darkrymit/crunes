@@ -7,9 +7,17 @@ tags: [glossary, vocabulary]
 
 # Terms
 
-**Rune** — a JavaScript module declaring a command line, run in a sandbox, returning sections. See [Rune](/concepts/rune.md).
+**Rune** — a declared, discoverable command declared with a `run` block — either an isolate module (`*.rune.js`) or a native script (`.sh`, `.py`, `.js`, program). See [Rune](/concepts/rune.md).
 
 **Section** — the named, typed container a rune returns instead of printing. See [Section](/concepts/section.md).
+
+**Direct invocation** — a single rune run in text format. Its output reaches the caller without framing: a script's streams and exit code are the caller's own, and an isolate rune prints markdown with its logs on standard error. See [Invocation output](/specs/invocation-output.md).
+
+**Framed invocation** — a batch, `--format jsonl`, a child of `rune.exec` or a job, or `crunes bench`. Output is labelled with the rune and section it came from, because one stream carries more than one thing. See [Single invocations are direct](/decisions/direct-single-invocation.md).
+
+**Script rune** — a rune whose `run.command` names a script or a program on PATH rather than an isolate module. Runs natively with caller access, validated against its argument schema. See [Script rune contract](/specs/script-rune-contract.md).
+
+**Native trust** — explicit authorization recorded for a plugin rune that runs natively outside the sandbox. Granted via `crunes plugin trust` after reviewing the script. See [Plugin](/concepts/plugin.md).
 
 **Permission** — a capability token plus a scope, granted in configuration per lifecycle. See [Permission](/concepts/permission.md).
 

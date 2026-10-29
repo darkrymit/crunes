@@ -2,14 +2,12 @@
 type: spec
 title: Invocation output
 description: Where each stream of a crunes run invocation goes — standard output, standard error, standard input and the exit status — for isolate and script runes, in a direct single invocation and in the framed modes that batches, JSONL, jobs and bench use.
-tags: [spec, output, run, script, proposal, mvp0]
+tags: [spec, output, run, script]
 ---
 
 # Invocation output
 
-**Proposal, MVP0.** The contract that follows from [Single invocations are direct](/decisions/direct-single-invocation.md). It replaces the output half of [`crunes run`](kb:crunes-cli/flows/run.md) and is what the [script rune contract](/specs/script-rune-contract.md) relies on for everything a script produces.
-
-**Built:** [darkrymit/crunes-cli#6](https://github.com/darkrymit/crunes-cli/pull/6) implements both halves: script runes direct and captured, a single isolate rune printing plain markdown, and log lines on standard error in every text mode.
+The contract that follows from [Single invocations are direct](/decisions/direct-single-invocation.md). It defines how output reaches the caller and is what the [script rune contract](/specs/script-rune-contract.md) relies on for everything a script produces.
 
 **A reader that leaves early is not an error.** Piping `crunes run` into `head` crashed with an `EPIPE` stack trace ([darkrymit/crunes-cli#5](https://github.com/darkrymit/crunes-cli/issues/5)); since [darkrymit/crunes-cli#9](https://github.com/darkrymit/crunes-cli/pull/9) crunes exits `0` instead. A direct script rune is unaffected, because crunes writes nothing of its own to standard output.
 

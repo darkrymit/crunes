@@ -1,15 +1,13 @@
 ---
 type: spec
 title: Script rune contract
-description: The MVP0 contract between crunes and a Node, Python or bash script registered as a rune — how the interpreter is found, what the script receives and what crunes does with what it returns.
-tags: [spec, rune, runtime, proposal, mvp0]
+description: The contract between crunes and a Node, Python or bash script registered as a rune — how the interpreter is found, what the script receives and what crunes does with what it returns.
+tags: [spec, rune, runtime]
 ---
 
 # Script rune contract
 
-**Proposal, MVP0.** Written from [Runes in any language](/vision/multi-runtime-runes.md). How an entry names its script, and which file names select which runtime, is [Rune configuration v2](/specs/rune-config-v2.md). The order in which the pieces below happen is [`crunes run` under configuration v2](/flows/run.md).
-
-**Built:** [darkrymit/crunes-cli#6](https://github.com/darkrymit/crunes-cli/pull/6) implements this contract, and is what the behaviour below was checked against on Linux, with the test suite also run on Windows. It grew past the first cut: JSON argument schemas with validation and value types, `CRUNES_VARS`, structured output, mapped arguments, timeouts, `crunes create --lang`, and script runes in plugins behind explicit trust are all part of it.
+Written from [Runes in any language](/vision/multi-runtime-runes.md). How an entry names its script, and which file names select which runtime, is [Rune configuration](/specs/rune-config.md). The execution sequence is [`crunes run`](/flows/run.md).
 
 MVP0 is one feature: **a Node, Python or bash script, or a program on `PATH`, can serve a rune's `run` lifecycle**, optionally behind an argument schema — written as JSON, or built by an isolate module — in the rune's `args` block. Every other lifecycle stays isolate-only.
 

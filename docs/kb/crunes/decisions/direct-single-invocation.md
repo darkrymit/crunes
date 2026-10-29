@@ -2,12 +2,12 @@
 type: decision
 title: Single invocations are direct
 description: A single rune invoked in text mode reaches the caller directly — results on standard output, diagnostics on standard error, a script's own streams and exit code — and the framing that keeps several streams apart is kept for batches, JSONL and the paths that capture output.
-tags: [decision, output, run, script, proposal]
+tags: [decision, output, run, script]
 ---
 
 # Single invocations are direct
 
-**Status: proposed, direction agreed.** Part of [Runes in any language](/vision/multi-runtime-runes.md). The contract that results is [Invocation output](/specs/invocation-output.md).
+**Status: decided.** Part of [Runes in any language](/vision/multi-runtime-runes.md). The resulting contract is [Invocation output](/specs/invocation-output.md).
 
 ## Context
 

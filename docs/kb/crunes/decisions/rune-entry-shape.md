@@ -2,12 +2,12 @@
 type: decision
 title: Shape of a rune entry
 description: Lifecycle blocks replace path, each naming its handler with a single command field resolved like a shell resolves one, and nothing is resolved by convention — chosen over keeping path or adding a runtime field.
-tags: [decision, config, rune, runtime, lifecycle, proposal]
+tags: [decision, config, rune, runtime, lifecycle]
 ---
 
 # Shape of a rune entry
 
-**Status: chosen, not implemented.** Part of [Runes in any language](/vision/multi-runtime-runes.md). The resulting contract is [Rune configuration v2](/specs/rune-config-v2.md).
+**Status: decided.** Part of [Runes in any language](/vision/multi-runtime-runes.md). The resulting contract is [Rune configuration](/specs/rune-config.md).
 
 ## Context
 

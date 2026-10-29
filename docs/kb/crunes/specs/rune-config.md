@@ -1,15 +1,13 @@
 ---
 type: spec
-title: Rune configuration v2
-description: The proposed shape of a rune entry — one block per lifecycle crunes executes in its own context, each naming its handler with command, with nothing resolved by convention — and the migration from the path-and-permissions entry.
-tags: [spec, config, rune, lifecycle, proposal, mvp0]
+title: Rune configuration
+description: The shape of a rune entry — one block per lifecycle crunes executes in its own context, each naming its handler with command, with nothing resolved by convention — and the migration from the path-and-permissions entry.
+tags: [spec, config, rune, lifecycle]
 ---
 
-# Rune configuration v2
+# Rune configuration
 
-**Proposal, MVP0.** The outcome of [Shape of a rune entry](/decisions/rune-entry-shape.md), written from [Runes in any language](/vision/multi-runtime-runes.md). It replaces the entry described in [Rune](kb:crunes/concepts/rune.md) and the lifecycle-scoped grants of [Permission](kb:crunes/concepts/permission.md).
-
-**Built:** [darkrymit/crunes-cli#6](https://github.com/darkrymit/crunes-cli/pull/6) implements the `run`, `args` and `repl` blocks, refuses the old shape, and ships the migration in section 10 as `crunes migrate`; every example, the first-party plugins and the skills are migrated in their own repositories. The `argsRepl` and `commandsRepl` blocks are not built: a REPL's schemas still come from the `repl` module's own exports, which is section 5's default.
+The outcome of [Shape of a rune entry](/decisions/rune-entry-shape.md), written from [Runes in any language](/vision/multi-runtime-runes.md). It defines the entry described in [Rune](/concepts/rune.md) and the block-scoped grants of [Permission](/concepts/permission.md).
 
 ## 1. Principle: nothing is found that was not declared
 
