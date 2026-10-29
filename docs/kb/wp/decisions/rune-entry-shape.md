@@ -34,6 +34,6 @@ Once a rune can be a Node, Python or bash script, the runtime has to come from s
 
 ## Consequences
 
-* Every existing entry and every plugin manifest is rewritten in one release. The old shape is refused with the rewrite printed rather than reinterpreted, `crunes doctor` lists what needs rewriting, and plugin manifests move to `"format": "2"`.
+* Every existing entry and every plugin manifest is rewritten in one release. The old shape is refused with the rewrite printed rather than reinterpreted, `crunes doctor` lists what needs rewriting, and plugin manifests retain `"format": "1"` with the new block structure.
 * Installed plugins keep their consent: consented permissions are stored as a flat list per rune, so only where grants are collected from changes.
 * The fallback's removal is deliberate. It was the source of a rune resolving to a file nobody named, and an explicit `run` makes every runnable thing visible in the configuration a reviewer reads.

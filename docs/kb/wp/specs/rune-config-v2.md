@@ -153,7 +153,7 @@ The old shape is refused, not reinterpreted. Each refusal prints the entry rewri
 | a module exporting the REPL functions | a `repl` block naming that module |
 | an isolate module named `*.js` | renamed to `*.rune.js` |
 
-`crunes migrate` makes these rewrites in the project and local layers (`-g` for the global layer) and renames the modules; `crunes migrate --plugin <dir>` moves a plugin manifest to `"format": "2"` with the same rewrites. The refusal at load is narrower than the table: `path` and `permissions` are refused in the layer that holds them, with the entry printed rewritten, but an entry with no handler at all cannot be told from a partial override by one layer alone, so it is the merged check — no `run` command in any layer — that refuses it and names the migration.
+`crunes migrate` makes these rewrites in the project and local layers (`-g` for the global layer) and renames the modules. The refusal at load is narrower than the table: `path` and `permissions` are refused in the layer that holds them, with the entry printed rewritten, but an entry with no handler at all cannot be told from a partial override by one layer alone, so it is the merged check — no `run` command in any layer — that refuses it and names the migration.
 
 **There is no compatibility period.** Crunes's users are few and known, so migrating is a single sitting: the old shape is not read alongside the new one, and nothing warns before it refuses.
 

@@ -65,7 +65,7 @@ Written out so that nothing is left describing the old model. Documents are name
 
 * *Rune* — a rune is no longer only a JavaScript module; the "two lifecycles" section and "there is no privileged tier" are both replaced.
 * *Permission* — grants move from mode-scoped blocks into configuration blocks.
-* *Plugin* — manifests move to format 2, and a plugin rune's `run` block may name a script, runnable only once trusted in its current form.
+* *Plugin* — manifests retain format 1, and a plugin rune's `run` block may name a script, runnable only once trusted in its current form.
 * *Terms* — "Lifecycle" changes meaning, and the terms in this bundle's [glossary](/glossary/terms.md) are added.
 * *Context runes* — "not a general task runner" gains the reading above: a rune over a command earns its entry by reshaping the command's interface.
 * *Knowledge base layout* — nothing, once it admits a work-proposals bundle.
@@ -78,7 +78,7 @@ Written out so that nothing is left describing the old model. Documents are name
 * *rune*, *core*, *plugin* and *docs* modules — resolution, config loading and per-block merging, the manifest format, and how native runes are documented.
 * *The isolate boundary* pattern — it describes the only tier there is today; it becomes one of two.
 
-**`crunes-plugins`** — every plugin manifest is rewritten to format 2 and every plugin rune entry file renamed to `*.rune.js`.
+**`crunes-plugins`** — every plugin manifest is updated with the run block structure and every plugin rune entry file renamed to `*.rune.js`.
 
 **`crunes-skills`** — all four skills describe runes as isolate JavaScript and grants by mode, and the main skill's advice on reading output assumes the framed form. Their governing rule — state no API surface — means the change is in what they teach, not in any list they carry.
 
