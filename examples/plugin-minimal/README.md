@@ -20,7 +20,7 @@ plugin-minimal/
         ├── .crunes-plugin/
         │   └── plugin.json  ← plugin manifest (declares runes + permissions)
         └── runes/
-            └── greet.js     ← sandboxed rune code
+            └── greet.rune.js ← sandboxed rune code (the .rune.js suffix runs it in the isolate)
 ```
 
 ### `marketplace.json`
@@ -29,9 +29,9 @@ The marketplace registry sits at `.crunes-plugin/marketplace.json` at the root o
 
 ### `plugin.json`
 
-Lives at `plugins/<name>/.crunes-plugin/plugin.json`. Declares each rune the plugin exposes and the exact permissions it needs. No `name` or `version` fields here — those belong in `marketplace.json`.
+Lives at `plugins/<name>/.crunes-plugin/plugin.json`. Declares each rune the plugin exposes in format `"2"`: a `run` block naming its module, with the exact permissions it needs inside the block. No `name` or `version` fields here — those belong in `marketplace.json`.
 
-### `greet.js`
+### `greet.rune.js`
 
 Rune code runs inside a V8 isolate. All I/O goes through the `@utils` API injected by the crunes CLI. No `require()`, no Node.js built-ins.
 

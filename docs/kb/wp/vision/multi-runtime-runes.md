@@ -19,7 +19,7 @@ The position this proposal takes is that **what crunes owns is the rune, not the
 
 **The ecosystems come back.** A Python rune imports whatever the project's virtualenv holds; a Node rune imports the TypeScript compiler. Crunes does not reimplement them behind `@utils`, and `@utils` stops having to grow to keep up.
 
-**Trust follows the runtime, and is said out loud.** An isolate rune keeps its enforced grants, and remains the only kind a plugin may ship. A script rune runs with the full access of the person who invoked it — the same trust a `package.json` script or a `Makefile` target already has — and crunes labels it as such rather than implying a sandbox it does not provide. This replaces "there is no privileged tier" in [Rune](kb:crunes/concepts/rune.md) with two tiers that are named.
+**Trust follows the runtime, and is said out loud.** An isolate rune keeps its enforced grants. A script rune runs with the full access of the person who invoked it — the same trust a `package.json` script or a `Makefile` target already has — and crunes labels it as such rather than implying a sandbox it does not provide. A plugin may ship one too, but installing the plugin does not make it runnable: the user reviews the script and trusts it, and that trust lapses when the script changes. This replaces "there is no privileged tier" in [Rune](kb:crunes/concepts/rune.md) with two tiers that are named.
 
 **Adoption starts from what exists.** A team registers the scripts it already has. Nothing has to be rewritten against a crunes API before it is useful.
 
@@ -55,7 +55,7 @@ It enriches the isolate side as much. A single isolate rune's output becomes pla
 
 An entry that names a program and adds nothing to it is still the rune that earned nothing, and the skills should teach it as such.
 
-**This depends on work MVP0 does not yet do.** Today a schema documents and parses the options it declares, but enforces none of them, and options it does not declare still pass through to the handler. A surface is only thin if what is not on it cannot reach the program, and a reshaped option only works if crunes can rewrite it into the program's own. Both are recorded as open questions in the [script rune contract](/specs/script-rune-contract.md).
+**A surface is only thin if what is not on it cannot reach the program**, and a reshaped option only works if crunes can rewrite it into the program's own. Both are built as mapped arguments in the [script rune contract](/specs/script-rune-contract.md): with `run.pass: "mapped"`, a call outside the schema is refused, and each declared argument becomes the program tokens its `to` names. Raw pass-through stays the default, because a script that reads its own arguments needs no rewriting.
 
 ## What accepting it changes
 
@@ -65,7 +65,7 @@ Written out so that nothing is left describing the old model. Documents are name
 
 * *Rune* — a rune is no longer only a JavaScript module; the "two lifecycles" section and "there is no privileged tier" are both replaced.
 * *Permission* — grants move from mode-scoped blocks into configuration blocks.
-* *Plugin* — manifests move to format 2, and plugin runes stay isolate-only.
+* *Plugin* — manifests move to format 2, and a plugin rune's `run` block may name a script, runnable only once trusted in its current form.
 * *Terms* — "Lifecycle" changes meaning, and the terms in this bundle's [glossary](/glossary/terms.md) are added.
 * *Context runes* — "not a general task runner" gains the reading above: a rune over a command earns its entry by reshaping the command's interface.
 * *Knowledge base layout* — nothing, once it admits a work-proposals bundle.

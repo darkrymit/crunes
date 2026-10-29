@@ -9,6 +9,8 @@ tags: [spec, config, rune, lifecycle, proposal, mvp0]
 
 **Proposal, MVP0.** The outcome of [Shape of a rune entry](/decisions/rune-entry-shape.md), written from [Runes in any language](/vision/multi-runtime-runes.md). It replaces the entry described in [Rune](kb:crunes/concepts/rune.md) and the lifecycle-scoped grants of [Permission](kb:crunes/concepts/permission.md).
 
+**Built:** [darkrymit/crunes-cli#6](https://github.com/darkrymit/crunes-cli/pull/6) implements the `run`, `args` and `repl` blocks, refuses the old shape, and ships the migration in section 10 as `crunes migrate`; every example, the first-party plugins and the skills are migrated in their own repositories. The `argsRepl` and `commandsRepl` blocks are not built: a REPL's schemas still come from the `repl` module's own exports, which is section 5's default.
+
 ## 1. Principle: nothing is found that was not declared
 
 Every handler a rune has is named in its entry. There is no default file, no probing of extensions, and no lifecycle that exists because a module happens to export it. A rune without a `run` block does not run; a rune without a `repl` block has no REPL.
@@ -35,10 +37,12 @@ This replaces two fallbacks that exist today: an entry without `path` resolving 
 
 | Block | Fields |
 |---|---|
-| `run` | `command` (required), `argv`, `permissions` |
+| `run` | `command` (required), `argv`, `permissions`; for a script handler also `output` (`text` or `sections`) and `pass` (`raw` or `mapped`); `timeout` in seconds for either |
 | `args`, `argsRepl`, `commandsRepl`, `repl` | `command`, `permissions` |
 
 A block may be written as a string, which is shorthand for `{ "command": <string> }`.
+
+An `args` block in front of a script may instead be the argument schema itself, written inline, or name a `.json` schema file as its `command`. An inline schema is replaced whole by a higher layer rather than merged key by key. See [Script rune contract](/specs/script-rune-contract.md).
 
 ### 2.2 The top level
 
@@ -50,8 +54,10 @@ A block may be written as a string, which is shorthand for `{ "command": <string
 
 | Value | Resolved as |
 |---|---|
-| Contains `/` or `\`, begins with `.`, or is absolute | A file, relative to the directory of the configuration layer that declared it (for a plugin, the plugin root) |
-| A bare name | A program on `PATH`, executed directly with no shell |
+| Contains `/` or `\`, begins with `.`, is absolute, or names an isolate module (`*.rune.js`, `*.rune.mjs`) | A file, relative to the directory of the configuration layer that declared it (for a plugin, the plugin root) |
+| Any other bare name | A program on `PATH`, executed directly with no shell |
+
+**An isolate module is always a file**, because it can never be a program. Every other name follows the shell: `deploy.sh` on its own is a program looked up on `PATH`, and a script beside the config is written `./deploy.sh`.
 
 A file's runtime comes from its name:
 
@@ -90,7 +96,8 @@ The grant defaults reproduce today's behaviour, in which `args` is built under t
 
 * **`run`** accepts any `command`, and `argv` with any of them. `permissions` is allowed only when `command` is an isolate module, because grants on anything else would read as a sandbox that is not there.
 * **`args`, `argsRepl`, `commandsRepl` and `repl`** accept isolate modules only. A separate schema module contributes only its schema export: exporting `run` or `repl` from it is a configuration error.
-* **Plugin runes** accept isolate modules only, in every block.
+* **An `args` block stands only in front of a native `run` handler.** An isolate `run` module declares its schema with its own `args` export, so section 5's default is the only way it gets one in MVP0.
+* **Plugin runes** accept isolate modules in every block except `run`, which may also name a script or program in the plugin. Such a rune is refused until the user trusts it in its current form — see the [script rune contract](/specs/script-rune-contract.md).
 * **An override entry** keyed `marketplace@plugin:rune` carries `vars` and `permissions` inside blocks, never a `command`: it grants, it does not replace.
 
 ## 7. Merging across layers
@@ -98,6 +105,8 @@ The grant defaults reproduce today's behaviour, in which `args` is built under t
 Entries merge per block and key by key, so a local entry that sets only `vars` or `run.permissions` keeps the `run.command` of the layer that defined the rune. `permissions` inside a block is replaced whole by a higher layer, as the lifecycle-scoped block is today. `vars` still merges key by key.
 
 The same replacement governs a plugin rune: a project that declares `permissions` in a block of a `marketplace@plugin:rune` entry replaces the plugin's grants for that block, and only that block.
+
+**Validation runs twice for the same reason.** Each layer is checked as it is read, for what a single layer can get wrong on its own: a block's shape, an unknown field, `path` beside `run` in the same entry. The merged entry is then checked whole, for what only the combination can show — a `run` block whose command no layer declares, or grants one layer adds to a native command another declares.
 
 ## 8. Examples
 
@@ -144,7 +153,7 @@ The old shape is refused, not reinterpreted. Each refusal prints the entry rewri
 | a module exporting the REPL functions | a `repl` block naming that module |
 | an isolate module named `*.js` | renamed to `*.rune.js` |
 
-`crunes doctor` reports every entry in every layer that needs one of these rewrites. A plugin manifest moves to `"format": "2"` with the same rewrites.
+`crunes migrate` makes these rewrites in the project and local layers (`-g` for the global layer) and renames the modules; `crunes migrate --plugin <dir>` moves a plugin manifest to `"format": "2"` with the same rewrites. The refusal at load is narrower than the table: `path` and `permissions` are refused in the layer that holds them, with the entry printed rewritten, but an entry with no handler at all cannot be told from a partial override by one layer alone, so it is the merged check — no `run` command in any layer — that refuses it and names the migration.
 
 **There is no compatibility period.** Crunes's users are few and known, so migrating is a single sitting: the old shape is not read alongside the new one, and nothing warns before it refuses.
 

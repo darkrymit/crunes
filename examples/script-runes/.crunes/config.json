@@ -1,0 +1,77 @@
+{
+  "runes": {
+    "todos": {
+      "description": "Count TODO markers per file, as sections",
+      "run": {
+        "command": "tools/todos.py",
+        "output": "sections"
+      },
+      "args": "tools/todos.args.json",
+      "vars": {
+        "markers": [
+          "TODO",
+          "FIXME"
+        ]
+      },
+      "batch": {
+        "allow": [
+          "*"
+        ]
+      }
+    },
+    "recent": {
+      "description": "Recent commits \u2014 a narrow surface over git log",
+      "run": {
+        "command": "git",
+        "argv": [
+          "log",
+          "--oneline",
+          "--no-decorate"
+        ],
+        "pass": "mapped"
+      },
+      "args": {
+        "positionals": [
+          {
+            "spec": "[path]",
+            "description": "Only commits touching this path",
+            "to": [
+              "--",
+              "{value}"
+            ]
+          }
+        ],
+        "options": [
+          {
+            "flags": "--limit <n>",
+            "description": "How many commits",
+            "type": "integer",
+            "default": 5,
+            "to": "-n{value}"
+          },
+          {
+            "flags": "--by <author>",
+            "description": "Only this author",
+            "to": "--author={value}"
+          }
+        ]
+      }
+    },
+    "wait": {
+      "description": "A script that outlives its timeout",
+      "run": {
+        "command": "tools/wait.sh",
+        "timeout": 2
+      }
+    },
+    "env": {
+      "description": "What a script rune receives",
+      "run": "tools/env.js",
+      "batch": {
+        "allow": [
+          "*"
+        ]
+      }
+    }
+  }
+}

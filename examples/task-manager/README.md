@@ -9,7 +9,7 @@ A per-project task tracker demonstrating complex argument structures in crunes r
 - **Per-subcommand flags and positionals** — each command declares its own `option()` and `positional()` calls
 - **`.example()` calls** — on the root builder, individual subcommands, and the `tag` subtree
 - **`args.$command` routing** — the `use()` function routes on the space-joined command path (`'tag add'`, `'tag remove'`, `'tag list'`)
-- **Relative imports inside the sandbox** — `task.js` imports handlers from `../scripts/*.js` with no permission token required
+- **Relative imports inside the sandbox** — `task.rune.js` imports handlers from `../scripts/*.js` with no permission token required
 
 ## How to run
 
@@ -40,7 +40,7 @@ crunes run task rm 2
 
 ### `args.$command` routing
 
-`args.$command` is the space-joined string of matched command tokens. The `use()` function in `task.js` routes on it:
+`args.$command` is the space-joined string of matched command tokens. The `use()` function in `task.rune.js` routes on it:
 
 ```js
 const cmd = args.$command ?? ''
@@ -57,7 +57,7 @@ if (sub === 'tag add') { ... }
 
 ### Relative imports from within `.crunes/runes/`
 
-`task.js` imports handler modules using paths relative to its own directory:
+`task.rune.js` imports handler modules using paths relative to its own directory:
 
 ```js
 import { handleAdd } from '../scripts/add.js'

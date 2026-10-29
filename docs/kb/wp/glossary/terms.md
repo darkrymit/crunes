@@ -27,7 +27,7 @@ Words that already mean something in [`crunes`](kb:crunes/glossary/terms.md) are
 
 **Schema block** — `args`, `argsRepl` or `commandsRepl`: a block whose handler only builds a schema, in an isolate of its own, and whose result is cached.
 
-**`command`** — the field naming a block's handler. A value containing a path separator, beginning with `.`, or absolute is a file; a bare name is a program on `PATH`.
+**`command`** — the field naming a block's handler. A value containing a path separator, beginning with `.`, absolute, or naming an isolate module (`*.rune.js`) is a file; any other bare name is a program on `PATH`.
 
 **`argv`** — arguments a `run` block always places before the caller's own.
 

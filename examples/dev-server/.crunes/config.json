@@ -4,8 +4,9 @@
     "server": {
       "name": "Dev Server — Manager",
       "description": "Manages named dev-server instances. Start, stop, reload, restart, status, list. Also available as an interactive REPL session.",
-      "permissions": {
-        "run": {
+      "run": {
+        "command": ".crunes/runes/server.rune.js",
+        "permissions": {
           "allow": [
             "rune.job.start:server-worker",
             "rune.repl:server-worker",
@@ -16,8 +17,11 @@
             "cache.read:@local-cache::dev-server-registry",
             "cache.write:@local-cache::dev-server-registry"
           ]
-        },
-        "repl": {
+        }
+      },
+      "repl": {
+        "command": ".crunes/runes/server.rune.js",
+        "permissions": {
           "allow": [
             "rune.job.start:server-worker",
             "rune.repl:server-worker",
@@ -34,8 +38,10 @@
     "server-worker": {
       "name": "Dev Server — Worker",
       "description": "Long-running worker rune. Starts http-server.js as a shell job, forwards commands, and polls for status updates. Started by 'server' — not intended for direct use.",
-      "permissions": {
-        "repl": {
+      "run": ".crunes/runes/server-worker.rune.js",
+      "repl": {
+        "command": ".crunes/runes/server-worker.rune.js",
+        "permissions": {
           "allow": [
             "shell.job.start:node .crunes/**",
             "shell.job.write",

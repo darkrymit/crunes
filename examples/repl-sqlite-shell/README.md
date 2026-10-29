@@ -9,7 +9,7 @@ An interactive SQLite query shell demonstrating the `repl` and `argsRepl` lifecy
 - **`{ type: 'done', message }` signal** — returned by `repl` to end the session cleanly on `exit`, `quit`, or `\q`
 - **Both lifecycles on one rune** — `crunes run sqlite-shell` for one-shot queries, `crunes repl sqlite-shell` for an interactive shell
 - **Dynamic prompt** — returns `` `[${rowCount} rows]> ` `` after SELECT queries so the caller always sees how many rows came back
-- **`repl` permissions** — the `config.json` `repl` permission block is separate from `run`; both must be declared for a rune that uses both lifecycles
+- **A `repl` block** — a rune has a REPL only when its entry declares one, with its own grants; they are separate from the `run` block's
 
 ## How to run
 
@@ -73,13 +73,11 @@ export async function repl(args, input) {
 }
 ```
 
-### `repl` permissions in `config.json`
+### The `repl` block in `config.json`
 
-The `run` and `repl` lifecycles use separate permission namespaces. A rune that uses both must declare both:
+A rune has a REPL only when its entry declares a `repl` block. Each block names the module and carries its own grants — `repl` does not inherit from `run`:
 
 ```json
-"permissions": {
-  "run":  { "allow": ["sqlite.read:./state::books", "sqlite.write:./state::books"] },
-  "repl": { "allow": ["sqlite.read:./state::books", "sqlite.write:./state::books"] }
-}
+"run":  { "command": ".crunes/runes/sqlite-shell.rune.js", "permissions": { "allow": ["sqlite.read:./state::books", "sqlite.write:./state::books"] } },
+"repl": { "command": ".crunes/runes/sqlite-shell.rune.js", "permissions": { "allow": ["sqlite.read:./state::books", "sqlite.write:./state::books"] } }
 ```

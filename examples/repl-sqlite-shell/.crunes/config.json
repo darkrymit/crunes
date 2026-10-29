@@ -4,8 +4,9 @@
     "init": {
       "name": "Init",
       "description": "Create and seed the books database.",
-      "permissions": {
-        "run": {
+      "run": {
+        "command": ".crunes/runes/init.rune.js",
+        "permissions": {
           "allow": [
             "sqlite.read:./state::books",
             "sqlite.write:./state::books"
@@ -16,14 +17,18 @@
     "sqlite-shell": {
       "name": "SQLite Shell",
       "description": "Interactive SQLite query shell. Also supports one-shot queries.",
-      "permissions": {
-        "run": {
+      "run": {
+        "command": ".crunes/runes/sqlite-shell.rune.js",
+        "permissions": {
           "allow": [
             "sqlite.read:./state::books",
             "sqlite.write:./state::books"
           ]
-        },
-        "repl": {
+        }
+      },
+      "repl": {
+        "command": ".crunes/runes/sqlite-shell.rune.js",
+        "permissions": {
           "allow": [
             "sqlite.read:./state::books",
             "sqlite.write:./state::books"
