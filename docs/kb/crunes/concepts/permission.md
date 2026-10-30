@@ -33,6 +33,10 @@ Grants nest under the block they apply to:
 
 A flat `{ "allow": [...] }` or legacy `permissions.run` is rejected at config load. `run` and `repl` are separate blocks and neither inherits from the other. Script runes (`.sh`, `.py`, `.js`, programs on PATH) run natively outside the sandbox and do not accept permissions blocks.
 
+## Unrestricted access
+
+When a sandboxed isolate rune needs broad host capabilities without micro-grants, `"allow": ["*"]` (or `"*:*"`) authorises all capabilities (`fs.*`, `shell.*`, `http.*`, `ws.*`, `env.read`, `sqlite.*`, `cache.*`, `notify.send`). Explicit rules in `deny` still take precedence and are strictly checked first, allowing patterns like `"allow": ["*"], "deny": ["fs.write:.env*"]`. Plugin consent screens highlight `*` as unrestricted access at install time.
+
 ## The matcher depends on what is being matched
 
 Two matchers exist, and which one applies is a property of the capability rather than of the pattern.
