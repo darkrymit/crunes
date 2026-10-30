@@ -22,7 +22,8 @@
         "permissions": {
           "allow": [
             "fs.read:./tasks.json",
-            "fs.write:./tasks.json"
+            "fs.write:./tasks.json",
+            "fs.read:.crunes/scripts/**"
           ]
         }
       }
