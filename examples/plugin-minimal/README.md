@@ -29,7 +29,7 @@ The marketplace registry sits at `.crunes-plugin/marketplace.json` at the root o
 
 ### `plugin.json`
 
-Lives at `plugins/<name>/.crunes-plugin/plugin.json`. Declares each rune the plugin exposes in format `"2"`: a `run` block naming its module, with the exact permissions it needs inside the block. No `name` or `version` fields here — those belong in `marketplace.json`.
+Lives at `plugins/<name>/.crunes-plugin/plugin.json`. Declares each rune the plugin exposes in format `"1"`: a `run` block naming its module, with the exact permissions it needs inside the block. No `name` or `version` fields here — those belong in `marketplace.json`.
 
 ### `greet.rune.js`
 
