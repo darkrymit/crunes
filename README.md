@@ -55,7 +55,7 @@ Context-runes is split into modular packages so you only use what you need:
 
 | Repository | Description |
 |---|---|
-| [crunes-cli](https://github.com/darkrymit/crunes-cli) | Core CLI (`crunes`) — sandboxed JavaScript runtime providing `run`, `repl`, `docs`, `job`, `list`, `init`, `create`, `bench`, `plugin`, `template`, `marketplace`. Works standalone in any environment. |
+| [crunes-cli](https://github.com/darkrymit/crunes-cli) | Core CLI (`crunes`) — sandboxed JavaScript isolate & native script runtime providing `run`, `repl`, `docs`, `job`, `list`, `init`, `create`, `bench`, `plugin`, `template`, `marketplace`. Works standalone in any environment. |
 | [crunes-skills](https://github.com/darkrymit/crunes-skills) | Agent skills — teach Claude Code, Codex, and other agents to discover, run, and write runes. Install with `npx skills add darkrymit/crunes-skills`. |
 | [crunes-plugins](https://github.com/darkrymit/crunes-plugins) | Official first-party plugin marketplace — install with `crunes marketplace add darkrymit/crunes-plugins`. |
 

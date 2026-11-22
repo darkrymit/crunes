@@ -37,7 +37,7 @@ Transform vague tasks into verifiable goals before starting: "fix the bug" → "
 
 ## Monorepo Directory Map
 
-- **`crunes-cli/`** — Core CLI npm package. Node.js, ESM, Commander, sandboxed VM execution.
+- **`crunes-cli/`** — Core CLI npm package. Node.js, ESM, Commander, sandboxed VM & native script execution.
 - **`crunes-skills/`** — Agent skills for the crunes CLI. Markdown only, installable via `npx skills` and the Claude plugin marketplace.
 - **`crunes-plugins/`** — Official first-party plugin marketplace. Registered as a marketplace source.
 - **`docs/kb/crunes/`** — The `crunes` umbrella knowledge bundle: ecosystem model, shared vocabulary, cross-repo decisions, and the knowledge base layout standard itself.

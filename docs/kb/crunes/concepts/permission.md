@@ -25,7 +25,7 @@ Grants nest under the block they apply to:
 ```json
 {
   "run": {
-    "command": "runes/example.rune.js",
+    "command": "src/index.rune.js",
     "permissions": { "allow": ["fs.read:./src/**"] }
   }
 }

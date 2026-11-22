@@ -36,4 +36,4 @@ That is the intended behaviour for the registry and a trap for everything else. 
 
 A repository may carry `.crunes-plugin/marketplace.json` at its root listing plugins by relative path, which is how `crunes-plugins` publishes itself: one source, three plugins, each at `./plugins/<name>`.
 
-Relative paths in an index resolve against the directory containing it — and for an index inside `.crunes-plugin/`, against that directory's parent, so `./plugins/git` means the repository root rather than the manifest folder. That rule is what allows the self-serving layout at all, and it is surprising until you know it.
+Relative paths in an index resolve against the directory containing it — and for an index inside `.crunes-plugin/`, against that directory's parent, so `./plugins/kb` means the repository root rather than the manifest folder. That rule is what allows the self-serving layout at all, and it is surprising until you know it.
