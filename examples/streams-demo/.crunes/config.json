@@ -4,7 +4,7 @@
     "generate": {
       "name": "Generate Large File",
       "run": {
-        "command": ".crunes/runes/generate.rune.js",
+        "command": ".crunes/runes/generate/src/index.rune.js",
         "permissions": {
           "allow": [
             "fs.read:large_data.bin",
@@ -16,7 +16,7 @@
     "decode": {
       "name": "Decode Large File",
       "run": {
-        "command": ".crunes/runes/decode.rune.js",
+        "command": ".crunes/runes/decode/src/index.rune.js",
         "permissions": {
           "allow": [
             "fs.read:large_data.bin",

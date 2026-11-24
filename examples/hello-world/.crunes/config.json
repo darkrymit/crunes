@@ -10,7 +10,7 @@
         ]
       },
       "run": {
-        "command": ".crunes/runes/hello.rune.js",
+        "command": ".crunes/runes/hello/src/index.rune.js",
         "permissions": {
           "allow": []
         }

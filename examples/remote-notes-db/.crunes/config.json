@@ -2,7 +2,7 @@
   "runes": {
     "init": {
       "run": {
-        "command": ".crunes/runes/init.rune.js",
+        "command": ".crunes/runes/init/src/index.rune.js",
         "permissions": {
           "allow": [
             "env.read:DB_HOST",
@@ -22,7 +22,7 @@
     },
     "notes": {
       "run": {
-        "command": ".crunes/runes/notes.rune.js",
+        "command": ".crunes/runes/notes/src/index.rune.js",
         "permissions": {
           "allow": [
             "env.read:DB_HOST",

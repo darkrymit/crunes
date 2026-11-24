@@ -5,7 +5,7 @@
       "name": "Spawn Demo — Server",
       "description": "Manages the background worker lifecycle — start, stop, or status.",
       "run": {
-        "command": ".crunes/runes/server.rune.js",
+        "command": ".crunes/runes/server/src/index.rune.js",
         "permissions": {
           "allow": [
             "fs.write:.crunes/state/spawn-demo.json",
@@ -20,7 +20,7 @@
       "name": "Spawn Demo — Worker",
       "description": "Long-running background process kept alive for up to one hour.",
       "run": {
-        "command": ".crunes/runes/worker.rune.js",
+        "command": ".crunes/runes/worker/src/index.rune.js",
         "permissions": {
           "allow": [
             "shell:**"

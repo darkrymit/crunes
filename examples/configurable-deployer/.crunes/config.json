@@ -6,7 +6,7 @@
       "vars": {
         "profile": "developer"
       },
-      "run": ".crunes/runes/deployer.rune.js"
+      "run": ".crunes/runes/deployer/src/index.rune.js"
     }
   }
 }

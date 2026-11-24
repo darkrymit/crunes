@@ -5,7 +5,7 @@
       "name": "Greeter",
       "description": "Returns a personalised greeting.",
       "run": {
-        "command": "runes/greet.rune.js",
+        "command": "src/index.rune.js",
         "permissions": {
           "allow": []
         }

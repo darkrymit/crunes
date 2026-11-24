@@ -5,7 +5,7 @@
       "name": "Notes — Add",
       "description": "Appends a timestamped note to the project notes file.",
       "run": {
-        "command": "runes/add.rune.js",
+        "command": "runes/add/src/index.rune.js",
         "permissions": {
           "allow": [
             "fs.write:./notes.md"
@@ -17,7 +17,7 @@
       "name": "Notes — List",
       "description": "Reads and displays all notes from the project notes file.",
       "run": {
-        "command": "runes/list.rune.js",
+        "command": "runes/list/src/index.rune.js",
         "permissions": {
           "allow": [
             "fs.read:./notes.md"
@@ -30,7 +30,7 @@
     "new-note": {
       "name": "New Note",
       "description": "Starter rune that appends a titled note to notes.md",
-      "path": "templates/new-note.js",
+      "path": "templates/new-note",
       "permissions": {
         "run": {
           "allow": [

@@ -5,7 +5,7 @@
       "name": "Scaffold — Init",
       "description": "Bootstraps a new crunes project with config stub and package.json.",
       "run": {
-        "command": ".crunes/runes/init.rune.js",
+        "command": ".crunes/runes/init/src/index.rune.js",
         "permissions": {
           "allow": [
             "fs.read:./.crunes/config.json",
@@ -20,7 +20,7 @@
       "name": "Scaffold — Add Workflow",
       "description": "Adds a named GitHub Actions workflow file to the project.",
       "run": {
-        "command": ".crunes/runes/add-workflow.rune.js",
+        "command": ".crunes/runes/add-workflow/src/index.rune.js",
         "permissions": {
           "allow": [
             "fs.read:./.github/workflows/**",

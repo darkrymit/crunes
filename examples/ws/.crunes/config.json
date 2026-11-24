@@ -5,7 +5,7 @@
       "name": "WS Echo Demo",
       "description": "Connects to a WebSocket echo server, sends three messages, and collects replies.",
       "run": {
-        "command": ".crunes/runes/echo.rune.js",
+        "command": ".crunes/runes/echo/src/index.rune.js",
         "permissions": {
           "allow": [
             "ws.client:ws://localhost:**"

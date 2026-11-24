@@ -10,7 +10,7 @@
         ]
       },
       "run": {
-        "command": ".crunes/runes/status.rune.js",
+        "command": ".crunes/runes/status/src/index.rune.js",
         "permissions": {
           "allow": [
             "fs.read:package.json"
@@ -30,7 +30,7 @@
         ]
       },
       "run": {
-        "command": ".crunes/runes/report.rune.js",
+        "command": ".crunes/runes/report/src/index.rune.js",
         "permissions": {
           "allow": [
             "shell.run:git log *",
@@ -43,7 +43,7 @@
       "name": "Batch Demo — Deploy",
       "description": "Simulated deployment. No batch block — default deny-all applies.",
       "run": {
-        "command": ".crunes/runes/deploy.rune.js",
+        "command": ".crunes/runes/deploy/src/index.rune.js",
         "permissions": {
           "allow": []
         }

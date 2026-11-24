@@ -11,7 +11,7 @@ Query them from the CLI, pipe them into scripts, or let your AI assistant call t
 A rune is simply a JavaScript module living inside your project:
 
 ```js
-// .crunes/runes/api.js
+// .crunes/runes/api/src/index.rune.js
 import { section } from '@utils'
 
 // 1. Declare your CLI interface & typed arguments schema

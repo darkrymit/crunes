@@ -5,7 +5,7 @@
       "name": "Pack & Upload Stream",
       "description": "Zips a directory, Base64 encodes it, and streams the result directly to disk and HTTP POST.",
       "run": {
-        "command": ".crunes/runes/pack-and-upload.rune.js",
+        "command": ".crunes/runes/pack-and-upload/src/index.rune.js",
         "permissions": {
           "allow": [
             "fs.read:./**",
@@ -19,7 +19,7 @@
       "name": "Download & Unpack Stream",
       "description": "Reads a Base64 encoded zip stream from disk, decodes it, and extracts it directly.",
       "run": {
-        "command": ".crunes/runes/download-and-unpack.rune.js",
+        "command": ".crunes/runes/download-and-unpack/src/index.rune.js",
         "permissions": {
           "allow": [
             "fs.read:./**",

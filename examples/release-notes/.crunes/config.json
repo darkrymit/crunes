@@ -5,7 +5,7 @@
       "name": "Release Notes — Generate",
       "description": "Generates a changelog entry from git log and appends it to CHANGELOG.md.",
       "run": {
-        "command": ".crunes/runes/generate.rune.js",
+        "command": ".crunes/runes/generate/src/index.rune.js",
         "permissions": {
           "allow": [
             "shell.run:git *",

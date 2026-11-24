@@ -5,7 +5,7 @@
       "name": "Data Sync — Sync",
       "description": "Fetches remote posts, caches the fetch timestamp, and inserts new rows into SQLite.",
       "run": {
-        "command": ".crunes/runes/sync.rune.js",
+        "command": ".crunes/runes/sync/src/index.rune.js",
         "permissions": {
           "allow": [
             "http.fetch:GET::https://jsonplaceholder.typicode.com/**",
@@ -26,7 +26,7 @@
         ]
       },
       "run": {
-        "command": ".crunes/runes/report.rune.js",
+        "command": ".crunes/runes/report/src/index.rune.js",
         "permissions": {
           "allow": [
             "sqlite.read:@local-sqlite/**"

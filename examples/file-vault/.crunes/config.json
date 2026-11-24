@@ -5,7 +5,7 @@
       "name": "File Vault — Encrypt",
       "description": "Encrypts a file into the vault using AES-256-CBC.",
       "run": {
-        "command": ".crunes/runes/encrypt.rune.js",
+        "command": ".crunes/runes/encrypt/src/index.rune.js",
         "permissions": {
           "allow": [
             "fs.read:./**",
@@ -23,7 +23,7 @@
         ]
       },
       "run": {
-        "command": ".crunes/runes/list.rune.js",
+        "command": ".crunes/runes/list/src/index.rune.js",
         "permissions": {
           "allow": [
             "fs.read:./vault/**",
@@ -36,7 +36,7 @@
       "name": "File Vault — Decrypt",
       "description": "Decrypts a vault file back to the decrypted/ directory.",
       "run": {
-        "command": ".crunes/runes/decrypt.rune.js",
+        "command": ".crunes/runes/decrypt/src/index.rune.js",
         "permissions": {
           "allow": [
             "fs.read:./vault/**",

@@ -5,7 +5,7 @@
       "name": "Migration Runner — Migrate",
       "description": "Runs pending SQL migrations and marks them as applied.",
       "run": {
-        "command": ".crunes/runes/migrate.rune.js",
+        "command": ".crunes/runes/migrate/src/index.rune.js",
         "permissions": {
           "allow": [
             "fs.read:./migrations/**",
@@ -27,7 +27,7 @@
         ]
       },
       "run": {
-        "command": ".crunes/runes/status.rune.js",
+        "command": ".crunes/runes/status/src/index.rune.js",
         "permissions": {
           "allow": [
             "fs.glob:./migrations::*.sql",

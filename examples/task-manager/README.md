@@ -8,8 +8,8 @@ A per-project task tracker demonstrating complex argument structures in crunes r
 - **Three-level nesting** — `task tag add|remove|list <id>` with positionals accumulating across levels
 - **Per-subcommand flags and positionals** — each command declares its own `option()` and `positional()` calls
 - **`.example()` calls** — on the root builder, individual subcommands, and the `tag` subtree
-- **`args.$command` routing** — the `use()` function routes on the space-joined command path (`'tag add'`, `'tag remove'`, `'tag list'`)
-- **Relative imports inside the sandbox** — `task.rune.js` imports handlers from `../scripts/*.js` with no permission token required
+- **`args.$command` routing** — the `run()` function routes on the space-joined command path (`'tag add'`, `'tag remove'`, `'tag list'`)
+- **Relative imports inside the sandbox** — `task/src/index.rune.js` imports handlers from `./*.js`, covered by an `fs.read:.crunes/runes/task/src/**` grant
 
 ## How to run
 
@@ -40,7 +40,7 @@ crunes run task rm 2
 
 ### `args.$command` routing
 
-`args.$command` is the space-joined string of matched command tokens. The `use()` function in `task.rune.js` routes on it:
+`args.$command` is the space-joined string of matched command tokens. The `run()` function in `task/src/index.rune.js` routes on it:
 
 ```js
 const cmd = args.$command ?? ''
@@ -55,15 +55,15 @@ const sub = args.$command  // 'tag add', 'tag remove', 'tag list'
 if (sub === 'tag add') { ... }
 ```
 
-### Relative imports from within `.crunes/runes/`
+### Relative imports from within `.crunes/runes/task/src/`
 
-`task.rune.js` imports handler modules using paths relative to its own directory:
+`index.rune.js` imports handler modules using paths relative to its own directory:
 
 ```js
-import { handleAdd } from '../scripts/add.js'
+import { handleAdd } from './add.js'
 ```
 
-The sandbox resolves these off the referrer's path — no `@project/` prefix or permission token needed.
+The sandbox resolves these off the referrer's path — no `@project/` prefix needed. Project runes still need an `fs.read` grant covering the imported files: `fs.read:.crunes/runes/task/src/**` in `config.json`.
 
 ### Positionals accumulate across nesting levels
 

@@ -5,7 +5,7 @@
       "name": "Audit Log — Add",
       "description": "Appends a timestamped message to the project audit log.",
       "run": {
-        "command": ".crunes/runes/add.rune.js",
+        "command": ".crunes/runes/add/src/index.rune.js",
         "permissions": {
           "allow": [
             "fs.write:./audit.log",
@@ -19,7 +19,7 @@
       "name": "Audit Log — Export",
       "description": "Encodes the audit log as base64 and writes a chmod'd shell script.",
       "run": {
-        "command": ".crunes/runes/export.rune.js",
+        "command": ".crunes/runes/export/src/index.rune.js",
         "permissions": {
           "allow": [
             "fs.read:./audit.log",

@@ -1,9 +1,9 @@
 import { fs, rune, section, md } from '@utils'
-import { handleAdd } from '../scripts/add.js'
-import { handleList } from '../scripts/list.js'
-import { handleDone } from '../scripts/done.js'
-import { handleRm } from '../scripts/rm.js'
-import { handleTag } from '../scripts/tag.js'
+import { handleAdd } from './add.js'
+import { handleList } from './list.js'
+import { handleDone } from './done.js'
+import { handleRm } from './rm.js'
+import { handleTag } from './tag.js'
 
 export async function args(b) {
   return b

@@ -5,7 +5,7 @@
       "name": "Multipart File Upload",
       "description": "Uploads a local file as a multipart/form-data POST and streams the response body.",
       "run": {
-        "command": ".crunes/runes/upload.rune.js",
+        "command": ".crunes/runes/upload/src/index.rune.js",
         "permissions": {
           "allow": [
             "fs.read:./**",

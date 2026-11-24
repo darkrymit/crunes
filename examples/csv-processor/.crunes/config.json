@@ -5,7 +5,7 @@
       "name": "CSV Processor — Report",
       "description": "Reads a product CSV, computes line totals, and writes an enriched summary CSV.",
       "run": {
-        "command": ".crunes/runes/report.rune.js",
+        "command": ".crunes/runes/report/src/index.rune.js",
         "permissions": {
           "allow": [
             "fs.read:data.csv",
@@ -18,7 +18,7 @@
       "name": "CSV Processor — Filter",
       "description": "Streams a large CSV and writes only rows above a price threshold to a new file.",
       "run": {
-        "command": ".crunes/runes/filter.rune.js",
+        "command": ".crunes/runes/filter/src/index.rune.js",
         "permissions": {
           "allow": [
             "fs.read:data.csv",
@@ -31,7 +31,7 @@
       "name": "CSV Processor — Parse",
       "description": "Demonstrates in-memory CSV parsing and stringification.",
       "run": {
-        "command": ".crunes/runes/parse.rune.js",
+        "command": ".crunes/runes/parse/src/index.rune.js",
         "permissions": {
           "allow": []
         }

@@ -20,10 +20,10 @@ plugin-with-templates/
         ├── .crunes-plugin/
         │   └── plugin.json      ← two runes + one template declared under "templates"
         ├── runes/
-        │   ├── add.rune.js      ← appends a timestamped note via fs.append
-        │   └── list.rune.js     ← reads and displays notes.md
+        │   ├── add/src/index.rune.js   ← appends a timestamped note via fs.append
+        │   └── list/src/index.rune.js  ← reads and displays notes.md
         └── templates/
-            └── new-note.js      ← rune starter copied into the user's project on crunes template apply
+            └── new-note/src/index.rune.js  ← rune starter copied into the user's project on crunes template apply
 ```
 
 ### `plugin.json` — per-rune permissions
@@ -32,7 +32,7 @@ Each rune names its module in a `run` block and declares only the permissions it
 
 ### `templates/` — rune starters
 
-Files in `templates/` are rune JS files copied into the user's project as `.crunes/runes/<key>.rune.js` when they run `crunes template apply <plugin>:<template>`. The template is registered as a new rune in the project's `.crunes/config.json`, with the permissions declared in `plugin.json` placed in its `run` block.
+Each folder in `templates/` is a rune project copied whole into the user's project as `.crunes/runes/<key>/` when they run `crunes template apply <plugin>:<template>`. The template is registered as a new rune in the project's `.crunes/config.json`, with the permissions declared in `plugin.json` placed in its `run` block.
 
 ## How to test locally
 

@@ -78,6 +78,6 @@ export async function repl(args, input) {
 A rune has a REPL only when its entry declares a `repl` block. Each block names the module and carries its own grants — `repl` does not inherit from `run`:
 
 ```json
-"run":  { "command": ".crunes/runes/sqlite-shell.rune.js", "permissions": { "allow": ["sqlite.read:./state::books", "sqlite.write:./state::books"] } },
-"repl": { "command": ".crunes/runes/sqlite-shell.rune.js", "permissions": { "allow": ["sqlite.read:./state::books", "sqlite.write:./state::books"] } }
+"run":  { "command": ".crunes/runes/sqlite-shell/src/index.rune.js", "permissions": { "allow": ["sqlite.read:./state::books", "sqlite.write:./state::books"] } },
+"repl": { "command": ".crunes/runes/sqlite-shell/src/index.rune.js", "permissions": { "allow": ["sqlite.read:./state::books", "sqlite.write:./state::books"] } }
 ```

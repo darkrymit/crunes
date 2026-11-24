@@ -10,7 +10,7 @@
         ]
       },
       "run": {
-        "command": ".crunes/runes/check.rune.js",
+        "command": ".crunes/runes/check/src/index.rune.js",
         "permissions": {
           "allow": [
             "fs.read:./package.json",
@@ -24,7 +24,7 @@
       "name": "Project Health — Fix Version",
       "description": "Updates the version field in package.json.",
       "run": {
-        "command": ".crunes/runes/fix-version.rune.js",
+        "command": ".crunes/runes/fix-version/src/index.rune.js",
         "permissions": {
           "allow": [
             "fs.read:./package.json",

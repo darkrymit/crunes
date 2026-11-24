@@ -5,7 +5,7 @@
       "name": "Task Queue — Server",
       "description": "Manages the worker lifecycle — start, stop, or check status.",
       "run": {
-        "command": ".crunes/runes/server.rune.js",
+        "command": ".crunes/runes/server/src/index.rune.js",
         "permissions": {
           "allow": [
             "fs.read:.crunes/state/task-queue-server.json",
@@ -21,7 +21,7 @@
       "name": "Task Queue — Worker",
       "description": "Long-running HTTP + WebSocket server. Accepts job submissions, simulates work, and streams logs.",
       "run": {
-        "command": ".crunes/runes/worker.rune.js",
+        "command": ".crunes/runes/worker/src/index.rune.js",
         "permissions": {
           "allow": []
         }
@@ -31,7 +31,7 @@
       "name": "Task Queue — Client",
       "description": "Submits jobs via HTTP, streams per-job logs via WebSocket, and prints a completion report.",
       "run": {
-        "command": ".crunes/runes/client.rune.js",
+        "command": ".crunes/runes/client/src/index.rune.js",
         "permissions": {
           "allow": [
             "http.fetch:GET::http://127.0.0.1:3700/**",
