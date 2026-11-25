@@ -47,12 +47,13 @@ export async function args(b) {
           tagList.positional('<id>', 'Task ID')
         })
     })
-    .option('--help', 'Show help')
+    .option('-h, --help', 'Show help')
     .build()
 }
 
 export async function run(args) {
-  if (args.help) return rune.helpSection(args.$command)
+  const stop = rune.guard(args)
+  if (stop) return stop
   const cmd = args.$command ?? ''
   if (cmd === 'add')         return handleAdd(args, fs, section, md)
   if (cmd === 'list')        return handleList(args, fs, section, md)

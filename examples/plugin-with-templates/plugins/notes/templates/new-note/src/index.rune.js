@@ -2,11 +2,12 @@ import { fs, rune, section } from '@utils'
 
 export const args = (b) => b
   .positional('<title>', 'Note title')
-  .option('--help', 'Show help')
+  .option('-h, --help', 'Show help')
   .build()
 
 export async function run(args) {
-  if (args.help) return rune.helpSection()
+  const stop = rune.guard(args)
+  if (stop) return stop
   const title = args.title
   const date = new Date().toISOString()
   const entry = `\n## ${title}\n\n_${date}_\n\n<!-- Write your note here -->\n`
